@@ -1,0 +1,1906 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atensi Screen Printing & Konveksi</title>
+    <link href="./output.css" rel="stylesheet" />
+
+    <!-- Curated Animation Stack: Motion (Spring & InView) + Anime.js (Timeline & Stagger) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"
+      defer
+    ></script>
+
+    <style>
+      :root {
+        --bg-obsidian: #050505;
+        --bg-obsidian-elevated: #101010;
+        --bg-alabaster: #fafafa;
+        --text-ink: #09090b;
+        --blue-accent: #3b82f6;
+        --blue-subtle: #60a5fa;
+        --border-dark: rgba(255, 255, 255, 0.08);
+      }
+
+      body {
+        background-color: var(--bg-obsidian);
+        color: #f3f4f6;
+      }
+
+      body ::selection {
+        background-color: var(--blue-accent);
+        color: #ffffff;
+      }
+
+      .surface-obsidian {
+        background-color: var(--bg-obsidian);
+      }
+      .surface-obsidian-card {
+        background-color: var(--bg-obsidian-elevated);
+        border-color: var(--border-dark);
+      }
+      .surface-alabaster {
+        background-color: var(--bg-alabaster);
+        color: var(--text-ink);
+      }
+
+      .accent-text-blue {
+        color: var(--blue-accent);
+      }
+      .accent-text-light {
+        color: var(--blue-subtle);
+      }
+      .accent-bg {
+        background-color: var(--blue-accent);
+        color: #ffffff;
+      }
+      .accent-bg-dot {
+        background-color: var(--blue-accent);
+      }
+      .accent-pill-dark {
+        background-color: rgba(59, 130, 246, 0.08);
+        color: #1d4ed8;
+        border: 1px solid rgba(59, 130, 246, 0.25);
+      }
+      .accent-icon-badge {
+        background-color: #f1f5f9;
+        color: var(--blue-accent);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+      }
+
+      .nav-active-white {
+        color: #ffffff;
+        border-bottom: 2px solid #ffffff;
+      }
+      .nav-search-blue:focus {
+        border-color: rgba(59, 130, 246, 0.6);
+      }
+      .card-hover-light:hover {
+        border-color: rgba(59, 130, 246, 0.4);
+        transform: translateY(-2px);
+      }
+      .btn-detail-dark:hover {
+        background-color: #000000;
+        color: #ffffff;
+      }
+      .btn-prev-blue:hover {
+        border-color: rgba(59, 130, 246, 0.5);
+      }
+      .btn-next-blue {
+        background-color: #ffffff;
+        color: #000000;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+      }
+      .btn-cta-blue {
+        background-color: #ffffff;
+        color: #000000;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      }
+      .btn-cta-blue:hover {
+        background-color: var(--blue-accent);
+        color: #ffffff;
+      }
+      .stage-podium-blue {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.04),
+          transparent
+        );
+        box-shadow: 0 0 75px rgba(0, 0, 0, 0.8);
+      }
+      .timeline-line-blue {
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.1),
+          rgba(59, 130, 246, 0.5),
+          rgba(255, 255, 255, 0.1)
+        );
+      }
+
+      /* Footer Social & Map Styling (Colored Icons) */
+      .social-pill {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.25s ease;
+      }
+      .social-pill:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+      .footer-link:hover {
+        color: #ffffff;
+      }
+      .footer-map-wrap {
+        height: 230px;
+        background-color: var(--bg-obsidian-elevated);
+      }
+      .footer-map-wrap iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+
+      #main-navbar {
+        background-color: transparent;
+        border-bottom: 1px solid transparent;
+        transition:
+          background-color 0.35s ease,
+          backdrop-filter 0.35s ease,
+          border-color 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+      #main-navbar.navbar-scrolled {
+        background-color: rgba(5, 5, 5, 0.88);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-spotlight {
+        background:
+          radial-gradient(
+            circle at 50% 40%,
+            rgba(59, 130, 246, 0.07) 0%,
+            rgba(20, 20, 20, 0.4) 45%,
+            #050505 80%
+          ),
+          #050505;
+      }
+
+      .watermark-text {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04);
+        color: rgba(255, 255, 255, 0.015);
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(0%);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .animate-marquee {
+        display: flex;
+        width: max-content;
+        animation: marquee 30s linear infinite;
+      }
+      .animate-marquee:hover {
+        animation-play-state: paused;
+      }
+
+      .reveal-card {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+    </style>
+  </head>
+
+  <body class="antialiased">
+    <!-- ================= NAVBAR ================= -->
+    <nav id="main-navbar" class="fixed top-0 inset-x-0 z-50 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 md:h-20 items-center">
+          <!-- Logo / Brand -->
+          <a
+            href="#"
+            class="flex-shrink-0 flex items-center space-x-3 group focus:outline-none"
+          >
+            <img
+              src="./img/1.logo-white.png"
+              alt="Logo Atensi"
+              class="h-8 md:h-9 object-contain transition-transform duration-300 group-hover:scale-105"
+              onerror="this.src = './img/1.logo.svg'"
+            />
+            <span
+              class="text-lg md:text-xl font-bold tracking-wider text-white"
+            >
+              ATENSI
+              <span class="accent-text-blue font-extrabold">KONVEKSI</span>
+            </span>
+          </a>
+
+          <!-- Menu Navigasi -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="#home"
+              class="nav-link nav-active-white font-semibold pb-1 text-sm tracking-wide transition duration-200"
+            >
+              Home
+            </a>
+            <a
+              href="#produk"
+              class="nav-link text-slate-300 hover:text-white font-medium text-sm tracking-wide transition duration-200"
+            >
+              Produk
+            </a>
+            <a
+              href="#cara-order"
+              class="nav-link text-slate-300 hover:text-white font-medium text-sm tracking-wide transition duration-200"
+            >
+              Cara Order
+            </a>
+            <a
+              href="#portofolio"
+              class="nav-link text-slate-300 hover:text-white font-medium text-sm tracking-wide transition duration-200"
+            >
+              Portofolio
+            </a>
+            <a
+              href="#kontak"
+              class="nav-link text-slate-300 hover:text-white font-medium text-sm tracking-wide transition duration-200"
+            >
+              Kontak
+            </a>
+          </div>
+
+          <!-- Input Search -->
+          <div class="hidden md:flex items-center">
+            <div class="relative">
+              <span
+                class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  ></path>
+                </svg>
+              </span>
+              <input
+                id="desktop-search"
+                type="text"
+                placeholder="Cari kaos, korsa, hoodie..."
+                class="nav-search-blue w-48 lg:w-64 pl-10 pr-4 py-1.5 bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-full text-sm text-white placeholder-slate-500 focus:bg-white/[0.08] focus:outline-none transition duration-200"
+              />
+            </div>
+          </div>
+
+          <!-- Tombol Hamburger Mobile -->
+          <div class="flex md:hidden items-center">
+            <button
+              id="mobile-menu-btn"
+              type="button"
+              class="text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-white/5 transition"
+              aria-label="Buka Menu"
+            >
+              <svg
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown Menu Mobile -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-[#050505]/95 backdrop-blur-xl border-t border-white/10 px-4 pt-3 pb-5 space-y-3 shadow-2xl"
+      >
+        <a
+          href="#home"
+          class="mobile-nav-link block text-white font-semibold py-1.5"
+          >Home</a
+        >
+        <a
+          href="#produk"
+          class="mobile-nav-link block text-slate-300 hover:text-white font-medium py-1.5"
+          >Produk</a
+        >
+        <a
+          href="#cara-order"
+          class="mobile-nav-link block text-slate-300 hover:text-white font-medium py-1.5"
+          >Cara Order</a
+        >
+        <a
+          href="#portofolio"
+          class="mobile-nav-link block text-slate-300 hover:text-white font-medium py-1.5"
+          >Portofolio</a
+        >
+        <a
+          href="#kontak"
+          class="mobile-nav-link block text-slate-300 hover:text-white font-medium py-1.5"
+          >Kontak</a
+        >
+        <div class="pt-2">
+          <input
+            id="mobile-search"
+            type="text"
+            placeholder="Cari produk konveksi..."
+            class="nav-search-blue w-full px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-white placeholder-slate-500 focus:outline-none"
+          />
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================= HERO SECTION (UKURAN GAMBAR DIPERBESAR DI HP) ================= -->
+    <section
+      id="home"
+      class="relative hero-spotlight text-white overflow-hidden min-h-[100svh] flex flex-col justify-between items-center pt-20 pb-6 sm:pt-24 sm:pb-8"
+    >
+      <div
+        id="hero-watermark"
+        class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+      >
+        <span
+          class="watermark-text text-[21vw] font-black tracking-tighter uppercase leading-none"
+        >
+          ATENSI
+        </span>
+      </div>
+
+      <div
+        id="hero-header"
+        class="z-10 mt-1 shrink-0 mx-auto flex flex-col items-center justify-center text-center"
+      >
+        <span
+          class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[10px] md:text-xs tracking-[0.28em] text-slate-300 font-semibold uppercase"
+        >
+          ATENSI CATALOG
+        </span>
+      </div>
+
+      <div
+        id="hero-stage-wrapper"
+        class="relative w-full max-w-5xl my-2 sm:my-3 lg:my-4 flex flex-col items-center justify-center flex-1 min-h-0"
+      >
+        <div
+          id="stage-podium"
+          class="stage-podium-blue absolute bottom-6 md:bottom-8 w-[300px] h-10 md:w-[620px] md:h-20 rounded-[100%] pointer-events-none"
+        ></div>
+        <div
+          class="absolute bottom-2 md:bottom-4 w-[240px] h-6 md:w-[480px] md:h-12 bg-black/90 rounded-[100%] blur-md pointer-events-none"
+        ></div>
+
+        <!-- Container 3 Produk dengan ukuran mobile diperbesar (w-44 -> w-52, center w-56 -> w-64) -->
+        <div
+          id="carousel-stage"
+          class="relative flex items-center justify-center w-full h-[clamp(240px,45vh,420px)] sm:h-[clamp(270px,48vh,420px)] lg:h-[clamp(280px,48vh,400px)] z-10 px-2 touch-pan-y"
+        >
+          <!-- Produk Kiri -->
+          <div
+            id="prev-product-box"
+            onclick="changeSlide(-1)"
+            title="Lihat produk sebelumnya"
+            class="cursor-pointer absolute left-[2%] sm:left-[16%] md:left-[22%] w-40 sm:w-44 md:w-52 lg:w-60 transform -rotate-12 -translate-y-2 origin-bottom select-none opacity-60 hover:opacity-100 transition-opacity"
+          >
+            <img
+              id="img-prev"
+              src="./img/2.kaos.png"
+              alt="Produk Sebelumnya"
+              class="w-full h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.85)] brightness-75 grayscale-[20%]"
+            />
+          </div>
+
+          <!-- Produk Kanan -->
+          <div
+            id="next-product-box"
+            onclick="changeSlide(1)"
+            title="Lihat produk selanjutnya"
+            class="cursor-pointer absolute right-[2%] sm:right-[16%] md:right-[22%] w-40 sm:w-44 md:w-52 lg:w-60 transform rotate-12 -translate-y-2 origin-bottom select-none opacity-60 hover:opacity-100 transition-opacity"
+          >
+            <img
+              id="img-next"
+              src="./img/4.hoodie.png"
+              alt="Produk Selanjutnya"
+              class="w-full h-auto object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.85)] brightness-75 grayscale-[20%]"
+            />
+          </div>
+
+          <!-- Produk Utama Tengah (Diperbesar ukurannya di HP) -->
+          <a
+            href="katalog.html"
+            id="active-product-box"
+            title="Klik untuk melihat detail di Katalog"
+            class="group relative z-20 w-56 sm:w-60 md:w-[270px] lg:w-[310px] select-none cursor-pointer block"
+          >
+            <img
+              id="img-active"
+              src="./img/3.korsa.png"
+              alt="Produk Utama"
+              class="w-full h-auto object-contain drop-shadow-[0_32px_48px_rgba(0,0,0,0.95)] transition-transform duration-300 group-hover:scale-105"
+            />
+            <span
+              class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white text-black text-[11px] font-bold px-3.5 py-1 rounded-full shadow-lg whitespace-nowrap"
+            >
+              Lihat Katalog &rarr;
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <div id="hero-footer" class="text-center z-10 w-full px-4 mb-1 shrink-0">
+        <div id="text-container">
+          <h1
+            id="product-title"
+            class="text-xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white mb-1"
+          >
+            Kemeja / Korsa / PDH
+          </h1>
+          <p
+            id="product-price"
+            class="text-xs sm:text-sm md:text-base text-slate-300 font-medium tracking-wide mb-3 sm:mb-4"
+          >
+            Mulai Rp 120.000
+          </p>
+        </div>
+
+        <div class="flex items-center justify-center space-x-5 md:space-x-7">
+          <button
+            onclick="changeSlide(-1)"
+            aria-label="Produk Sebelumnya"
+            class="btn-prev-blue w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition active:scale-90 cursor-pointer"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+
+          <div
+            class="flex items-center space-x-3 text-xs font-semibold tracking-widest text-slate-400"
+          >
+            <span id="slide-current" class="text-white font-bold">01</span>
+            <div
+              class="w-24 sm:w-36 md:w-44 h-[3px] bg-white/10 relative rounded-full overflow-hidden"
+            >
+              <div
+                id="slide-progress"
+                class="accent-bg absolute top-0 left-0 h-full rounded-full"
+                style="width: 16.66%"
+              ></div>
+            </div>
+            <span>06</span>
+          </div>
+
+          <button
+            onclick="changeSlide(1)"
+            aria-label="Produk Selanjutnya"
+            class="btn-next-blue w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center hover:brightness-110 transition active:scale-90 cursor-pointer"
+          >
+            <svg
+              class="w-4 h-4 ml-0.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CLIENT SECTION ================= -->
+    <section
+      class="relative surface-alabaster border-t border-black/10 py-7 md:py-9 overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-4">
+        <p
+          class="text-[10px] sm:text-xs tracking-[0.25em] text-slate-500 uppercase font-bold"
+        >
+          Dipercaya Oleh Berbagai Kampus, Sekolah, Komunitas, &amp; Instansi
+        </p>
+      </div>
+
+      <div class="relative max-w-7xl mx-auto overflow-hidden">
+        <div
+          class="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-[#fafafa] to-transparent z-10"
+        ></div>
+        <div
+          class="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-[#fafafa] to-transparent z-10"
+        ></div>
+
+        <div
+          class="animate-marquee flex items-center space-x-5 sm:space-x-8 py-1"
+        >
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-1.png"
+              alt="Universitas Gadjah Mada"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-2.png"
+              alt="Universitas Negeri Yogyakarta"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-3.png"
+              alt="Universitas Ahmad Dahlan"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-4.png"
+              alt="Universitas Muhammadiyah Yogyakarta"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-5.png"
+              alt="Instansi Mitra"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-6.png"
+              alt="SMK-SMTI Yogyakarta"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-7.png"
+              alt="Sayur Sleman"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <!-- Loop set -->
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-1.png"
+              alt="UGM"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-2.png"
+              alt="UNY"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-3.png"
+              alt="UAD"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-4.png"
+              alt="UMY"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-5.png"
+              alt="Mitra"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-6.png"
+              alt="SMTI"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+          <div
+            class="flex items-center justify-center h-16 w-32 sm:h-20 sm:w-36 px-4 rounded-xl bg-white hover:shadow-md border border-black/5 transition duration-300 shadow-sm shrink-0 grayscale hover:grayscale-0"
+          >
+            <img
+              src="./img/logo-7.png"
+              alt="Sleman"
+              class="max-h-10 sm:max-h-12 w-auto object-contain"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRODUK SECTION ================= -->
+    <section
+      id="produk"
+      class="relative surface-alabaster py-16 md:py-24 border-t border-black/10"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
+        >
+          <div>
+            <p
+              class="text-xs tracking-[0.28em] text-slate-500 uppercase font-bold mb-2"
+            >
+              CUSTOM APPAREL
+            </p>
+            <h2
+              class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900"
+            >
+              Produk
+            </h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <span
+              id="search-status"
+              class="hidden text-xs font-medium text-slate-600 bg-black/5 px-3 py-1.5 rounded-full"
+            ></span>
+            <a
+              href="katalog.html"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-white bg-slate-900 hover:bg-black px-5 py-2.5 rounded-full transition duration-200 w-fit shadow-md"
+            >
+              <span>Lihat Semua Katalog</span>
+              <svg
+                class="w-4 h-4 text-slate-300"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div
+          id="product-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        >
+          <!-- Card 1 -->
+          <div
+            data-product-name="kaos sablon custom cotton combed 24s 30s"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <div
+                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <span
+                  class="absolute top-4 left-4 bg-slate-900 text-white text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full shadow"
+                >
+                  Best Seller
+                </span>
+                <img
+                  src="./img/2.kaos.png"
+                  alt="Kaos Sablon Custom"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                />
+              </div>
+              <div class="p-6 pb-4">
+                <p
+                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Cotton Combed 24s / 30s
+                </p>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                  Kaos Sablon Custom
+                </h3>
+              </div>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+            >
+              <div>
+                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
+                <span class="text-base font-bold text-slate-900"
+                  >Rp 55.000</span
+                >
+              </div>
+              <a
+                href="katalog.html"
+                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                Detail &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            data-product-name="kemeja korsa pdh american nagata drill"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <div
+                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <span
+                  class="accent-pill-dark absolute top-4 left-4 text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full"
+                >
+                  Organisasi &amp; Kampus
+                </span>
+                <img
+                  src="./img/3.korsa.png"
+                  alt="Kemeja Korsa PDH"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                />
+              </div>
+              <div class="p-6 pb-4">
+                <p
+                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  American &amp; Nagata Drill
+                </p>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                  Kemeja / Korsa / PDH
+                </h3>
+              </div>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+            >
+              <div>
+                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
+                <span class="text-base font-bold text-slate-900"
+                  >Rp 120.000</span
+                >
+              </div>
+              <a
+                href="katalog.html"
+                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                Detail &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            data-product-name="hoodie jumper zipper cotton fleece"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <div
+                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/4.hoodie.png"
+                  alt="Hoodie Jumper & Zipper"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                />
+              </div>
+              <div class="p-6 pb-4">
+                <p
+                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Cotton Fleece 280 - 330 gsm
+                </p>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                  Hoodie Jumper &amp; Zipper
+                </h3>
+              </div>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+            >
+              <div>
+                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
+                <span class="text-base font-bold text-slate-900"
+                  >Rp 135.000</span
+                >
+              </div>
+              <a
+                href="katalog.html"
+                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                Detail &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div
+            data-product-name="rompi vest lapangan drill taslan parasut"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <div
+                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/5.rompi.png"
+                  alt="Rompi Vest Custom"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                />
+              </div>
+              <div class="p-6 pb-4">
+                <p
+                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Drill / Taslan / Parasut
+                </p>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                  Rompi / Vest Lapangan
+                </h3>
+              </div>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+            >
+              <div>
+                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
+                <span class="text-base font-bold text-slate-900"
+                  >Rp 115.000</span
+                >
+              </div>
+              <a
+                href="katalog.html"
+                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                Detail &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div
+            data-product-name="topi bordir dtf raffel twill trucker"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <div
+                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/6.topi.png"
+                  alt="Topi Custom Bordir DTF"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                />
+              </div>
+              <div class="p-6 pb-4">
+                <p
+                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Raffel / Twill / Trucker
+                </p>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                  Topi Bordir / DTF
+                </h3>
+              </div>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+            >
+              <div>
+                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
+                <span class="text-base font-bold text-slate-900"
+                  >Rp 35.000</span
+                >
+              </div>
+              <a
+                href="katalog.html"
+                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                Detail &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div
+            data-product-name="totebag custom kanvas marsoto blacu"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <div
+                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/7.totebag.png"
+                  alt="Totebag Kanvas & Blacu"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                />
+              </div>
+              <div class="p-6 pb-4">
+                <p
+                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Kanvas Marsoto / Blacu
+                </p>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                  Totebag Custom
+                </h3>
+              </div>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+            >
+              <div>
+                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
+                <span class="text-base font-bold text-slate-900"
+                  >Rp 25.000</span
+                >
+              </div>
+              <a
+                href="katalog.html"
+                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+              >
+                Detail &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CARA ORDER (DI HP JADI 2 KOLOM AGAR LEBIH PENDEK) ================= -->
+    <section
+      id="cara-order"
+      class="relative surface-obsidian text-white py-14 md:py-18 border-t border-white/10 overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-xl mx-auto mb-10">
+          <p
+            class="text-xs tracking-[0.3em] text-slate-400 uppercase font-semibold mb-2"
+          >
+            ALUR PEMESANAN
+          </p>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            Cara Order di Atensi
+          </h2>
+        </div>
+
+        <!-- Grid di HP: 2 kolom (grid-cols-2), di LG: 4 kolom (lg:grid-cols-4) -->
+        <div
+          id="order-steps-grid"
+          class="relative grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
+        >
+          <!-- Langkah 1 -->
+          <div
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+            >
+              01
+              <span
+                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
+              >
+                <svg
+                  class="w-3 h-3 accent-text-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
+              1. Chat &amp; Pilih Produk
+            </h3>
+            <p
+              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            >
+              Konsultasikan bahan, desain, &amp; jumlah via WhatsApp.
+            </p>
+          </div>
+
+          <!-- Langkah 2 -->
+          <div
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+            >
+              02
+              <span
+                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
+              >
+                <svg
+                  class="w-3 h-3 accent-text-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
+              2. Deal Harga &amp; Desain
+            </h3>
+            <p
+              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            >
+              Kalkulasi harga akhir berdasarkan kuantiti pesanan Anda.
+            </p>
+          </div>
+
+          <!-- Langkah 3 -->
+          <div
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+            >
+              03
+              <span
+                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
+              >
+                <svg
+                  class="w-3 h-3 accent-text-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
+              3. DP &amp; Produksi
+            </h3>
+            <p
+              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            >
+              Setujui form approval &amp; bayar DP 50% untuk mulai produksi.
+            </p>
+          </div>
+
+          <!-- Langkah 4 -->
+          <div
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+          >
+            <div
+              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+            >
+              04
+              <span
+                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
+              >
+                <svg
+                  class="w-3 h-3 accent-text-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                  />
+                </svg>
+              </span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
+              4. Pelunasan &amp; Kirim
+            </h3>
+            <p
+              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            >
+              Barang selesai, QC OK, siap dikirim atau diambil di workshop.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 text-center">
+          <a
+            href="https://wa.me/62895413909591"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-cta-blue inline-flex items-center gap-2 font-bold px-7 py-3 rounded-full transition duration-200 text-xs sm:text-sm tracking-wide"
+          >
+            <svg
+              class="w-4 h-4 fill-current text-emerald-600"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+              />
+            </svg>
+            <span>Konsultasi Via WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PORTOFOLIO SECTION ================= -->
+    <section
+      id="portofolio"
+      class="relative surface-alabaster py-16 md:py-24 border-t border-black/10"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header class="mb-10 text-center">
+          <p
+            class="text-xs tracking-[0.3em] text-slate-500 uppercase font-bold mb-2"
+          >
+            PRODUK &amp; GALERI
+          </p>
+          <h2
+            class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900"
+          >
+            PORTO<span class="accent-text-blue">FOLIO</span>
+          </h2>
+        </header>
+
+        <div
+          id="portfolio-grid"
+          class="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4"
+        >
+          <div
+            class="col-span-2 md:col-span-1 md:col-start-4 md:row-start-2 flex items-center justify-center p-4 text-center"
+          >
+            <h3 class="text-xl font-bold tracking-tight text-slate-800">
+              Welcome to Atensi
+            </h3>
+          </div>
+
+          <div
+            class="col-span-2 md:col-span-1 md:col-start-2 md:row-start-2 flex items-end justify-center md:justify-start p-2"
+          >
+            <span class="text-base sm:text-lg font-bold text-slate-600">
+              @atensi_konveksi
+            </span>
+          </div>
+
+          <!-- Items -->
+          <div
+            data-img="./img/grid-1.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-1.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-2.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl md:col-start-3 overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-2.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-3.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-3.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-4.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-4.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-5.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-5.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-6.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl md:col-start-2 overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-6.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-7.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl md:col-start-4 overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-7.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-8.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-8.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-9.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl md:col-start-3 overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-9.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+          <div
+            data-img="./img/grid-10.jpg"
+            class="portfolio-item reveal-card bg-white aspect-[4/3] md:aspect-[3/4] xl:aspect-[4/3] rounded-2xl md:col-start-3 overflow-hidden group relative hover:scale-95 transition-all duration-500 shadow-md cursor-pointer border border-black/5"
+          >
+            <div
+              class="w-full h-full bg-[url('./img/grid-10.jpg')] bg-cover bg-center absolute inset-0 group-hover:opacity-85 group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 ease-out"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER (IKON SOSMED BERWARNA KHAS) ================= -->
+    <footer
+      id="kontak"
+      class="relative surface-obsidian text-white border-t border-white/10 pt-16 pb-8"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pb-12 border-b border-white/10"
+        >
+          <div class="space-y-4">
+            <a href="#home" class="inline-flex items-center space-x-3 group">
+              <img
+                src="./img/1.logo-white.png"
+                alt="Logo Atensi"
+                class="h-9 object-contain transition-transform duration-300 group-hover:scale-105"
+                onerror="this.src = './img/1.logo.svg'"
+              />
+              <span class="text-xl font-bold tracking-wider text-white">
+                ATENSI
+                <span class="accent-text-blue font-extrabold">KONVEKSI</span>
+              </span>
+            </a>
+
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+              Vendor sablon &amp; konveksi custom apparel untuk kebutuhan
+              kampus, organisasi, komunitas, instansi, dan brand clothing dengan
+              standar kualitas produksi terbaik.
+            </p>
+
+            <div class="pt-2">
+              <p
+                class="text-[11px] font-bold uppercase tracking-widest text-slate-300 mb-3"
+              >
+                Ikuti Sosial Media Kami
+              </p>
+              <div class="flex flex-wrap items-center gap-2.5">
+                <!-- Instagram (Colored) -->
+                <a
+                  href="https://www.instagram.com/atensi_konveksi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#E1306C]"
+                >
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                    />
+                  </svg>
+                </a>
+                <!-- TikTok (Colored) -->
+                <a
+                  href="https://www.tiktok.com/@atensisablon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="TikTok"
+                  class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#ff0050]"
+                >
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                    />
+                  </svg>
+                </a>
+                <!-- Facebook (Colored) -->
+                <a
+                  href="https://www.facebook.com/profile.php?id=61587954217545&locale=id_ID"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#1877F2]"
+                >
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"
+                    />
+                  </svg>
+                </a>
+                <!-- LinkedIn (Colored) -->
+                <a
+                  href="https://www.linkedin.com/in/atensi-konveksi"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#0A66C2]"
+                >
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h3
+              class="text-xs font-bold uppercase tracking-[0.25em] text-slate-300"
+            >
+              Kontak &amp; Kanal Resmi
+            </h3>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-400">
+              <li>
+                <a
+                  href="https://wa.me/62895413909591"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="footer-link inline-flex items-center gap-3 transition duration-200"
+                >
+                  <span
+                    class="accent-icon-badge w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                  >
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                      <path
+                        d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"
+                      />
+                    </svg>
+                  </span>
+                  <span>0895413909591</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:atensisablon@gmail.com"
+                  class="footer-link inline-flex items-center gap-3 transition duration-200"
+                >
+                  <span
+                    class="accent-icon-badge w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </span>
+                  <span>atensisablon@gmail.com</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="md:col-span-2 lg:col-span-1 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3
+                class="text-xs font-bold uppercase tracking-[0.25em] text-slate-300"
+              >
+                Lokasi Workshop
+              </h3>
+              <a
+                href="https://maps.google.com/?q=-7.819639277655129,110.34452727432301"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs accent-text-blue hover:underline font-medium"
+              >
+                Buka Maps &rarr;
+              </a>
+            </div>
+
+            <div
+              class="footer-map-wrap rounded-2xl overflow-hidden border border-white/10 shadow-xl"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.7180492465977!2d110.34452727432301!3d-7.819639277655129!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a571fdd2069df%3A0xae986b584a5f4bc4!2sLockey%20Sablonase!5e0!3m2!1sen!2sid!4v1794995037764!5m2!1sen!2sid"
+                width="600"
+                height="450"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title="Lokasi Workshop"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500"
+        >
+          <p>
+            &copy; 2026
+            <span class="text-white font-semibold">Atensi Screen Printing</span
+            >. All rights reserved.
+          </p>
+          <div class="flex items-center space-x-6">
+            <a href="#home" class="footer-link transition">Home</a>
+            <a href="#produk" class="footer-link transition">Produk</a>
+            <a href="#cara-order" class="footer-link transition">Cara Order</a>
+            <a href="#portofolio" class="footer-link transition">Portofolio</a>
+            <a href="katalog.html" class="footer-link transition">Katalog</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================= MODAL LIGHTBOX ================= -->
+    <div
+      id="lightbox-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-md p-4"
+    >
+      <div class="relative max-w-3xl w-full flex flex-col items-center">
+        <button
+          id="close-lightbox"
+          aria-label="Tutup Preview"
+          class="btn-detail-dark self-end mb-3 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold transition cursor-pointer"
+        >
+          Tutup &times;
+        </button>
+        <img
+          id="lightbox-img"
+          src=""
+          alt="Preview"
+          class="max-h-[80vh] w-auto rounded-2xl shadow-2xl border border-white/15 object-contain"
+        />
+      </div>
+    </div>
+
+    <!-- ================= SCRIPT ================= -->
+    <script>
+      const navbar = document.getElementById("main-navbar");
+      const mobileBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      function updateNavbarState() {
+        if (window.scrollY > 36) {
+          navbar.classList.add("navbar-scrolled");
+        } else {
+          navbar.classList.remove("navbar-scrolled");
+        }
+      }
+      window.addEventListener("scroll", updateNavbarState, { passive: true });
+      updateNavbarState();
+
+      mobileBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        navbar.classList.add("navbar-scrolled");
+      });
+
+      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () =>
+          mobileMenu.classList.add("hidden"),
+        );
+      });
+
+      const products = [
+        {
+          name: "Kemeja / Korsa / PDH",
+          desc: "Mulai Rp 120.000",
+          img: "./img/3.korsa.png",
+        },
+        {
+          name: "Hoodie Jumper & Zipper",
+          desc: "Mulai Rp 135.000",
+          img: "./img/4.hoodie.png",
+        },
+        {
+          name: "Rompi / Vest Lapangan",
+          desc: "Mulai Rp 115.000",
+          img: "./img/5.rompi.png",
+        },
+        {
+          name: "Kaos Sablon Custom",
+          desc: "Mulai Rp 55.000",
+          img: "./img/2.kaos.png",
+        },
+        {
+          name: "Topi Bordir / DTF",
+          desc: "Mulai Rp 35.000",
+          img: "./img/6.topi.png",
+        },
+        {
+          name: "Totebag Custom",
+          desc: "Mulai Rp 25.000",
+          img: "./img/7.totebag.png",
+        },
+      ];
+
+      let currentIndex = 0;
+      let isAnimating = false;
+
+      function changeSlide(direction) {
+        if (isAnimating) return;
+        isAnimating = true;
+
+        const activeBox = document.getElementById("active-product-box");
+        const prevBox = document.getElementById("prev-product-box");
+        const nextBox = document.getElementById("next-product-box");
+        const textContainer = document.getElementById("text-container");
+        const progressEl = document.getElementById("slide-progress");
+
+        const slideOutX = direction === 1 ? -70 : 70;
+        const slideInX = direction === 1 ? 70 : -70;
+
+        const hasMotion = Boolean(window.Motion && window.Motion.animate);
+
+        if (hasMotion) {
+          Motion.animate(
+            activeBox,
+            { x: slideOutX, scale: 0.86, opacity: 0 },
+            { duration: 0.2, easing: [0.4, 0, 1, 1] },
+          );
+          Motion.animate(
+            textContainer,
+            { y: 12, opacity: 0 },
+            { duration: 0.18 },
+          );
+          Motion.animate(
+            prevBox,
+            { opacity: 0.35, scale: 0.94 },
+            { duration: 0.2 },
+          );
+          Motion.animate(
+            nextBox,
+            { opacity: 0.35, scale: 0.94 },
+            { duration: 0.2 },
+          );
+        } else {
+          activeBox.style.opacity = "0";
+          textContainer.style.opacity = "0";
+        }
+
+        setTimeout(() => {
+          const total = products.length;
+          currentIndex = (currentIndex + direction + total) % total;
+
+          const prevIndex = (currentIndex - 1 + total) % total;
+          const nextIndex = (currentIndex + 1) % total;
+
+          document.getElementById("img-active").src =
+            products[currentIndex].img;
+          document.getElementById("img-prev").src = products[prevIndex].img;
+          document.getElementById("img-next").src = products[nextIndex].img;
+
+          document.getElementById("product-title").textContent =
+            products[currentIndex].name;
+          document.getElementById("product-price").textContent =
+            products[currentIndex].desc;
+
+          document.getElementById("slide-current").textContent = String(
+            currentIndex + 1,
+          ).padStart(2, "0");
+
+          const progressPercent = ((currentIndex + 1) / total) * 100;
+
+          if (hasMotion) {
+            Motion.animate(
+              activeBox,
+              { x: [slideInX, 0], scale: [0.86, 1], opacity: [0, 1] },
+              { type: "spring", stiffness: 290, damping: 24 },
+            );
+            Motion.animate(
+              prevBox,
+              { opacity: 0.6, scale: 1, rotate: -12, y: -8 },
+              { type: "spring", stiffness: 260, damping: 22 },
+            );
+            Motion.animate(
+              nextBox,
+              { opacity: 0.6, scale: 1, rotate: 12, y: -8 },
+              { type: "spring", stiffness: 260, damping: 22 },
+            );
+            Motion.animate(
+              textContainer,
+              { y: [-8, 0], opacity: [0, 1] },
+              { duration: 0.28, easing: [0.22, 1, 0.36, 1] },
+            );
+            Motion.animate(
+              progressEl,
+              { width: `${progressPercent}%` },
+              { type: "spring", stiffness: 220, damping: 26 },
+            );
+          } else {
+            progressEl.style.width = `${progressPercent}%`;
+            activeBox.style.opacity = "1";
+            textContainer.style.opacity = "1";
+          }
+
+          setTimeout(() => {
+            isAnimating = false;
+          }, 260);
+        }, 200);
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (document.activeElement.tagName === "INPUT") return;
+        if (e.key === "ArrowLeft") changeSlide(-1);
+        if (e.key === "ArrowRight") changeSlide(1);
+      });
+
+      const stage = document.getElementById("carousel-stage");
+      let touchStartX = 0;
+      stage.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        },
+        { passive: true },
+      );
+      stage.addEventListener(
+        "touchend",
+        (e) => {
+          const deltaX = e.changedTouches[0].screenX - touchStartX;
+          if (Math.abs(deltaX) > 42) {
+            changeSlide(deltaX < 0 ? 1 : -1);
+          }
+        },
+        { passive: true },
+      );
+
+      window.addEventListener("DOMContentLoaded", () => {
+        if (window.anime) {
+          const heroTl = anime.timeline({ easing: "easeOutExpo" });
+          heroTl
+            .add({
+              targets: "#hero-watermark",
+              opacity: [0, 1],
+              scale: [0.92, 1],
+              duration: 900,
+            })
+            .add(
+              {
+                targets: "#hero-header",
+                opacity: [0, 1],
+                translateY: [-14, 0],
+                duration: 600,
+              },
+              "-=650",
+            )
+            .add(
+              {
+                targets: "#active-product-box",
+                opacity: [0, 1],
+                translateY: [28, 0],
+                scale: [0.9, 1],
+                duration: 750,
+              },
+              "-=450",
+            )
+            .add(
+              {
+                targets: ["#prev-product-box", "#next-product-box"],
+                opacity: [0, 0.6],
+                translateY: [24, -8],
+                duration: 700,
+                delay: anime.stagger(100),
+              },
+              "-=550",
+            )
+            .add(
+              {
+                targets: "#hero-footer",
+                opacity: [0, 1],
+                translateY: [18, 0],
+                duration: 600,
+              },
+              "-=500",
+            );
+        }
+
+        if (window.Motion && window.Motion.inView) {
+          Motion.inView("#product-grid", () => {
+            if (window.anime) {
+              anime({
+                targets: ".product-card",
+                opacity: [0, 1],
+                translateY: [28, 0],
+                delay: anime.stagger(85),
+                duration: 650,
+                easing: "easeOutCubic",
+              });
+            }
+          });
+
+          Motion.inView("#order-steps-grid", () => {
+            if (window.anime) {
+              anime({
+                targets: ".order-step",
+                opacity: [0, 1],
+                translateY: [24, 0],
+                delay: anime.stagger(110),
+                duration: 650,
+                easing: "easeOutCubic",
+              });
+            }
+          });
+
+          Motion.inView("#portfolio-grid", () => {
+            if (window.anime) {
+              anime({
+                targets: ".portfolio-item",
+                opacity: [0, 1],
+                scale: [0.94, 1],
+                translateY: [18, 0],
+                delay: anime.stagger(55),
+                duration: 550,
+                easing: "easeOutQuad",
+              });
+            }
+          });
+        } else {
+          document.querySelectorAll(".reveal-card").forEach((el) => {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+          });
+        }
+      });
+
+      function handleProductSearch(query) {
+        const keyword = query.trim().toLowerCase();
+        const cards = document.querySelectorAll(".product-card");
+        const statusBadge = document.getElementById("search-status");
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const haystack = card.getAttribute("data-product-name") || "";
+          const match = !keyword || haystack.includes(keyword);
+          card.style.display = match ? "flex" : "none";
+          if (match) visibleCount++;
+        });
+
+        if (keyword) {
+          statusBadge.textContent = `Menampilkan ${visibleCount} produk untuk "${query}"`;
+          statusBadge.classList.remove("hidden");
+          const produkSection = document.getElementById("produk");
+          if (window.scrollY < produkSection.offsetTop - 120) {
+            produkSection.scrollIntoView({ behavior: "smooth" });
+          }
+        } else {
+          statusBadge.classList.add("hidden");
+        }
+      }
+
+      document
+        .getElementById("desktop-search")
+        .addEventListener("input", (e) => handleProductSearch(e.target.value));
+      document
+        .getElementById("mobile-search")
+        .addEventListener("input", (e) => handleProductSearch(e.target.value));
+
+      const lightboxModal = document.getElementById("lightbox-modal");
+      const lightboxImg = document.getElementById("lightbox-img");
+      const closeLightbox = document.getElementById("close-lightbox");
+
+      document.querySelectorAll(".portfolio-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          const src = item.getAttribute("data-img");
+          if (!src) return;
+          lightboxImg.src = src;
+          lightboxModal.classList.remove("hidden");
+          lightboxModal.classList.add("flex");
+          if (window.Motion) {
+            Motion.animate(
+              lightboxImg,
+              { scale: [0.9, 1], opacity: [0, 1] },
+              { type: "spring", stiffness: 300, damping: 25 },
+            );
+          }
+        });
+      });
+
+      function hideLightbox() {
+        lightboxModal.classList.add("hidden");
+        lightboxModal.classList.remove("flex");
+      }
+      closeLightbox.addEventListener("click", hideLightbox);
+      lightboxModal.addEventListener("click", (e) => {
+        if (e.target === lightboxModal) hideLightbox();
+      });
+    </script>
+  </body>
+</html>
