@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Atensi Screen Printing</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Atensi Screen Printing & Konveksi</title>
+    <link href="./output.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome (Icon Sosial Media & Brand Asli) + Lucide Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
 
     <!-- Curated Animation Stack: Motion (Spring & InView) + Anime.js (Timeline & Stagger) -->
     <script
@@ -22,7 +30,8 @@
         --bg-obsidian-elevated: #101010;
         --bg-alabaster: #fafafa;
         --text-ink: #09090b;
-        --blue-accent: #3b82f6;
+        --blue-accent: #2563eb;
+        --blue-bright: #3b6ef6;
         --blue-subtle: #60a5fa;
         --border-dark: rgba(255, 255, 255, 0.08);
       }
@@ -33,7 +42,7 @@
       }
 
       body ::selection {
-        background-color: var(--blue-accent);
+        background-color: var(--blue-bright);
         color: #ffffff;
       }
 
@@ -50,88 +59,77 @@
       }
 
       .accent-text-blue {
-        color: var(--blue-accent);
+        color: var(--blue-bright);
       }
       .accent-text-light {
         color: var(--blue-subtle);
       }
       .accent-bg {
-        background-color: var(--blue-accent);
+        background: linear-gradient(135deg, #3b6ef6 0%, #2563eb 100%);
         color: #ffffff;
       }
-      .accent-bg-dot {
-        background-color: var(--blue-accent);
-      }
       .accent-pill-dark {
-        background-color: rgba(59, 130, 246, 0.08);
+        background-color: rgba(37, 99, 235, 0.1);
         color: #1d4ed8;
-        border: 1px solid rgba(59, 130, 246, 0.25);
+        border: 1px solid rgba(59, 110, 246, 0.3);
       }
       .accent-icon-badge {
-        background-color: #f1f5f9;
-        color: var(--blue-accent);
-        border: 1px solid rgba(59, 130, 246, 0.3);
+        background-color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.14);
       }
 
+      /* Navbar bersih gelap tanpa efek shadow biru */
       .nav-active-white {
         color: #ffffff;
         border-bottom: 2px solid #ffffff;
       }
       .nav-search-blue:focus {
-        border-color: rgba(59, 130, 246, 0.6);
+        border-color: rgba(255, 255, 255, 0.35);
       }
       .card-hover-light:hover {
-        border-color: rgba(59, 130, 246, 0.4);
+        border-color: rgba(59, 110, 246, 0.45);
         transform: translateY(-2px);
       }
       .btn-detail-dark:hover {
-        background-color: #000000;
-        color: #ffffff;
-      }
-      .btn-prev-blue:hover {
-        border-color: rgba(59, 130, 246, 0.5);
-      }
-      .btn-next-blue {
-        background-color: #ffffff;
-        color: #000000;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-      }
-      .btn-cta-blue {
-        background-color: #ffffff;
-        color: #000000;
-        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
-      }
-      .btn-cta-blue:hover {
         background-color: var(--blue-accent);
         color: #ffffff;
       }
-      .stage-podium-blue {
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.04),
-          transparent
-        );
-        box-shadow: 0 0 75px rgba(0, 0, 0, 0.8);
+      .btn-prev-blue:hover {
+        border-color: rgba(59, 110, 246, 0.65);
       }
-      .timeline-line-blue {
-        background: linear-gradient(
-          to right,
-          rgba(255, 255, 255, 0.1),
-          rgba(59, 130, 246, 0.5),
-          rgba(255, 255, 255, 0.1)
-        );
+      .btn-next-blue {
+        background: linear-gradient(135deg, #3b6ef6 0%, #2563eb 100%);
+        color: #ffffff;
+        box-shadow: 0 0 22px rgba(59, 110, 246, 0.38);
+      }
+      .btn-cta-blue {
+        background: linear-gradient(135deg, #3b6ef6 0%, #2563eb 100%);
+        color: #ffffff;
+        box-shadow: 0 10px 30px rgba(37, 99, 235, 0.32);
+      }
+      .btn-cta-blue:hover {
+        filter: brightness(1.08);
       }
 
-      /* Footer Social & Map Styling (Colored Icons) */
+      /* Lingkaran / Podium hitam dark tanpa biru */
+      .stage-podium-blue {
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: linear-gradient(
+          to bottom,
+          rgba(28, 28, 30, 0.55),
+          rgba(5, 5, 5, 0)
+        );
+        box-shadow: 0 0 75px rgba(0, 0, 0, 0.9);
+      }
+
+      /* Footer Social & Map Styling (Warna Asli Icon) */
       .social-pill {
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         transition: all 0.25s ease;
       }
       .social-pill:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.12);
         transform: translateY(-2px);
       }
       .footer-link:hover {
@@ -151,6 +149,7 @@
       #main-navbar {
         background-color: transparent;
         border-bottom: 1px solid transparent;
+        box-shadow: none;
         transition:
           background-color 0.35s ease,
           backdrop-filter 0.35s ease,
@@ -158,22 +157,16 @@
           box-shadow 0.35s ease;
       }
       #main-navbar.navbar-scrolled {
-        background-color: rgba(5, 5, 5, 0.88);
+        background-color: rgba(5, 5, 5, 0.94);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
       }
 
+      /* Background Hero Hitam Gelap */
       .hero-spotlight {
-        background:
-          radial-gradient(
-            circle at 50% 40%,
-            rgba(59, 130, 246, 0.07) 0%,
-            rgba(20, 20, 20, 0.4) 45%,
-            #050505 80%
-          ),
-          #050505;
+        background-color: #050505;
       }
 
       .watermark-text {
@@ -267,26 +260,14 @@
           <div class="hidden md:flex items-center">
             <div class="relative">
               <span
-                class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-500"
+                class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400"
               >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  ></path>
-                </svg>
+                <i class="fa-solid fa-magnifying-glass text-xs"></i>
               </span>
               <input
                 id="desktop-search"
                 type="text"
-                placeholder="Cari kaos, korsa, hoodie..."
+                placeholder="Cari kaos, korsa, hoodie, jersey..."
                 class="nav-search-blue w-48 lg:w-64 pl-10 pr-4 py-1.5 bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-full text-sm text-white placeholder-slate-500 focus:bg-white/[0.08] focus:outline-none transition duration-200"
               />
             </div>
@@ -300,19 +281,7 @@
               class="text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-white/5 transition"
               aria-label="Buka Menu"
             >
-              <svg
-                class="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
+              <i data-lucide="menu" class="h-6 w-6"></i>
             </button>
           </div>
         </div>
@@ -359,7 +328,7 @@
       </div>
     </nav>
 
-    <!-- ================= HERO SECTION (UKURAN GAMBAR DIPERBESAR DI HP) ================= -->
+    <!-- ================= HERO SECTION ================= -->
     <section
       id="home"
       class="relative hero-spotlight text-white overflow-hidden min-h-[100svh] flex flex-col justify-between items-center pt-20 pb-6 sm:pt-24 sm:pb-8"
@@ -398,7 +367,7 @@
           class="absolute bottom-2 md:bottom-4 w-[240px] h-6 md:w-[480px] md:h-12 bg-black/90 rounded-[100%] blur-md pointer-events-none"
         ></div>
 
-        <!-- Container 3 Produk dengan ukuran mobile diperbesar (w-44 -> w-52, center w-56 -> w-64) -->
+        <!-- Container 3 Produk -->
         <div
           id="carousel-stage"
           class="relative flex items-center justify-center w-full h-[clamp(240px,45vh,420px)] sm:h-[clamp(270px,48vh,420px)] lg:h-[clamp(280px,48vh,400px)] z-10 px-2 touch-pan-y"
@@ -433,11 +402,11 @@
             />
           </div>
 
-          <!-- Produk Utama Tengah (Diperbesar ukurannya di HP) -->
+          <!-- Produk Utama Tengah -->
           <a
-            href="katalog.html"
+            href="korsa.html"
             id="active-product-box"
-            title="Klik untuk melihat detail di Katalog"
+            title="Klik untuk melihat detail produk"
             class="group relative z-20 w-56 sm:w-60 md:w-[270px] lg:w-[310px] select-none cursor-pointer block"
           >
             <img
@@ -447,9 +416,10 @@
               class="w-full h-auto object-contain drop-shadow-[0_32px_48px_rgba(0,0,0,0.95)] transition-transform duration-300 group-hover:scale-105"
             />
             <span
-              class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white text-black text-[11px] font-bold px-3.5 py-1 rounded-full shadow-lg whitespace-nowrap"
+              class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white text-black text-[11px] font-bold px-3.5 py-1 rounded-full shadow-lg whitespace-nowrap inline-flex items-center gap-1.5"
             >
-              Lihat Katalog &rarr;
+              <span>Lihat Detail</span>
+              <i class="fa-solid fa-arrow-right text-[10px]"></i>
             </span>
           </a>
         </div>
@@ -477,19 +447,7 @@
             aria-label="Produk Sebelumnya"
             class="btn-prev-blue w-9 h-9 md:w-10 md:h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition active:scale-90 cursor-pointer"
           >
-            <svg
-              class="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
+            <i class="fa-solid fa-chevron-left text-xs"></i>
           </button>
 
           <div
@@ -502,10 +460,10 @@
               <div
                 id="slide-progress"
                 class="accent-bg absolute top-0 left-0 h-full rounded-full"
-                style="width: 16.66%"
+                style="width: 9.09%"
               ></div>
             </div>
-            <span>06</span>
+            <span>11</span>
           </div>
 
           <button
@@ -513,19 +471,7 @@
             aria-label="Produk Selanjutnya"
             class="btn-next-blue w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center hover:brightness-110 transition active:scale-90 cursor-pointer"
           >
-            <svg
-              class="w-4 h-4 ml-0.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2.5"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <i class="fa-solid fa-chevron-right text-xs"></i>
           </button>
         </div>
       </div>
@@ -692,7 +638,7 @@
     >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4"
+          class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4"
         >
           <div>
             <p
@@ -713,308 +659,589 @@
             ></span>
             <a
               href="katalog.html"
-              class="inline-flex items-center gap-2 text-sm font-semibold text-white bg-slate-900 hover:bg-black px-5 py-2.5 rounded-full transition duration-200 w-fit shadow-md"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-white bg-slate-900 hover:bg-blue-600 px-5 py-2.5 rounded-full transition duration-200 w-fit shadow-md"
             >
               <span>Lihat Semua Katalog</span>
-              <svg
-                class="w-4 h-4 text-slate-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+              <i class="fa-solid fa-arrow-right text-xs text-slate-300"></i>
             </a>
           </div>
         </div>
 
         <div
           id="product-grid"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 md:gap-6"
         >
-          <!-- Card 1 -->
+          <!-- 1. kaos.html -->
           <div
             data-product-name="kaos sablon custom cotton combed 24s 30s"
-            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
           >
             <div>
-              <div
-                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              <a
+                href="kaos.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
               >
                 <span
-                  class="absolute top-4 left-4 bg-slate-900 text-white text-[10px] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full shadow"
+                  class="absolute top-3 left-3 bg-blue-600 text-white text-[9px] sm:text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow"
                 >
                   Best Seller
                 </span>
                 <img
                   src="./img/2.kaos.png"
                   alt="Kaos Sablon Custom"
-                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div class="p-6 pb-4">
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
                 <p
-                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
                 >
                   Cotton Combed 24s / 30s
                 </p>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                <a
+                  href="kaos.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
                   Kaos Sablon Custom
-                </h3>
+                </a>
               </div>
             </div>
             <div
-              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
             >
               <div>
-                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
-                <span class="text-base font-bold text-slate-900"
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
                   >Rp 55.000</span
                 >
               </div>
               <a
-                href="katalog.html"
-                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+                href="kaos.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
               >
-                Detail &rarr;
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
           </div>
 
-          <!-- Card 2 -->
+          <!-- 2. korsa.html -->
           <div
             data-product-name="kemeja korsa pdh american nagata drill"
-            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
           >
             <div>
-              <div
-                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              <a
+                href="korsa.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
               >
                 <span
-                  class="accent-pill-dark absolute top-4 left-4 text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-full"
+                  class="accent-pill-dark absolute top-3 left-3 text-[9px] sm:text-[10px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full"
                 >
-                  Organisasi &amp; Kampus
+                  Organisasi
                 </span>
                 <img
                   src="./img/3.korsa.png"
                   alt="Kemeja Korsa PDH"
-                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div class="p-6 pb-4">
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
                 <p
-                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
                 >
                   American &amp; Nagata Drill
                 </p>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                <a
+                  href="korsa.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
                   Kemeja / Korsa / PDH
-                </h3>
+                </a>
               </div>
             </div>
             <div
-              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
             >
               <div>
-                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
-                <span class="text-base font-bold text-slate-900"
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
                   >Rp 120.000</span
                 >
               </div>
               <a
-                href="katalog.html"
-                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+                href="korsa.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
               >
-                Detail &rarr;
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
           </div>
 
-          <!-- Card 3 -->
+          <!-- 3. hoodie.html -->
           <div
             data-product-name="hoodie jumper zipper cotton fleece"
-            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
           >
             <div>
-              <div
-                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              <a
+                href="hoodie.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
               >
                 <img
                   src="./img/4.hoodie.png"
                   alt="Hoodie Jumper & Zipper"
-                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div class="p-6 pb-4">
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
                 <p
-                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
                 >
                   Cotton Fleece 280 - 330 gsm
                 </p>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                <a
+                  href="hoodie.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
                   Hoodie Jumper &amp; Zipper
-                </h3>
+                </a>
               </div>
             </div>
             <div
-              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
             >
               <div>
-                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
-                <span class="text-base font-bold text-slate-900"
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
                   >Rp 135.000</span
                 >
               </div>
               <a
-                href="katalog.html"
-                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+                href="hoodie.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
               >
-                Detail &rarr;
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
           </div>
 
-          <!-- Card 4 -->
+          <!-- 4. rompi.html -->
           <div
             data-product-name="rompi vest lapangan drill taslan parasut"
-            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
           >
             <div>
-              <div
-                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              <a
+                href="rompi.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
               >
                 <img
                   src="./img/5.rompi.png"
                   alt="Rompi Vest Custom"
-                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div class="p-6 pb-4">
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
                 <p
-                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
                 >
                   Drill / Taslan / Parasut
                 </p>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                <a
+                  href="rompi.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
                   Rompi / Vest Lapangan
-                </h3>
+                </a>
               </div>
             </div>
             <div
-              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
             >
               <div>
-                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
-                <span class="text-base font-bold text-slate-900"
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
                   >Rp 115.000</span
                 >
               </div>
               <a
-                href="katalog.html"
-                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+                href="rompi.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
               >
-                Detail &rarr;
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
           </div>
 
-          <!-- Card 5 -->
+          <!-- 5. jersey.html -->
           <div
-            data-product-name="topi bordir dtf raffel twill trucker"
-            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+            data-product-name="jersey futsal olahraga printing dryfit"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
           >
             <div>
-              <div
-                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              <a
+                href="jersey.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
               >
                 <img
-                  src="./img/6.topi.png"
-                  alt="Topi Custom Bordir DTF"
-                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                  src="./img/6.jersey.png"
+                  alt="Jersey Printing Custom"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div class="p-6 pb-4">
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
                 <p
-                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
                 >
-                  Raffel / Twill / Trucker
+                  Dryfit Milano / Waffle
                 </p>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
-                  Topi Bordir / DTF
-                </h3>
+                <a
+                  href="jersey.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
+                  Jersey Printing Custom
+                </a>
               </div>
             </div>
             <div
-              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
             >
               <div>
-                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
-                <span class="text-base font-bold text-slate-900"
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
+                  >Rp 85.000</span
+                >
+              </div>
+              <a
+                href="jersey.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
+              >
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 6. polo.html -->
+          <div
+            data-product-name="polo shirt bordir kaos kerah lacoste"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <a
+                href="polo.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/7.polo.png"
+                  alt="Polo Shirt Bordir"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
+                <p
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Lacoste Pique Cotton
+                </p>
+                <a
+                  href="polo.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
+                  Polo Shirt Bordir
+                </a>
+              </div>
+            </div>
+            <div
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
+            >
+              <div>
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
+                  >Rp 75.000</span
+                >
+              </div>
+              <a
+                href="polo.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
+              >
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 7. parasut.html -->
+          <div
+            data-product-name="jaket parasut windbreaker taslan"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <a
+                href="parasut.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/8.parasut.png"
+                  alt="Jaket Parasut Windbreaker"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
+                <p
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Taslan Milky / Parasut
+                </p>
+                <a
+                  href="parasut.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
+                  Jaket Parasut
+                </a>
+              </div>
+            </div>
+            <div
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
+            >
+              <div>
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
+                  >Rp 130.000</span
+                >
+              </div>
+              <a
+                href="parasut.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
+              >
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 8. work.html -->
+          <div
+            data-product-name="work shirt kemeja kerja teknisi bordir"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <a
+                href="work.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/9.work.png"
+                  alt="Work Shirt Kemeja Kerja"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
+                <p
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Drill / Twill Bordir
+                </p>
+                <a
+                  href="work.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
+                  Work Shirt / Seragam
+                </a>
+              </div>
+            </div>
+            <div
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
+            >
+              <div>
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
+                  >Rp 115.000</span
+                >
+              </div>
+              <a
+                href="work.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
+              >
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 9. coach.html -->
+          <div
+            data-product-name="coach jacket jaket taslan sablon bordir"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <a
+                href="coach.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/10.coach.png"
+                  alt="Coach Jacket Custom"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
+                <p
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Taslan + Furing Billabong
+                </p>
+                <a
+                  href="coach.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
+                  Coach Jacket
+                </a>
+              </div>
+            </div>
+            <div
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
+            >
+              <div>
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
+                  >Rp 145.000</span
+                >
+              </div>
+              <a
+                href="coach.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
+              >
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- 10. topi.html -->
+          <div
+            data-product-name="topi bordir dtf raffel twill trucker"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+          >
+            <div>
+              <a
+                href="topi.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              >
+                <img
+                  src="./img/11.topi.png"
+                  alt="Topi Custom Bordir DTF"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                />
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
+                <p
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
+                >
+                  Raffel / Twill / Trucker
+                </p>
+                <a
+                  href="topi.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
+                  Topi Bordir / DTF
+                </a>
+              </div>
+            </div>
+            <div
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
+            >
+              <div>
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
                   >Rp 35.000</span
                 >
               </div>
               <a
-                href="katalog.html"
-                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+                href="topi.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
               >
-                Detail &rarr;
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
           </div>
 
-          <!-- Card 6 -->
+          <!-- 11. totebag.html -->
           <div
             data-product-name="totebag custom kanvas marsoto blacu"
-            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
+            class="product-card card-hover-light reveal-card group bg-white text-slate-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between border border-slate-200"
           >
             <div>
-              <div
-                class="relative bg-slate-100 h-64 sm:h-72 p-6 flex items-center justify-center overflow-hidden border-b border-slate-100"
+              <a
+                href="totebag.html"
+                class="relative bg-slate-100 h-44 sm:h-56 p-4 flex items-center justify-center overflow-hidden border-b border-slate-100"
               >
                 <img
-                  src="./img/7.totebag.png"
+                  src="./img/12.totebag.png"
                   alt="Totebag Kanvas & Blacu"
-                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500 drop-shadow-[0_12px_20px_rgba(0,0,0,0.1)]"
+                  class="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
-              </div>
-              <div class="p-6 pb-4">
+              </a>
+              <div class="p-3.5 sm:p-5 pb-2">
                 <p
-                  class="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1"
+                  class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1"
                 >
                   Kanvas Marsoto / Blacu
                 </p>
-                <h3 class="text-xl font-bold text-slate-900 mb-2">
+                <a
+                  href="totebag.html"
+                  class="text-sm sm:text-lg font-bold text-slate-900 hover:text-blue-600 leading-snug block transition"
+                >
                   Totebag Custom
-                </h3>
+                </a>
               </div>
             </div>
             <div
-              class="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/50"
+              class="px-3.5 sm:px-5 py-3 border-t border-slate-100 flex items-center justify-between gap-2 bg-slate-50/60"
             >
               <div>
-                <span class="text-[11px] text-slate-500 block">Mulai dari</span>
-                <span class="text-base font-bold text-slate-900"
+                <span class="text-[10px] text-slate-500 block">Mulai dari</span>
+                <span class="text-xs sm:text-sm font-bold text-slate-900"
                   >Rp 25.000</span
                 >
               </div>
               <a
-                href="katalog.html"
-                class="btn-detail-dark inline-flex items-center justify-center px-4 py-2 rounded-full bg-slate-900 text-white text-xs font-semibold transition shadow-sm"
+                href="totebag.html"
+                class="btn-detail-dark inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900 text-white text-[11px] font-semibold transition shrink-0"
               >
-                Detail &rarr;
+                <span>Detail</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
           </div>
+
+          <!-- 12. Kartu Lihat Semua Katalog -->
+          <a
+            href="katalog.html"
+            class="product-card card-hover-light reveal-card group bg-slate-900 hover:bg-blue-600 text-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center text-center p-5 border border-slate-800"
+          >
+            <div
+              class="w-11 h-11 rounded-full bg-white/15 group-hover:bg-white text-white group-hover:text-blue-600 flex items-center justify-center font-extrabold text-base mb-3 transition"
+            >
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+            <h3 class="text-sm sm:text-base font-extrabold text-white">
+              Lihat Semua Katalog
+            </h3>
+            <p class="text-[11px] text-slate-300 group-hover:text-blue-50 mt-1">
+              Buka halaman katalog lengkap.
+            </p>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ================= CARA ORDER (DI HP JADI 2 KOLOM AGAR LEBIH PENDEK) ================= -->
+    <!-- ================= CARA ORDER ================= -->
     <section
       id="cara-order"
       class="relative surface-obsidian text-white py-14 md:py-18 border-t border-white/10 overflow-hidden"
@@ -1022,7 +1249,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-xl mx-auto mb-10">
           <p
-            class="text-xs tracking-[0.3em] text-slate-400 uppercase font-semibold mb-2"
+            class="text-xs tracking-[0.3em] accent-text-light uppercase font-semibold mb-2"
           >
             ALUR PEMESANAN
           </p>
@@ -1031,152 +1258,87 @@
           </h2>
         </div>
 
-        <!-- Grid di HP: 2 kolom (grid-cols-2), di LG: 4 kolom (lg:grid-cols-4) -->
         <div
           id="order-steps-grid"
-          class="relative grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6"
+          class="relative grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6"
         >
-          <!-- Langkah 1 -->
+          <!-- 1. Konsultasi Online -->
           <div
-            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
           >
             <div
-              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full accent-bg text-white flex items-center justify-center font-extrabold text-xs sm:text-sm mb-2.5 sm:mb-3 shadow-md relative"
             >
-              01
-              <span
-                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
-              >
-                <svg
-                  class="w-3 h-3 accent-text-blue"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                  />
-                </svg>
-              </span>
+              1
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
-              1. Chat &amp; Pilih Produk
-            </h3>
-            <p
-              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            <h3
+              class="text-xs sm:text-base font-bold text-white mb-1 sm:mb-1.5"
             >
-              Konsultasikan bahan, desain, &amp; jumlah via WhatsApp.
+              Konsultasi Online
+            </h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 leading-relaxed">
+              Chat atau video call dengan admin — ceritakan kebutuhan, kirim
+              referensi desain.
             </p>
           </div>
 
-          <!-- Langkah 2 -->
+          <!-- 2. Approve Desain & Ukuran -->
           <div
-            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
           >
             <div
-              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full accent-bg text-white flex items-center justify-center font-extrabold text-xs sm:text-sm mb-2.5 sm:mb-3 shadow-md relative"
             >
-              02
-              <span
-                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
-              >
-                <svg
-                  class="w-3 h-3 accent-text-blue"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </span>
+              2
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
-              2. Deal Harga &amp; Desain
-            </h3>
-            <p
-              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            <h3
+              class="text-xs sm:text-base font-bold text-white mb-1 sm:mb-1.5"
             >
-              Kalkulasi harga akhir berdasarkan kuantiti pesanan Anda.
+              Approve Desain &amp; Ukuran
+            </h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 leading-relaxed">
+              Kami kirim preview desain digital dan panduan ukuran. Produksi
+              baru dimulai setelah Anda setujui.
             </p>
           </div>
 
-          <!-- Langkah 3 -->
+          <!-- 3. Bayar DP, Produksi Berjalan -->
           <div
-            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
           >
             <div
-              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full accent-bg text-white flex items-center justify-center font-extrabold text-xs sm:text-sm mb-2.5 sm:mb-3 shadow-md relative"
             >
-              03
-              <span
-                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
-              >
-                <svg
-                  class="w-3 h-3 accent-text-blue"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                  />
-                </svg>
-              </span>
+              3
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
-              3. DP &amp; Produksi
-            </h3>
-            <p
-              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            <h3
+              class="text-xs sm:text-base font-bold text-white mb-1 sm:mb-1.5"
             >
-              Setujui form approval &amp; bayar DP 50% untuk mulai produksi.
+              Bayar DP, Produksi Berjalan
+            </h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 leading-relaxed">
+              Transfer DP untuk mulai produksi. Kami kirim update foto/video
+              progres secara berkala sampai selesai.
             </p>
           </div>
 
-          <!-- Langkah 4 -->
+          <!-- 4. Dikirim + Nomor Resi -->
           <div
-            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
+            class="order-step card-hover-light reveal-card relative z-10 surface-obsidian-card border border-white/10 rounded-2xl p-3.5 sm:p-5 flex flex-col items-center text-center shadow-xl transition duration-300"
           >
             <div
-              class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-extrabold text-sm mb-2 sm:mb-3 shadow-md relative"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full accent-bg text-white flex items-center justify-center font-extrabold text-xs sm:text-sm mb-2.5 sm:mb-3 shadow-md relative"
             >
-              04
-              <span
-                class="accent-icon-badge absolute -bottom-1 -right-1 p-0.5 rounded-full"
-              >
-                <svg
-                  class="w-3 h-3 accent-text-blue"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                  />
-                </svg>
-              </span>
+              4
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-white mb-1">
-              4. Pelunasan &amp; Kirim
-            </h3>
-            <p
-              class="text-[10px] sm:text-[11px] text-slate-400 leading-relaxed"
+            <h3
+              class="text-xs sm:text-base font-bold text-white mb-1 sm:mb-1.5"
             >
-              Barang selesai, QC OK, siap dikirim atau diambil di workshop.
+              Dikirim + Nomor Resi
+            </h3>
+            <p class="text-[10px] sm:text-xs text-slate-400 leading-relaxed">
+              Kaos dikemas rapi dan dikirim via ekspedisi. Nomor resi kami kirim
+              begitu paket berangkat, bisa dilacak sampai tiba.
             </p>
           </div>
         </div>
@@ -1186,16 +1348,9 @@
             href="https://wa.me/62895413909591"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-cta-blue inline-flex items-center gap-2 font-bold px-7 py-3 rounded-full transition duration-200 text-xs sm:text-sm tracking-wide"
+            class="inline-flex items-center gap-2.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold px-7 py-3 rounded-full transition duration-200 text-xs sm:text-sm tracking-wide shadow-lg"
           >
-            <svg
-              class="w-4 h-4 fill-current text-emerald-600"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
-              />
-            </svg>
+            <i class="fa-brands fa-whatsapp text-lg leading-none"></i>
             <span>Konsultasi Via WhatsApp</span>
           </a>
         </div>
@@ -1326,7 +1481,7 @@
       </div>
     </section>
 
-    <!-- ================= FOOTER (IKON SOSMED BERWARNA KHAS) ================= -->
+    <!-- ================= FOOTER ================= -->
     <footer
       id="kontak"
       class="relative surface-obsidian text-white border-t border-white/10 pt-16 pb-8"
@@ -1362,7 +1517,17 @@
                 Ikuti Sosial Media Kami
               </p>
               <div class="flex flex-wrap items-center gap-2.5">
-                <!-- Instagram (Colored) -->
+                <!-- WhatsApp (Hijau) -->
+                <a
+                  href="https://wa.me/62895413909591"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#25D366]"
+                >
+                  <i class="fa-brands fa-whatsapp text-base"></i>
+                </a>
+                <!-- Instagram (Pink/Magenta) -->
                 <a
                   href="https://www.instagram.com/atensi_konveksi"
                   target="_blank"
@@ -1370,13 +1535,9 @@
                   aria-label="Instagram"
                   class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#E1306C]"
                 >
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path
-                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
-                    />
-                  </svg>
+                  <i class="fa-brands fa-instagram text-base"></i>
                 </a>
-                <!-- TikTok (Colored) -->
+                <!-- TikTok (Merah Khas TikTok) -->
                 <a
                   href="https://www.tiktok.com/@atensisablon"
                   target="_blank"
@@ -1384,13 +1545,9 @@
                   aria-label="TikTok"
                   class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#ff0050]"
                 >
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path
-                      d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
-                    />
-                  </svg>
+                  <i class="fa-brands fa-tiktok text-base"></i>
                 </a>
-                <!-- Facebook (Colored) -->
+                <!-- Facebook (Biru) -->
                 <a
                   href="https://www.facebook.com/profile.php?id=61587954217545&locale=id_ID"
                   target="_blank"
@@ -1398,13 +1555,9 @@
                   aria-label="Facebook"
                   class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#1877F2]"
                 >
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path
-                      d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"
-                    />
-                  </svg>
+                  <i class="fa-brands fa-facebook-f text-base"></i>
                 </a>
-                <!-- LinkedIn (Colored) -->
+                <!-- LinkedIn (Biru LinkedIn) -->
                 <a
                   href="https://www.linkedin.com/in/atensi-konveksi"
                   target="_blank"
@@ -1412,11 +1565,7 @@
                   aria-label="LinkedIn"
                   class="social-pill w-9 h-9 rounded-full flex items-center justify-center text-[#0A66C2]"
                 >
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path
-                      d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
-                    />
-                  </svg>
+                  <i class="fa-brands fa-linkedin-in text-base"></i>
                 </a>
               </div>
             </div>
@@ -1437,13 +1586,9 @@
                   class="footer-link inline-flex items-center gap-3 transition duration-200"
                 >
                   <span
-                    class="accent-icon-badge w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                    class="accent-icon-badge w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-[#25D366]"
                   >
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                      <path
-                        d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"
-                      />
-                    </svg>
+                    <i class="fa-brands fa-whatsapp text-base"></i>
                   </span>
                   <span>0895413909591</span>
                 </a>
@@ -1454,21 +1599,9 @@
                   class="footer-link inline-flex items-center gap-3 transition duration-200"
                 >
                   <span
-                    class="accent-icon-badge w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                    class="accent-icon-badge w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-[#EA4335]"
                   >
-                    <svg
-                      class="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
+                    <i class="fa-solid fa-envelope text-sm"></i>
                   </span>
                   <span>atensisablon@gmail.com</span>
                 </a>
@@ -1487,9 +1620,11 @@
                 href="https://maps.google.com/?q=-7.819639277655129,110.34452727432301"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-xs accent-text-blue hover:underline font-medium"
+                class="text-xs accent-text-blue hover:underline font-medium inline-flex items-center gap-1.5"
               >
-                Buka Maps &rarr;
+                <i class="fa-solid fa-location-dot text-[#EA4335]"></i>
+                <span>Buka Maps</span>
+                <i class="fa-solid fa-arrow-right text-[10px]"></i>
               </a>
             </div>
 
@@ -1538,9 +1673,10 @@
         <button
           id="close-lightbox"
           aria-label="Tutup Preview"
-          class="btn-detail-dark self-end mb-3 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold transition cursor-pointer"
+          class="btn-detail-dark self-end mb-3 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold transition cursor-pointer inline-flex items-center gap-1.5"
         >
-          Tutup &times;
+          <span>Tutup</span>
+          <i class="fa-solid fa-xmark text-sm"></i>
         </button>
         <img
           id="lightbox-img"
@@ -1553,6 +1689,10 @@
 
     <!-- ================= SCRIPT ================= -->
     <script>
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+
       const navbar = document.getElementById("main-navbar");
       const mobileBtn = document.getElementById("mobile-menu-btn");
       const mobileMenu = document.getElementById("mobile-menu");
@@ -1583,31 +1723,67 @@
           name: "Kemeja / Korsa / PDH",
           desc: "Mulai Rp 120.000",
           img: "./img/3.korsa.png",
+          url: "korsa.html",
         },
         {
           name: "Hoodie Jumper & Zipper",
           desc: "Mulai Rp 135.000",
           img: "./img/4.hoodie.png",
+          url: "hoodie.html",
         },
         {
           name: "Rompi / Vest Lapangan",
           desc: "Mulai Rp 115.000",
           img: "./img/5.rompi.png",
+          url: "rompi.html",
+        },
+        {
+          name: "Jersey Printing Custom",
+          desc: "Mulai Rp 85.000",
+          img: "./img/6.jersey.png",
+          url: "jersey.html",
+        },
+        {
+          name: "Polo Shirt Bordir",
+          desc: "Mulai Rp 75.000",
+          img: "./img/7.polo.png",
+          url: "polo.html",
+        },
+        {
+          name: "Jaket Parasut",
+          desc: "Mulai Rp 130.000",
+          img: "./img/8.parasut.png",
+          url: "parasut.html",
+        },
+        {
+          name: "Work Shirt / Seragam",
+          desc: "Mulai Rp 115.000",
+          img: "./img/9.work.png",
+          url: "work.html",
+        },
+        {
+          name: "Coach Jacket",
+          desc: "Mulai Rp 145.000",
+          img: "./img/10.coach.png",
+          url: "coach.html",
+        },
+        {
+          name: "Topi Bordir / DTF",
+          desc: "Mulai Rp 35.000",
+          img: "./img/11.topi.png",
+          url: "topi.html",
+        },
+        {
+          name: "Totebag Custom",
+          desc: "Mulai Rp 25.000",
+          img: "./img/12.totebag.png",
+          url: "totebag.html",
         },
         {
           name: "Kaos Sablon Custom",
           desc: "Mulai Rp 55.000",
           img: "./img/2.kaos.png",
-        },
-        {
-          name: "Topi Bordir / DTF",
-          desc: "Mulai Rp 35.000",
-          img: "./img/6.topi.png",
-        },
-        {
-          name: "Totebag Custom",
-          desc: "Mulai Rp 25.000",
-          img: "./img/7.totebag.png",
+          url: "kaos.html",
         },
       ];
 
@@ -1664,6 +1840,7 @@
 
           document.getElementById("img-active").src =
             products[currentIndex].img;
+          activeBox.href = products[currentIndex].url;
           document.getElementById("img-prev").src = products[prevIndex].img;
           document.getElementById("img-next").src = products[nextIndex].img;
 
@@ -1743,6 +1920,10 @@
       );
 
       window.addEventListener("DOMContentLoaded", () => {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
         if (window.anime) {
           const heroTl = anime.timeline({ easing: "easeOutExpo" });
           heroTl
@@ -1799,7 +1980,7 @@
                 targets: ".product-card",
                 opacity: [0, 1],
                 translateY: [28, 0],
-                delay: anime.stagger(85),
+                delay: anime.stagger(65),
                 duration: 650,
                 easing: "easeOutCubic",
               });
