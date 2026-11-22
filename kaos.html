@@ -422,21 +422,21 @@
         right: 0.75rem;
         bottom: 0.75rem;
         z-index: 40;
-        background-color: rgba(255, 255, 255, 0.55);
+        background-color: rgba(255, 255, 255, 0.95);
         color: #18181b;
         border: 1px solid rgba(24, 24, 27, 0.14);
         border-radius: 1rem;
         padding: 0.6rem 0.85rem;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
         transition:
           opacity 0.25s ease,
-          transform 0.25s ease;
+          transform 0.25s ease,
+          visibility 0.25s ease;
       }
 
       .mobile-floating-hidden {
         opacity: 0;
+        visibility: hidden;
         pointer-events: none;
         transform: translateY(16px);
       }
@@ -461,7 +461,7 @@
       class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-12 md:pt-7 md:pb-14"
     >
       <!-- TOMBOL KEMBALI -->
-      <div class="mb-5">
+      <div class="mb-5 relative z-20">
         <a
           href="index.html#produk"
           class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold bg-white hover:bg-[#18181b] text-zinc-900 hover:text-white px-4 py-2 rounded-full border border-[#e4e5e0] shadow-xs transition duration-200"
@@ -553,12 +553,12 @@
 
             <!-- Stage SVG Kaos -->
             <div
-              class="stage-svg-wrapper relative w-full aspect-square flex items-center justify-center my-1"
+              class="stage-svg-wrapper relative w-full aspect-square flex items-center justify-center my-1 overflow-hidden"
             >
               <svg
                 id="tee-svg"
                 viewBox="0 0 300 300"
-                class="w-full h-full overflow-visible drop-shadow-[0_14px_22px_rgba(24,24,27,0.12)]"
+                class="w-full h-full drop-shadow-[0_14px_22px_rgba(24,24,27,0.12)]"
               >
                 <defs>
                   <linearGradient
@@ -652,14 +652,14 @@
                   class="tee-part"
                   d="M114 34 L72 48 L14 106 L44 134 L74 104 L74 268 L226 268 L226 104 L256 134 L286 106 L228 48 L186 34 Q150 64 114 34 Z"
                   fill="url(#fabricLighting)"
-                  style="mix-blend-mode: multiply; pointer-events: none"
+                  style="pointer-events: none"
                 />
                 <path
                   id="tee-light-v"
                   class="tee-part"
                   d="M114 34 L72 48 L14 106 L44 134 L74 104 L74 268 L226 268 L226 104 L256 134 L286 106 L228 48 L186 34 Q150 64 114 34 Z"
                   fill="url(#verticalDrape)"
-                  style="mix-blend-mode: multiply; pointer-events: none"
+                  style="pointer-events: none"
                 />
 
                 <!-- Manset Rib Pergelangan Tangan -->
@@ -1695,7 +1695,7 @@
     <!-- MODAL PREVIEW SPESIFIKASI ORDER (PNG / PDF) + KIRIM WHATSAPP -->
     <div
       id="visual-spec-modal"
-      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-5 overflow-y-auto"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/65 p-3 sm:p-5 overflow-y-auto"
       onclick="if (event.target === this) closeVisualSpecModal();"
     >
       <div
@@ -2279,7 +2279,7 @@
             badge: "Ujung lengan",
             desc: "Detail mini di ujung lengan kanan.",
             mini: { x: 5, y: 20, w: 6, h: 6, rot: 43 },
-            mainZone: { anchor: "sleeveR", w: 15, h: 15, dist: 14 },
+            mainZone: { anchor: "sleeveR", w: 15, h: 15, dist: 14, offsetY: 8 },
           },
           {
             id: "logo-lengan-ka",
@@ -2342,7 +2342,7 @@
             badge: "Ujung lengan",
             desc: "Detail mini di ujung lengan kiri.",
             mini: { x: 49, y: 20, w: 6, h: 6, rot: -43 },
-            mainZone: { anchor: "sleeveL", w: 15, h: 15, dist: 14 },
+            mainZone: { anchor: "sleeveL", w: 15, h: 15, dist: 14, offsetY: 8 },
           },
           {
             id: "logo-lengan-ki",
@@ -3897,7 +3897,7 @@
           const rad = (rot * Math.PI) / 180;
           const dist = z.dist || 0;
           cx = anchor.x - Math.cos(rad) * dist;
-          cy = anchor.y - Math.sin(rad) * dist;
+          cy = anchor.y + Math.sin(rad) * dist + (z.offsetY || 0);
           x = cx - w / 2;
           y = cy - h / 2;
         } else if (z.anchor === "sleeveL") {
@@ -3906,7 +3906,7 @@
           const rad = (rot * Math.PI) / 180;
           const dist = z.dist || 0;
           cx = anchor.x + Math.cos(rad) * dist;
-          cy = anchor.y + Math.sin(rad) * dist;
+          cy = anchor.y - Math.sin(rad) * dist + (z.offsetY || 0);
           x = cx - w / 2;
           y = cy - h / 2;
         }
