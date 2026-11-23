@@ -422,25 +422,25 @@
         right: 0.75rem;
         bottom: 0.75rem;
         z-index: 40;
-        background-color: rgba(255, 255, 255, 0.55);
+        background-color: rgba(255, 255, 255, 0.96);
         color: #18181b;
         border: 1px solid rgba(24, 24, 27, 0.14);
         border-radius: 1rem;
         padding: 0.6rem 0.85rem;
         box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        visibility: visible;
         transition:
           opacity 0.25s ease,
-          transform 0.25s ease;
+          transform 0.25s ease,
+          visibility 0.25s ease;
       }
 
       .mobile-floating-hidden {
         opacity: 0;
+        visibility: hidden;
         pointer-events: none;
         transform: translateY(16px);
       }
-
       @media (min-width: 1024px) {
         .mobile-floating-bar {
           display: none !important;
@@ -455,13 +455,13 @@
     </style>
   </head>
 
-  <body class="antialiased min-h-screen flex flex-col">
+  <body class="antialiased min-h-screen flex flex-col overflow-x-hidden">
     <!-- ================= MAIN ================= -->
     <main
       class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 pb-12 md:pt-7 md:pb-14"
     >
       <!-- TOMBOL KEMBALI -->
-      <div class="mb-5">
+      <div class="mb-5 relative z-20">
         <a
           href="index.html#produk"
           class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold bg-white hover:bg-[#18181b] text-zinc-900 hover:text-white px-4 py-2 rounded-full border border-[#e4e5e0] shadow-xs transition duration-200"
