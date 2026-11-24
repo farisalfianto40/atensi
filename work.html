@@ -1,0 +1,3477 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atensi Konveksi - Custom Work Shirt / Kemeja Kerja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"
+      defer
+    ></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+      :root {
+        --bg-ergo-canvas: #f6f6f3;
+        --bg-ergo-card: #ffffff;
+        --bg-ergo-subtle: #f1f2ee;
+        --border-ergo: #e4e5e0;
+        --text-ink: #18181b;
+        --text-muted: #52525b;
+        --accent-primary: #2563eb;
+      }
+
+      * {
+        overflow-anchor: none !important;
+      }
+
+      body {
+        background-color: var(--bg-ergo-canvas);
+        color: var(--text-ink);
+        overflow-x: hidden;
+        overflow-x: clip;
+      }
+
+      body ::selection {
+        background-color: var(--accent-primary);
+        color: #ffffff;
+      }
+
+      .lucide {
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+        stroke-width: 2.1;
+      }
+      .icon-xs {
+        width: 14px;
+        height: 14px;
+      }
+      .icon-sm {
+        width: 16px;
+        height: 16px;
+      }
+      .icon-md {
+        width: 20px;
+        height: 20px;
+      }
+      .icon-lg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .work-part {
+        transition:
+          fill 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+          d 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+          stroke 0.32s ease,
+          opacity 0.25s ease;
+      }
+
+      .swatch-card {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.65rem;
+        border-radius: 0.8rem;
+        border: 1.5px solid #e4e5e0;
+        background-color: #fafaf8;
+        text-align: left;
+        cursor: pointer;
+        min-height: 42px;
+        touch-action: manipulation;
+        transition:
+          transform 0.16s ease,
+          border-color 0.2s ease,
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .swatch-card:hover {
+        border-color: #a1a1aa;
+        background-color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .swatch-card-active {
+        border: 2px solid #18181b;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(24, 24, 27, 0.08);
+      }
+
+      /* ================= TABEL PRICE LIST MINIMALIS & RESPONSIF ================= */
+      .pricelist-table-wrap {
+        border: 1px solid #e4e5e0;
+        border-radius: 0.85rem;
+        overflow: hidden;
+        background-color: #ffffff;
+      }
+
+      .pricelist-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12.5px;
+      }
+
+      .pricelist-table thead th {
+        background-color: #fafaf8;
+        color: #52525b;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.6rem 0.75rem;
+        border-bottom: 1px solid #e4e5e0;
+        white-space: nowrap;
+      }
+
+      .pricelist-table thead th.col-cut-active {
+        color: #1d4ed8;
+        background-color: #eff6ff;
+      }
+
+      .pricelist-table tbody tr {
+        border-bottom: 1px solid #f1f2ee;
+        transition: background-color 0.15s ease;
+      }
+
+      .pricelist-table tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      .pricelist-table tbody tr:hover {
+        background-color: #fafaf8;
+      }
+
+      .pricelist-table tbody tr.row-fabric-active {
+        background-color: #f8fbff;
+      }
+
+      .pricelist-table td {
+        padding: 0.55rem 0.75rem;
+        vertical-align: middle;
+      }
+
+      .price-cell-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        padding: 0.3rem 0.55rem;
+        border-radius: 0.5rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        color: #3f3f46;
+        background: transparent;
+        border: 1px solid transparent;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .price-cell-btn:hover {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+        border-color: #bfdbfe;
+      }
+
+      .price-cell-btn.cell-col-highlight {
+        background-color: #f8faff;
+        color: #18181b;
+      }
+
+      .price-cell-btn.cell-price-active {
+        background-color: #2563eb;
+        color: #ffffff;
+        font-weight: 700;
+        border-color: #2563eb;
+        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.22);
+      }
+
+      @media (max-width: 639px) {
+        .pricelist-table {
+          font-size: 11px;
+        }
+        .pricelist-table thead th {
+          font-size: 9.5px;
+          letter-spacing: 0.01em;
+          padding: 0.5rem 0.25rem;
+        }
+        .pricelist-table thead th:first-child {
+          padding-left: 0.55rem;
+        }
+        .pricelist-table thead th:last-child {
+          padding-right: 0.45rem;
+        }
+        .pricelist-table td {
+          padding: 0.45rem 0.18rem;
+        }
+        .pricelist-table td:first-child {
+          padding-left: 0.55rem;
+          line-height: 1.25;
+        }
+        .pricelist-table td:last-child {
+          padding-right: 0.35rem;
+        }
+        .price-cell-btn {
+          font-size: 10.5px;
+          padding: 0.28rem 0.25rem;
+          border-radius: 0.42rem;
+          letter-spacing: -0.02em;
+        }
+      }
+
+      .cut-pill,
+      .collar-pill,
+      .closure-pill,
+      .sleeve-pill,
+      .stitch-pill,
+      .pocket-pill,
+      .utility-pill,
+      .color-layout-pill {
+        min-height: 44px;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+      }
+
+      .cut-pill-active,
+      .collar-pill-active,
+      .closure-pill-active,
+      .sleeve-pill-active,
+      .stitch-pill-active,
+      .pocket-pill-active,
+      .utility-pill-active,
+      .color-layout-pill-active {
+        background-color: #18181b;
+        color: #ffffff;
+        border-color: #18181b;
+        box-shadow: 0 4px 12px rgba(24, 24, 27, 0.12);
+      }
+
+      .color-slot-tab {
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+      }
+
+      .color-slot-tab-active {
+        border-color: #2563eb;
+        background-color: #eff6ff;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+      }
+
+      .view-pill {
+        padding: 0.42rem 0.85rem;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 700;
+        border: 1px solid #e4e5e0;
+        background-color: #fafaf8;
+        color: #52525b;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+      }
+
+      .view-pill:hover {
+        border-color: #a1a1aa;
+        color: #18181b;
+        background-color: #ffffff;
+      }
+
+      .view-pill-active {
+        background-color: #18181b;
+        color: #ffffff;
+        border-color: #18181b;
+        box-shadow: 0 2px 8px rgba(24, 24, 27, 0.16);
+      }
+
+      .side-tab {
+        text-align: left;
+        padding: 0.7rem 0.8rem;
+        border-radius: 0.95rem;
+        border: 1.5px solid #e4e5e0;
+        background-color: #fafaf8;
+        min-height: 52px;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .side-tab:hover {
+        border-color: #a1a1aa;
+        background-color: #ffffff;
+      }
+
+      .side-tab-active {
+        background-color: #18181b;
+        border-color: #18181b;
+        color: #ffffff;
+        box-shadow: 0 8px 20px rgba(24, 24, 27, 0.12);
+      }
+
+      .side-tab-title {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 800;
+        color: #18181b;
+        line-height: 1.25;
+      }
+
+      .side-tab-active .side-tab-title {
+        color: #ffffff;
+      }
+
+      .side-tab-sub {
+        display: block;
+        font-size: 10.5px;
+        font-weight: 600;
+        color: #71717a;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .side-tab-active .side-tab-sub {
+        color: #93c5fd;
+      }
+
+      .upload-hero-box {
+        border: 2px dashed #2563eb;
+        background-color: #eff6ff;
+        transition:
+          border-color 0.2s ease,
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .upload-hero-box:hover,
+      .upload-hero-box.drag-over {
+        border-color: #1d4ed8;
+        background-color: #dbeafe;
+        box-shadow: 0 10px 24px -6px rgba(37, 99, 235, 0.2);
+      }
+
+      .print-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.45rem;
+        padding: 0.7rem;
+        border-radius: 1rem;
+        border: 1.5px solid #e4e5e0;
+        background-color: #fafaf8;
+        text-align: left;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+      }
+
+      @media (min-width: 640px) {
+        .print-card {
+          flex-direction: row;
+          gap: 0.85rem;
+          padding: 0.9rem;
+          border-radius: 1.1rem;
+        }
+      }
+
+      .print-card:hover {
+        border-color: #a1a1aa;
+        background-color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .print-card-active {
+        border: 2px solid #2563eb;
+        background-color: #f8fbff;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+      }
+
+      .print-badge {
+        display: inline-block;
+        font-size: 9.5px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 9999px;
+        background-color: #dbeafe;
+        color: #1e40af;
+        margin-bottom: 3px;
+      }
+
+      .print-badge-none {
+        background-color: #ecece8;
+        color: #52525b;
+      }
+
+      .area-bar-track {
+        width: 100%;
+        height: 4px;
+        border-radius: 9999px;
+        background-color: #e4e4e7;
+        overflow: hidden;
+        margin: 5px 0 3px;
+      }
+
+      .area-bar-fill {
+        height: 100%;
+        border-radius: 9999px;
+        background-color: #2563eb;
+        transition: width 0.3s ease;
+      }
+
+      #print-zone-group,
+      #print-zone-group-2 {
+        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .stack-stage-surface {
+        background-color: #f6f4ec;
+      }
+
+      .solid-cta-btn {
+        background-color: #2563eb;
+        box-shadow: 0 10px 22px -6px rgba(37, 99, 235, 0.38);
+        touch-action: manipulation;
+        transition:
+          background-color 0.2s ease,
+          transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.2s ease;
+      }
+
+      .solid-cta-btn:hover {
+        background-color: #1d4ed8;
+        box-shadow: 0 14px 28px -6px rgba(29, 78, 216, 0.45);
+        transform: translateY(-2px);
+      }
+
+      .qty-stepper-btn {
+        width: 2.5rem;
+        height: 2.55rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        touch-action: manipulation;
+      }
+
+      @media (min-width: 640px) {
+        .qty-stepper-btn {
+          width: 1.55rem;
+          height: 1.85rem;
+        }
+      }
+
+      .qty-input::-webkit-outer-spin-button,
+      .qty-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+      .qty-input {
+        -moz-appearance: textfield;
+        appearance: textfield;
+        min-width: 0;
+        padding: 0 2px;
+        font-size: 15px;
+      }
+
+      @media (min-width: 640px) {
+        .qty-input {
+          font-size: 12.5px;
+        }
+      }
+
+      .stage-svg-wrapper {
+        max-width: 270px;
+      }
+
+      @media (min-width: 1024px) {
+        #work-stage-wrapper {
+          top: 1.25rem;
+        }
+        .stage-svg-wrapper {
+          max-width: 225px;
+        }
+      }
+
+      @media (min-width: 1280px) {
+        .stage-svg-wrapper {
+          max-width: 250px;
+        }
+      }
+
+      /* ================= FLOATING LIVE PREVIEW KHUSUS SMARTPHONE ================= */
+      @media (max-width: 1023px) {
+        #work-stage.mobile-stage-floating {
+          position: fixed;
+          top: 0.5rem;
+          left: 0.65rem;
+          right: 0.65rem;
+          width: auto;
+          z-index: 35;
+          border-radius: 1.2rem;
+          border-color: rgba(24, 24, 27, 0.16);
+          background-color: rgba(255, 255, 255, 0.97);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow:
+            0 12px 28px -4px rgba(15, 23, 42, 0.16),
+            0 4px 10px -2px rgba(15, 23, 42, 0.08);
+          animation: floatStageSlideDown 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes floatStageSlideDown {
+          from {
+            opacity: 0.85;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        #work-stage.mobile-stage-floating #stage-top-panel {
+          padding: 0.55rem 0.65rem;
+          display: grid;
+          grid-template-columns: 134px minmax(0, 1fr);
+          grid-template-areas:
+            "svg topbar"
+            "svg views"
+            "svg caption";
+          column-gap: 0.6rem;
+          row-gap: 0.32rem;
+          align-items: center;
+        }
+
+        #work-stage.mobile-stage-floating #stage-info-bar {
+          grid-area: topbar;
+          margin-bottom: 0;
+          gap: 0.25rem;
+        }
+
+        #work-stage.mobile-stage-floating #stage-view-pills {
+          grid-area: views;
+          margin-bottom: 0;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.25rem;
+          width: 100%;
+          min-width: 0;
+        }
+
+        #work-stage.mobile-stage-floating #stage-view-pills .view-pill {
+          width: 100%;
+          min-width: 0;
+          padding: 0.26rem 0.35rem;
+          font-size: 10px;
+          line-height: 1.2;
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        #work-stage.mobile-stage-floating .stage-svg-wrapper {
+          grid-area: svg;
+          max-width: 134px;
+          width: 134px;
+          height: 134px;
+          margin: 0 auto;
+        }
+
+        #work-stage.mobile-stage-floating #stage-caption-row {
+          grid-area: caption;
+          margin-top: 0;
+        }
+
+        #work-stage.mobile-stage-floating #mockup-view-caption {
+          font-size: 10px;
+          line-height: 1.25;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        #work-stage.mobile-stage-floating #stage-upload-banner {
+          display: none;
+        }
+
+        #work-stage.mobile-stage-floating:not(.mobile-stage-expanded)
+          #stage-sablon-summary-bar,
+        #work-stage.mobile-stage-floating:not(.mobile-stage-expanded)
+          #size-chart-box {
+          display: none;
+        }
+
+        #work-stage.mobile-stage-floating.mobile-stage-expanded
+          #size-chart-box {
+          max-height: 42vh;
+          overflow-y: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="antialiased min-h-screen flex flex-col">
+    <!-- ================= MAIN ================= -->
+    <main
+      class="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 pt-4 pb-12 md:pt-7 md:pb-14"
+    >
+      <!-- TOMBOL KEMBALI -->
+      <div class="mb-4 sm:mb-5 relative z-20">
+        <a
+          href="index.html#produk"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold bg-white hover:bg-[#18181b] text-zinc-900 hover:text-white px-4 py-2 rounded-full border border-[#e4e5e0] shadow-xs transition duration-200"
+        >
+          <i data-lucide="arrow-left" class="icon-sm"></i>
+          <span>Kembali</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start">
+        <!-- KOLOM KIRI (FLOATING DI HP SAAT SCROLL + STICKY DI LAPTOP): MOCKUP WORK SHIRT + PELETAKAN + SIZE CHART -->
+        <div id="work-stage-wrapper" class="lg:col-span-5 lg:sticky w-full">
+          <div
+            id="work-stage"
+            class="w-full bg-white rounded-3xl border border-[#e4e5e0] shadow-md shadow-zinc-200/60 overflow-hidden flex flex-col"
+          >
+            <!-- BAGIAN ATAS: MOCKUP WORK SHIRT TECHNICAL FLAT -->
+            <div
+              id="stage-top-panel"
+              class="p-4 sm:p-5 pb-3.5 flex flex-col items-center justify-between bg-[#fafaf8]"
+            >
+              <!-- Bar Info Model, Kerah, Penutup & Warna -->
+              <div
+                id="stage-info-bar"
+                class="w-full flex flex-wrap items-center justify-between gap-1.5 text-xs mb-2.5"
+              >
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span
+                    id="active-cut-label"
+                    class="font-bold text-white bg-[#18181b] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full tracking-wide shadow-xs text-[10.5px] sm:text-xs"
+                  >
+                    Classic • Kerah Camp • Kancing
+                  </span>
+                  <span
+                    id="stage-total-qty-badge"
+                    class="font-bold text-[#1d4ed8] bg-blue-50 border border-blue-200/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10.5px] sm:text-xs"
+                  >
+                    0 pcs
+                  </span>
+                  <span
+                    id="stage-floating-price-badge"
+                    class="hidden font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full text-[10px] tabular-nums"
+                  >
+                    Rp 0
+                  </span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <div
+                    class="flex items-center gap-1.5 bg-white border border-[#e4e5e0] px-2.5 py-0.5 sm:py-1 rounded-full shadow-xs"
+                  >
+                    <span class="flex items-center -space-x-1 shrink-0">
+                      <span
+                        id="active-color-dot"
+                        class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border border-black/20"
+                        style="background-color: #16171a"
+                      ></span>
+                      <span
+                        id="active-color-dot-2"
+                        class="hidden w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border border-black/20"
+                        style="background-color: #d6c7b2"
+                      ></span>
+                    </span>
+                    <span
+                      id="active-color-name"
+                      class="font-bold text-zinc-800 text-[10.5px] sm:text-xs max-w-[96px] sm:max-w-[130px] truncate"
+                    >
+                      Hitam Jet
+                    </span>
+                  </div>
+
+                  <!-- Tombol Expand/Collapse Size Chart khusus saat floating di HP -->
+                  <button
+                    type="button"
+                    id="toggle-floating-detail-btn"
+                    onclick="toggleMobileFloatingDetail()"
+                    class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-[10px] font-extrabold cursor-pointer"
+                  >
+                    <span id="floating-detail-btn-text">Chart</span>
+                    <i
+                      id="floating-detail-btn-icon"
+                      data-lucide="chevron-down"
+                      class="icon-xs"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Switcher Sudut Pandang Mockup -->
+              <div
+                id="stage-view-pills"
+                class="w-full flex flex-wrap items-center justify-center gap-1.5 mb-2"
+              >
+                <button
+                  type="button"
+                  data-view="depan"
+                  onclick="setMockupView('depan')"
+                  class="view-pill view-pill-active"
+                >
+                  Depan
+                </button>
+                <button
+                  type="button"
+                  data-view="belakang"
+                  onclick="setMockupView('belakang')"
+                  class="view-pill"
+                >
+                  Belakang
+                </button>
+                <button
+                  type="button"
+                  data-view="lenganKanan"
+                  onclick="setMockupView('lenganKanan')"
+                  class="view-pill"
+                >
+                  Lengan Ka
+                </button>
+                <button
+                  type="button"
+                  data-view="lenganKiri"
+                  onclick="setMockupView('lenganKiri')"
+                  class="view-pill"
+                >
+                  Lengan Ki
+                </button>
+              </div>
+
+              <!-- Stage SVG Baju Work Shirt Technical Flat -->
+              <div
+                class="stage-svg-wrapper relative w-full aspect-square flex items-center justify-center my-1"
+              >
+                <svg
+                  id="work-svg"
+                  viewBox="0 0 300 300"
+                  class="w-full h-full overflow-visible drop-shadow-[0_10px_18px_rgba(24,24,27,0.10)]"
+                >
+                  <defs>
+                    <clipPath id="work-body-clip">
+                      <path
+                        id="work-clip-path"
+                        d="M116 30 L68 45 L22 120 L68 140 L76 105 L76 274 L224 274 L224 105 L232 140 L278 120 L232 45 L184 30 Q150 44 116 30 Z"
+                      />
+                    </clipPath>
+
+                    <!-- Pattern Mesh untuk Airflow Back Vent -->
+                    <pattern
+                      id="work-mesh-pattern"
+                      width="3.2"
+                      height="3.2"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <rect width="3.2" height="3.2" fill="#18202c" />
+                      <circle
+                        cx="1.6"
+                        cy="1.6"
+                        r="0.8"
+                        fill="#9ca3af"
+                        opacity="0.7"
+                      />
+                    </pattern>
+
+                    <linearGradient
+                      id="fabricLighting"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+                      <stop
+                        offset="0%"
+                        stop-color="#000000"
+                        stop-opacity="0.06"
+                      />
+                      <stop
+                        offset="16%"
+                        stop-color="#000000"
+                        stop-opacity="0.01"
+                      />
+                      <stop
+                        offset="50%"
+                        stop-color="#ffffff"
+                        stop-opacity="0.05"
+                      />
+                      <stop
+                        offset="84%"
+                        stop-color="#000000"
+                        stop-opacity="0.01"
+                      />
+                      <stop
+                        offset="100%"
+                        stop-color="#000000"
+                        stop-opacity="0.06"
+                      />
+                    </linearGradient>
+
+                    <linearGradient
+                      id="verticalDrape"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="0%"
+                        stop-color="#ffffff"
+                        stop-opacity="0.04"
+                      />
+                      <stop
+                        offset="50%"
+                        stop-color="#000000"
+                        stop-opacity="0"
+                      />
+                      <stop
+                        offset="100%"
+                        stop-color="#000000"
+                        stop-opacity="0.05"
+                      />
+                    </linearGradient>
+                  </defs>
+
+                  <!-- Bagian Dalam Kerah Belakang (Tampak Depan) -->
+                  <g id="front-neck-group">
+                    <path
+                      id="work-neck-inner"
+                      class="work-part"
+                      d="M122 19 Q150 23 178 19 L174 34 Q150 38 126 34 Z"
+                      fill="#111214"
+                      stroke="#090a0b"
+                      stroke-width="1.35"
+                      stroke-linejoin="round"
+                    />
+                    <rect
+                      id="work-neck-tag"
+                      x="144"
+                      y="24"
+                      width="12"
+                      height="4.5"
+                      rx="0.8"
+                      fill="rgba(255,255,255,0.28)"
+                    />
+                  </g>
+
+                  <!-- ZONA WARNA BADAN & VARIASI TWO-TONE WORK SHIRT (DI-CLIP KE SILUET) -->
+                  <g clip-path="url(#work-body-clip)">
+                    <!-- Warna Badan Utama -->
+                    <rect
+                      id="work-body-base"
+                      class="work-part"
+                      x="-20"
+                      y="0"
+                      width="340"
+                      height="300"
+                      fill="#16171a"
+                    />
+
+                    <!-- Variasi Two-Tone Dada Atas (Yoke Horizontal Split) -->
+                    <rect
+                      id="color-zone-half-top"
+                      class="work-part"
+                      x="-20"
+                      y="0"
+                      width="340"
+                      height="118"
+                      fill="#d6c7b2"
+                      style="display: none"
+                    />
+
+                    <!-- Variasi Two-Tone Kanan-Kiri (Vertical Half-Split) -->
+                    <rect
+                      id="color-zone-half-left"
+                      class="work-part"
+                      x="150"
+                      y="0"
+                      width="170"
+                      height="300"
+                      fill="#d6c7b2"
+                      style="display: none"
+                    />
+
+                    <!-- Variasi Warna Lengan Kanan (Sisi Kiri Gambar) -->
+                    <path
+                      id="color-zone-sleeve-r"
+                      class="work-part"
+                      d="M68 45 L-20 45 L-20 220 L76 220 L76 105 Q76 74 68 45 Z"
+                      fill="#d6c7b2"
+                      style="display: none"
+                    />
+
+                    <!-- Variasi Warna Lengan Kiri (Sisi Kanan Gambar) -->
+                    <path
+                      id="color-zone-sleeve-l"
+                      class="work-part"
+                      d="M232 45 L320 45 L320 220 L224 220 L224 105 Q224 74 232 45 Z"
+                      fill="#d6c7b2"
+                      style="display: none"
+                    />
+
+                    <!-- Garis Jahitan Sambungan Two-Tone Horizontal -->
+                    <line
+                      id="seam-half-top"
+                      class="work-part"
+                      x1="65"
+                      y1="118"
+                      x2="235"
+                      y2="118"
+                      stroke="#090a0b"
+                      stroke-width="1.25"
+                      style="display: none"
+                    />
+
+                    <!-- Garis Jahitan Sambungan Two-Tone Vertikal -->
+                    <line
+                      id="seam-half-vert"
+                      class="work-part"
+                      x1="150"
+                      y1="20"
+                      x2="150"
+                      y2="290"
+                      stroke="#090a0b"
+                      stroke-width="1.2"
+                      style="display: none"
+                    />
+
+                    <!-- STRIP REFLEKTOR SCOTCHLITE (SAFETY / INDUSTRIAL) -->
+                    <g id="reflector-strips-group" style="display: none">
+                      <!-- Strip Horizontal Dada / Punggung -->
+                      <rect
+                        x="60"
+                        y="134"
+                        width="180"
+                        height="8"
+                        fill="#bef264"
+                        opacity="0.92"
+                      />
+                      <rect
+                        x="60"
+                        y="136.2"
+                        width="180"
+                        height="3.6"
+                        fill="#f8fafc"
+                      />
+                      <!-- Strip Horizontal Perut / Pinggang -->
+                      <rect
+                        x="60"
+                        y="222"
+                        width="180"
+                        height="8"
+                        fill="#bef264"
+                        opacity="0.92"
+                      />
+                      <rect
+                        x="60"
+                        y="224.2"
+                        width="180"
+                        height="3.6"
+                        fill="#f8fafc"
+                      />
+                      <!-- Strip Lengan Kanan & Kiri -->
+                      <path
+                        d="M25 104 L76 125 L73 132 L22 111 Z"
+                        fill="#bef264"
+                        opacity="0.92"
+                      />
+                      <path
+                        d="M275 104 L224 125 L227 132 L278 111 Z"
+                        fill="#bef264"
+                        opacity="0.92"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- Outline & Shading Badan Work Shirt -->
+                  <path
+                    id="work-body-outline"
+                    class="work-part"
+                    d="M116 30 L68 45 L22 120 L68 140 L76 105 L76 274 L224 274 L224 105 L232 140 L278 120 L232 45 L184 30 Q150 44 116 30 Z"
+                    fill="none"
+                    stroke="#090a0b"
+                    stroke-width="1.5"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    id="work-light-h"
+                    class="work-part"
+                    d="M116 30 L68 45 L22 120 L68 140 L76 105 L76 274 L224 274 L224 105 L232 140 L278 120 L232 45 L184 30 Q150 44 116 30 Z"
+                    fill="url(#fabricLighting)"
+                    style="mix-blend-mode: multiply; pointer-events: none"
+                  />
+                  <path
+                    id="work-light-v"
+                    class="work-part"
+                    d="M116 30 L68 45 L22 120 L68 140 L76 105 L76 274 L224 274 L224 105 L232 140 L278 120 L232 45 L184 30 Q150 44 116 30 Z"
+                    fill="url(#verticalDrape)"
+                    style="mix-blend-mode: multiply; pointer-events: none"
+                  />
+
+                  <!-- Lipatan Manset Lengan Pendek -->
+                  <g id="short-sleeve-cuffs">
+                    <path
+                      id="scuff-l"
+                      class="work-part"
+                      d="M25.2 114.8 L71.2 134.8 L68 140 L22 120 Z"
+                      fill="#121316"
+                      stroke="#090a0b"
+                      stroke-width="1.35"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      id="scuff-r"
+                      class="work-part"
+                      d="M274.8 114.8 L228.8 134.8 L232 140 L278 120 Z"
+                      fill="#121316"
+                      stroke="#090a0b"
+                      stroke-width="1.35"
+                      stroke-linejoin="round"
+                    />
+                  </g>
+
+                  <!-- Manset Kancing Lengan Panjang -->
+                  <g id="long-sleeve-cuffs" style="display: none">
+                    <path
+                      id="cuff-l"
+                      class="work-part"
+                      d="M2.5 163 L30.5 177 L25 186 L-3 172 Z"
+                      fill="#121316"
+                      stroke="#090a0b"
+                      stroke-width="1.35"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      id="cuff-r"
+                      class="work-part"
+                      d="M297.5 163 L269.5 177 L275 186 L303 172 Z"
+                      fill="#121316"
+                      stroke="#090a0b"
+                      stroke-width="1.35"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      id="cuff-btn-l"
+                      cx="12.5"
+                      cy="174.5"
+                      r="1.6"
+                      fill="#f8fafc"
+                      stroke="#18181b"
+                      stroke-width="0.9"
+                    />
+                    <circle
+                      id="cuff-btn-r"
+                      cx="287.5"
+                      cy="174.5"
+                      r="1.6"
+                      fill="#f8fafc"
+                      stroke="#18181b"
+                      stroke-width="0.9"
+                    />
+                    <!-- Roll-Up Sleeve Tab (Tali Pengait Lipatan Siku Work Shirt) -->
+                    <g id="sleeve-rollup-tab-group" style="display: none">
+                      <path
+                        d="M32 115 L40 120 L33 132 L25 127 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="30"
+                        cy="127.5"
+                        r="1.4"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                      <path
+                        d="M268 115 L260 120 L267 132 L275 127 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="270"
+                        cy="127.5"
+                        r="1.4"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- Jahitan Bahu & Kerung Lengan (Double / Triple Stitch) -->
+                  <path
+                    id="seam-shoulder-l"
+                    class="work-part"
+                    d="M116 30 L68 45"
+                    fill="none"
+                    stroke="#090a0b"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    id="seam-shoulder-r"
+                    class="work-part"
+                    d="M184 30 L232 45"
+                    fill="none"
+                    stroke="#090a0b"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+
+                  <path
+                    id="seam-armhole-l"
+                    class="work-part"
+                    d="M68 45 Q76 74 76 105"
+                    fill="none"
+                    stroke="#090a0b"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    id="seam-armhole-r"
+                    class="work-part"
+                    d="M232 45 Q224 74 224 105"
+                    fill="none"
+                    stroke="#090a0b"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+
+                  <!-- Jahitan Triple-Stitch Heavy Duty (Muncul saat Triple Stitch dipilih) -->
+                  <g id="triple-stitch-seams" style="display: none">
+                    <path
+                      d="M116 33 L70 47.5 M184 33 L230 47.5"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.28)"
+                      stroke-width="0.85"
+                      stroke-dasharray="2 1.5"
+                    />
+                    <path
+                      d="M71 46 Q79 74 79 105 M229 46 Q221 74 221 105"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.28)"
+                      stroke-width="0.85"
+                      stroke-dasharray="2 1.5"
+                    />
+                    <line
+                      x1="80"
+                      y1="106"
+                      x2="80"
+                      y2="270"
+                      stroke="rgba(255,255,255,0.22)"
+                      stroke-width="0.85"
+                      stroke-dasharray="2 1.5"
+                    />
+                    <line
+                      x1="220"
+                      y1="106"
+                      x2="220"
+                      y2="270"
+                      stroke="rgba(255,255,255,0.22)"
+                      stroke-width="0.85"
+                      stroke-dasharray="2 1.5"
+                    />
+                  </g>
+
+                  <!-- Jahitan Bawah & Side Gusset Work Shirt -->
+                  <line
+                    id="work-hem-top"
+                    class="work-part"
+                    x1="77"
+                    y1="268"
+                    x2="223"
+                    y2="268"
+                    stroke="#3f3f46"
+                    stroke-width="0.95"
+                    stroke-dasharray="2.5 2.5"
+                    opacity="0.45"
+                  />
+                  <line
+                    id="work-hem-bottom"
+                    class="work-part"
+                    x1="77"
+                    y1="270.5"
+                    x2="223"
+                    y2="270.5"
+                    stroke="#3f3f46"
+                    stroke-width="0.95"
+                    stroke-dasharray="2.5 2.5"
+                    opacity="0.45"
+                  />
+                  <!-- Side Hem Gusset Segitiga Penguat Samping Khas Work Shirt -->
+                  <polygon
+                    id="work-gusset-l"
+                    points="76,262 82,274 76,274"
+                    fill="rgba(255,255,255,0.16)"
+                    stroke="#090a0b"
+                    stroke-width="1"
+                  />
+                  <polygon
+                    id="work-gusset-r"
+                    points="224,262 218,274 224,274"
+                    fill="rgba(255,255,255,0.16)"
+                    stroke="#090a0b"
+                    stroke-width="1"
+                  />
+
+                  <!-- Yoke & Airflow Mesh Vent Punggung (Tampak Belakang) -->
+                  <path
+                    id="back-yoke-seam"
+                    class="work-part"
+                    d="M71 57 L229 57"
+                    fill="none"
+                    stroke="#090a0b"
+                    stroke-width="1.3"
+                    style="display: none"
+                  />
+                  <g id="back-airflow-vent-group" style="display: none">
+                    <!-- Panel Ventilasi Jaring Vertikal Kiri & Kanan Punggung -->
+                    <rect
+                      x="88"
+                      y="57"
+                      width="11"
+                      height="96"
+                      rx="2"
+                      fill="url(#work-mesh-pattern)"
+                      stroke="#090a0b"
+                      stroke-width="1"
+                    />
+                    <rect
+                      x="201"
+                      y="57"
+                      width="11"
+                      height="96"
+                      rx="2"
+                      fill="url(#work-mesh-pattern)"
+                      stroke="#090a0b"
+                      stroke-width="1"
+                    />
+                    <!-- Lipatan Cape Vent Punggung Atas -->
+                    <path
+                      d="M84 82 L216 82"
+                      fill="none"
+                      stroke="#090a0b"
+                      stroke-width="1.25"
+                    />
+                    <path
+                      d="M84 84.5 L216 84.5"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.22)"
+                      stroke-width="0.8"
+                      stroke-dasharray="2 1.5"
+                    />
+                  </g>
+
+                  <!-- JENIS SAKU DADA WORK SHIRT -->
+                  <g id="pockets-group">
+                    <!-- 1. Dual Button Pockets + Pen Slot (Standar Dickies 1574 Work Shirt) -->
+                    <g id="pocket-dual-button-group">
+                      <!-- Saku Dada Kanan (Sisi Kiri SVG - Kancing Atas + Mitered Bottom) -->
+                      <path
+                        id="pdb-r-body"
+                        class="work-part"
+                        d="M101 82 L135 82 L135 113 L129 119 L107 119 L101 113 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <line
+                        x1="102"
+                        y1="88.5"
+                        x2="134"
+                        y2="88.5"
+                        stroke="#090a0b"
+                        stroke-width="1"
+                      />
+                      <circle
+                        cx="118"
+                        cy="85.2"
+                        r="1.5"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="0.85"
+                      />
+
+                      <!-- Saku Dada Kiri (Sisi Kanan SVG - Kancing Atas + Sekat Pulpen + Woven Label) -->
+                      <path
+                        id="pdb-l-body"
+                        class="work-part"
+                        d="M165 82 L199 82 L199 113 L193 119 L171 119 L165 113 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <line
+                        x1="166"
+                        y1="88.5"
+                        x2="198"
+                        y2="88.5"
+                        stroke="#090a0b"
+                        stroke-width="1"
+                      />
+                      <!-- Sekat Slot Pulpen -->
+                      <line
+                        x1="173"
+                        y1="82"
+                        x2="173"
+                        y2="118"
+                        stroke="#090a0b"
+                        stroke-width="0.95"
+                        stroke-dasharray="2 1.5"
+                      />
+                      <circle
+                        cx="185"
+                        cy="85.2"
+                        r="1.5"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="0.85"
+                      />
+                      <!-- Mini Woven Workwear Tab di Saku Kiri -->
+                      <rect
+                        x="189"
+                        y="112"
+                        width="7"
+                        height="4"
+                        rx="0.6"
+                        fill="#dc2626"
+                        stroke="#090a0b"
+                        stroke-width="0.6"
+                      />
+                    </g>
+
+                    <!-- 2. Dual Flap Pockets (2 Saku Tutup Berkancing) -->
+                    <g id="pocket-dual-flap-group" style="display: none">
+                      <!-- Saku Flap Kanan -->
+                      <path
+                        id="pdf-r-body"
+                        class="work-part"
+                        d="M101 86 L135 86 L135 116 L129 122 L107 122 L101 116 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="pdf-r-flap"
+                        class="work-part"
+                        d="M100 81 L136 81 L136 92 L118 98 L100 92 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <circle
+                        cx="118"
+                        cy="91"
+                        r="1.6"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="0.9"
+                      />
+
+                      <!-- Saku Flap Kiri -->
+                      <path
+                        id="pdf-l-body"
+                        class="work-part"
+                        d="M165 86 L199 86 L199 116 L193 122 L171 122 L165 116 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="pdf-l-flap"
+                        class="work-part"
+                        d="M164 81 L200 81 L200 92 L182 98 L164 92 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <circle
+                        cx="182"
+                        cy="91"
+                        r="1.6"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="0.9"
+                      />
+                    </g>
+
+                    <!-- 3. Utility Flap + Vertical Zip Pocket (Saku Kerja Teknis) -->
+                    <g id="pocket-utility-zip-group" style="display: none">
+                      <!-- Saku Flap Side-Entry Kanan -->
+                      <path
+                        id="puz-r-body"
+                        class="work-part"
+                        d="M100 85 L136 85 L136 118 L118 123 L100 118 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="puz-r-flap"
+                        class="work-part"
+                        d="M99 80 L137 80 L137 91 L118 96 L99 91 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <!-- Saku Tempel + Saku Resleting Vertikal Kiri -->
+                      <path
+                        id="puz-l-body"
+                        class="work-part"
+                        d="M164 82 L200 82 L200 119 L164 119 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <!-- Resleting Vertikal HP -->
+                      <line
+                        x1="169"
+                        y1="84"
+                        x2="169"
+                        y2="117"
+                        stroke="#cbd5e1"
+                        stroke-width="1.8"
+                        stroke-dasharray="2 1.2"
+                      />
+                      <rect
+                        x="167.2"
+                        y="87"
+                        width="3.6"
+                        height="4.5"
+                        rx="0.7"
+                        fill="#e2e8f0"
+                        stroke="#18181b"
+                        stroke-width="0.7"
+                      />
+                      <!-- Slot Pulpen Kanan Saku -->
+                      <line
+                        x1="191"
+                        y1="82"
+                        x2="191"
+                        y2="119"
+                        stroke="#090a0b"
+                        stroke-width="0.95"
+                        stroke-dasharray="2 1.5"
+                      />
+                    </g>
+
+                    <!-- 4. Single Chest Pocket + Pen Slot (Dada Kiri) -->
+                    <g id="pocket-single-pen-group" style="display: none">
+                      <path
+                        id="psp-l-body"
+                        class="work-part"
+                        d="M166 82 L198 82 L198 113 L192 119 L172 119 L166 113 Z"
+                        fill="#16171a"
+                        stroke="#090a0b"
+                        stroke-width="1.25"
+                        stroke-linejoin="round"
+                      />
+                      <line
+                        x1="167"
+                        y1="88"
+                        x2="197"
+                        y2="88"
+                        stroke="#090a0b"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="173"
+                        y1="82"
+                        x2="173"
+                        y2="118"
+                        stroke="#090a0b"
+                        stroke-width="0.95"
+                        stroke-dasharray="2 1.5"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- GANTUNGAN ID CARD & PATCH VELCRO (OPTIONAL UTILITY) -->
+                  <g id="id-loop-group" style="display: none">
+                    <!-- Pengait ID / Mic Loop di Dada Kanan -->
+                    <rect
+                      x="110"
+                      y="64"
+                      width="16"
+                      height="4.5"
+                      rx="1"
+                      fill="#18181b"
+                      stroke="#71717a"
+                      stroke-width="0.7"
+                    />
+                    <path
+                      d="M114 68.5 A 4 4 0 0 0 122 68.5"
+                      fill="none"
+                      stroke="#d4d4d8"
+                      stroke-width="1.3"
+                    />
+                    <!-- Dudukan Velcro Patch Nama di Dada Kanan -->
+                    <rect
+                      x="104"
+                      y="71"
+                      width="28"
+                      height="7.5"
+                      rx="1.2"
+                      fill="rgba(255,255,255,0.12)"
+                      stroke="#94a3b8"
+                      stroke-width="0.9"
+                      stroke-dasharray="2 1.5"
+                    />
+                  </g>
+
+                  <!-- PLAKET KANCING / SNAP / RESLETING DEPAN FULL -->
+                  <g id="front-placket-group">
+                    <rect
+                      id="placket-box"
+                      class="work-part"
+                      x="145.5"
+                      y="42"
+                      width="9"
+                      height="232"
+                      fill="#121316"
+                      stroke="#090a0b"
+                      stroke-width="1.3"
+                    />
+                    <!-- Bagian Atas Plaket (jika Two-Tone Dada Atas) -->
+                    <rect
+                      id="placket-top-half"
+                      class="work-part"
+                      x="145.5"
+                      y="42"
+                      width="9"
+                      height="76"
+                      fill="#d6c7b2"
+                      stroke="#090a0b"
+                      stroke-width="1.3"
+                      style="display: none"
+                    />
+
+                    <!-- 1. Kancing Melamin 4-Lubang (Standar Work Shirt) -->
+                    <g id="placket-melamin-group">
+                      <circle
+                        cx="150"
+                        cy="62"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="150"
+                        cy="96"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="150"
+                        cy="130"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="150"
+                        cy="164"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="150"
+                        cy="198"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="150"
+                        cy="232"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                      <circle
+                        cx="150"
+                        cy="262"
+                        r="2.2"
+                        fill="#f8fafc"
+                        stroke="#18181b"
+                        stroke-width="1.1"
+                      />
+                    </g>
+
+                    <!-- 2. Kancing Jepret Logam (Metallic Snap Buttons) -->
+                    <g id="placket-snap-group" style="display: none">
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="62"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="62" r="1.1" fill="#64748b" />
+                      </g>
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="96"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="96" r="1.1" fill="#64748b" />
+                      </g>
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="130"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="130" r="1.1" fill="#64748b" />
+                      </g>
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="164"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="164" r="1.1" fill="#64748b" />
+                      </g>
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="198"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="198" r="1.1" fill="#64748b" />
+                      </g>
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="232"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="232" r="1.1" fill="#64748b" />
+                      </g>
+                      <g>
+                        <circle
+                          cx="150"
+                          cy="262"
+                          r="2.6"
+                          fill="#cbd5e1"
+                          stroke="#18181b"
+                          stroke-width="1"
+                        />
+                        <circle cx="150" cy="262" r="1.1" fill="#64748b" />
+                      </g>
+                    </g>
+
+                    <!-- 3. Kancing Tertutup (Hidden Placket) -->
+                    <g id="placket-hidden-group" style="display: none">
+                      <line
+                        x1="147.2"
+                        y1="56"
+                        x2="147.2"
+                        y2="272"
+                        stroke="#090a0b"
+                        stroke-width="0.95"
+                        stroke-dasharray="2.5 2"
+                        opacity="0.65"
+                      />
+                    </g>
+
+                    <!-- 4. Resleting Full (Heavy Zipper - Pit Crew Work Shirt) -->
+                    <g id="placket-zipper-group" style="display: none">
+                      <line
+                        x1="150"
+                        y1="52"
+                        x2="150"
+                        y2="273"
+                        stroke="#1e293b"
+                        stroke-width="3.1"
+                      />
+                      <line
+                        x1="150"
+                        y1="52"
+                        x2="150"
+                        y2="273"
+                        stroke="#cbd5e1"
+                        stroke-width="1.8"
+                        stroke-dasharray="2 1.8"
+                      />
+                      <rect
+                        x="147.6"
+                        y="68"
+                        width="4.8"
+                        height="5.5"
+                        rx="1"
+                        fill="#94a3b8"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                      <rect
+                        x="148.3"
+                        y="73.5"
+                        width="3.4"
+                        height="8"
+                        rx="1"
+                        fill="#e2e8f0"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- MODEL KERAH WORK SHIRT (CAMP / KEMEJA / BUTTON-DOWN / SHANGHAI) -->
+                  <g id="front-collar-group">
+                    <!-- 1. Kerah Camp / Revere (Kerah Buka Khas Mechanic / Work Shirt) -->
+                    <g id="collar-camp-group">
+                      <path
+                        id="camp-neck-v"
+                        class="work-part"
+                        d="M122 19 L150 56 L178 19 L174 34 L150 56 L126 34 Z"
+                        fill="#111214"
+                        stroke="#090a0b"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        id="camp-flap-l"
+                        class="work-part"
+                        d="M122 19 L150 56 L127 54 L122 43 L115 30 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.35"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="camp-flap-r"
+                        class="work-part"
+                        d="M178 19 L150 56 L173 54 L178 43 L185 30 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.35"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="camp-stitch-l"
+                        d="M117 30 L127 51.5 L147 54"
+                        fill="none"
+                        stroke="#3f3f46"
+                        stroke-width="0.9"
+                        stroke-dasharray="2 1.8"
+                      />
+                      <path
+                        id="camp-stitch-r"
+                        d="M183 30 L173 51.5 L153 54"
+                        fill="none"
+                        stroke="#3f3f46"
+                        stroke-width="0.9"
+                        stroke-dasharray="2 1.8"
+                      />
+                    </g>
+
+                    <!-- 2. Kerah Kemeja (Point Collar) & Button-Down -->
+                    <g id="collar-kemeja-group" style="display: none">
+                      <path
+                        id="collar-flap-l"
+                        class="work-part"
+                        d="M122 19 Q136 33 150 43 L131 53 Q119 41 116 30 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.4"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="collar-flap-r"
+                        class="work-part"
+                        d="M178 19 Q164 33 150 43 L169 53 Q181 41 184 30 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.4"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="collar-stitch-l"
+                        class="work-part"
+                        d="M119 30 L132 50.5 L148 42"
+                        fill="none"
+                        stroke="#3f3f46"
+                        stroke-width="0.95"
+                        stroke-dasharray="2 2"
+                      />
+                      <path
+                        id="collar-stitch-r"
+                        class="work-part"
+                        d="M181 30 L168 50.5 L152 42"
+                        fill="none"
+                        stroke="#3f3f46"
+                        stroke-width="0.95"
+                        stroke-dasharray="2 2"
+                      />
+                      <!-- Kancing Ujung Kerah (Button-Down) -->
+                      <g id="collar-buttondown-dots" style="display: none">
+                        <circle
+                          cx="132"
+                          cy="48.5"
+                          r="1.4"
+                          fill="#f8fafc"
+                          stroke="#18181b"
+                          stroke-width="0.85"
+                        />
+                        <circle
+                          cx="168"
+                          cy="48.5"
+                          r="1.4"
+                          fill="#f8fafc"
+                          stroke="#18181b"
+                          stroke-width="0.85"
+                        />
+                      </g>
+                    </g>
+
+                    <!-- 3. Kerah Shanghai / Banded Collar -->
+                    <g id="collar-banded-group" style="display: none">
+                      <path
+                        id="banded-body"
+                        class="work-part"
+                        d="M122 24 Q150 36 178 24 L182 34 Q150 47 118 34 Z"
+                        fill="#121316"
+                        stroke="#090a0b"
+                        stroke-width="1.35"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        id="banded-stitch"
+                        class="work-part"
+                        d="M121 27.5 Q150 39.5 179 27.5 M119 31.5 Q150 43.5 181 31.5"
+                        fill="none"
+                        stroke="#3f3f46"
+                        stroke-width="0.9"
+                        stroke-dasharray="2 2"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- KERAH TAMPAK BELAKANG -->
+                  <g id="back-collar-group" style="display: none">
+                    <path
+                      id="back-collar-band"
+                      class="work-part"
+                      d="M122 19 Q150 22 178 19 L184 30 Q150 37 116 30 Z"
+                      fill="#121316"
+                      stroke="#090a0b"
+                      stroke-width="1.4"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      id="back-collar-stitch"
+                      class="work-part"
+                      d="M119 29.5 Q150 35 181 29.5"
+                      fill="none"
+                      stroke="#3f3f46"
+                      stroke-width="0.9"
+                      opacity="0.35"
+                    />
+                  </g>
+
+                  <!-- OVERLAY ZONA PELETAKAN BORDIR / SABLON UTAMA -->
+                  <g
+                    id="print-zone-group"
+                    style="display: none; cursor: pointer"
+                    onclick="triggerDesignUpload(mockupView)"
+                  >
+                    <title>Klik untuk upload / ganti desain di sisi ini</title>
+                    <rect
+                      id="print-zone-rect"
+                      x="167"
+                      y="64"
+                      width="24"
+                      height="14"
+                      rx="2.5"
+                      fill="rgba(37, 99, 235, 0.22)"
+                      stroke="#60a5fa"
+                      stroke-width="1.5"
+                      stroke-dasharray="3 2"
+                    />
+                    <image
+                      id="print-zone-img"
+                      x="167"
+                      y="64"
+                      width="24"
+                      height="14"
+                      preserveAspectRatio="xMidYMid meet"
+                      style="display: none"
+                    />
+                    <text
+                      id="print-zone-label"
+                      x="179"
+                      y="86"
+                      text-anchor="middle"
+                      fill="#ffffff"
+                      stroke="#0f172a"
+                      stroke-width="2.2"
+                      paint-order="stroke"
+                      font-size="7.2"
+                      font-weight="800"
+                      letter-spacing="0.4"
+                    >
+                      8×8 cm
+                    </text>
+                  </g>
+
+                  <!-- OVERLAY ZONA BORDIR KEDUA (PAKET WORK SHIRT: LOGO KIRI + PATCH NAMA KANAN) -->
+                  <g
+                    id="print-zone-group-2"
+                    style="display: none; cursor: pointer"
+                    onclick="triggerDesignUpload('depan')"
+                  >
+                    <rect
+                      id="print-zone-rect-2"
+                      x="105"
+                      y="66"
+                      width="26"
+                      height="10"
+                      rx="2"
+                      fill="rgba(37, 99, 235, 0.22)"
+                      stroke="#60a5fa"
+                      stroke-width="1.4"
+                      stroke-dasharray="3 2"
+                    />
+                    <text
+                      id="print-zone-label-2"
+                      x="118"
+                      y="84"
+                      text-anchor="middle"
+                      fill="#ffffff"
+                      stroke="#0f172a"
+                      stroke-width="2.1"
+                      paint-order="stroke"
+                      font-size="6.8"
+                      font-weight="800"
+                    >
+                      Patch Nama
+                    </text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Status Panduan Posisi Bawah Mockup -->
+              <div
+                id="stage-caption-row"
+                class="w-full flex items-center justify-between gap-2 mt-1"
+              >
+                <span
+                  id="mockup-view-caption"
+                  class="text-[11px] font-semibold text-zinc-600"
+                >
+                  Tampak Depan • Logo Kiri + Patch Nama Kanan (8×8 &amp; 9×3 cm)
+                </span>
+                <button
+                  type="button"
+                  id="toggle-zoom-btn"
+                  onclick="toggleSleeveZoom()"
+                  class="hidden inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-blue-50 text-[#1d4ed8] border border-blue-200 cursor-pointer shrink-0"
+                >
+                  <i data-lucide="zoom-in" class="icon-xs"></i>
+                  <span>Zoom Lengan</span>
+                </button>
+              </div>
+
+              <!-- Banner Pintasan Upload Desain -->
+              <button
+                type="button"
+                id="stage-upload-banner"
+                onclick="triggerDesignUpload(mockupView)"
+                class="mt-2.5 w-full py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-[#1d4ed8] flex items-center justify-between gap-2 cursor-pointer transition group"
+              >
+                <div class="flex items-center gap-2 min-w-0 text-left">
+                  <span
+                    class="w-6 h-6 rounded-lg bg-[#2563eb] text-white flex items-center justify-center shrink-0"
+                  >
+                    <i data-lucide="image-plus" class="icon-xs"></i>
+                  </span>
+                  <span class="text-[11px] font-extrabold truncate">
+                    Punya Logo Bengkel / Brand / Patch? Klik untuk Tempel!
+                  </span>
+                </div>
+                <span
+                  class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white text-[#2563eb] border border-blue-200 shrink-0 group-hover:bg-[#2563eb] group-hover:text-white transition"
+                >
+                  <i data-lucide="upload" class="icon-xs"></i>
+                  <span>Upload</span>
+                </span>
+              </button>
+            </div>
+
+            <!-- RINGKASAN BORDIR / SABLON 4 SISI -->
+            <div
+              id="stage-sablon-summary-bar"
+              class="bg-black text-white px-4 sm:px-5 py-2.5 border-t border-neutral-800"
+            >
+              <div class="flex items-center justify-between mb-1.5">
+                <span
+                  class="text-[10px] font-bold uppercase tracking-widest text-neutral-400"
+                >
+                  Ringkasan Titik Bordir / Sablon
+                </span>
+                <span
+                  id="total-print-sides"
+                  class="text-[11px] font-bold text-[#60a5fa]"
+                >
+                  1 Sisi Aktif
+                </span>
+              </div>
+              <div
+                id="summary-grid"
+                class="grid grid-cols-2 gap-1.5 text-[11px]"
+              ></div>
+            </div>
+
+            <!-- BAGIAN BAWAH: SIZE CHART -->
+            <div
+              id="size-chart-box"
+              class="w-full bg-[#fafaf8] border-t border-[#e4e5e0] p-4 sm:p-5"
+            >
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="ruler" class="icon-sm text-[#2563eb]"></i>
+                  <span class="text-xs sm:text-sm font-extrabold text-zinc-900">
+                    Size Chart Work Shirt
+                  </span>
+                  <span
+                    id="chart-cut-title"
+                    class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1d4ed8] border border-blue-200/80"
+                  >
+                    Classic • L. Pendek
+                  </span>
+                </div>
+                <span
+                  id="chart-range-badge"
+                  class="text-[11px] font-semibold text-zinc-600 bg-white border border-[#e4e5e0] px-2.5 py-0.5 rounded-full"
+                >
+                  S – 3XL (cm)
+                </span>
+              </div>
+
+              <div
+                class="overflow-hidden rounded-xl border border-[#e4e5e0] bg-white shadow-2xs"
+              >
+                <table class="w-full border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-[#18181b] text-white">
+                      <th
+                        class="py-1.5 px-3 text-left font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Size
+                      </th>
+                      <th
+                        class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Panjang
+                      </th>
+                      <th
+                        class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Lebar
+                      </th>
+                      <th
+                        class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        P. Lengan
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="size-chart-body"
+                    class="divide-y divide-[#ecece8]"
+                  ></tbody>
+                </table>
+              </div>
+              <div class="mt-1.5 text-[10px] text-zinc-500">
+                * Potongan Work Shirt cenderung <strong>Relaxed Fit</strong>.
+                Size <strong>2XL (+Rp 5.000)</strong> &amp; kelipatan
+                <strong>+Rp 5.000</strong> untuk 3XL dst.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KOLOM KANAN: KONTROL MODEL WORK SHIRT, LENGAN, JAHITAN/VENTILASI, KERAH, PENUTUP, SAKU, SAFETY & JUMLAH -->
+        <div class="lg:col-span-7 space-y-5 sm:space-y-6">
+          <div>
+            <h1
+              class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-zinc-900 leading-snug"
+            >
+              Custom Work Shirt: Bengkel, Industri, Crew &amp; Lapangan
+            </h1>
+          </div>
+
+          <!-- 1. Model Work Shirt, Lengan, Konstruksi Jahitan/Airflow, Kerah, Penutup, Saku, Safety & Price List -->
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <!-- 1A. Model Potongan Work Shirt -->
+            <div>
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <div class="flex items-center gap-2.5">
+                  <span
+                    class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                  >
+                    1
+                  </span>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Model, Kerah, Penutup, Saku, Safety &amp; Bahan
+                  </h2>
+                </div>
+                <span
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-700"
+                >
+                  <i data-lucide="award" class="icon-xs text-[#2563eb]"></i>
+                  <span>Include Bordir / DTF</span>
+                </span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 sm:gap-2.5">
+                <button
+                  type="button"
+                  data-cut="classic"
+                  onclick="setCut('classic')"
+                  class="cut-pill cut-pill-active py-2.5 px-2.5 sm:px-3 rounded-xl border border-[#e4e5e0] text-xs sm:text-sm font-bold cursor-pointer flex flex-col items-center justify-center text-center"
+                >
+                  <span>Classic Work</span>
+                  <span class="text-[11px] font-medium opacity-75">
+                    Mulai 115rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-cut="utility"
+                  onclick="setCut('utility')"
+                  class="cut-pill py-2.5 px-2.5 sm:px-3 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs sm:text-sm font-bold cursor-pointer flex flex-col items-center justify-center text-center"
+                >
+                  <span>Utility / Crew</span>
+                  <span class="text-[11px] font-medium opacity-75">
+                    Mulai 125rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-cut="safety"
+                  onclick="setCut('safety')"
+                  class="cut-pill py-2.5 px-2.5 sm:px-3 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs sm:text-sm font-bold cursor-pointer flex flex-col items-center justify-center text-center"
+                >
+                  <span>Safety / Proyek</span>
+                  <span class="text-[11px] font-medium opacity-75">
+                    Mulai 135rb
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1B. Panjang Lengan & Konstruksi Jahitan / Airflow Vent -->
+            <div
+              class="pt-3.5 border-t border-[#ecece8] grid grid-cols-1 sm:grid-cols-2 gap-3.5"
+            >
+              <!-- Panjang Lengan -->
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span
+                    class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                  >
+                    Panjang Lengan (Varian Aktif)
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button
+                    type="button"
+                    data-sleeve="pendek"
+                    onclick="setSleeve('pendek')"
+                    class="sleeve-pill sleeve-pill-active py-2 px-1.5 rounded-xl border border-[#e4e5e0] text-[11px] font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                  >
+                    <span>L. Pendek</span>
+                    <span class="text-[9.5px] font-medium opacity-75">
+                      Standar
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    data-sleeve="panjang"
+                    onclick="setSleeve('panjang')"
+                    class="sleeve-pill py-2 px-1.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-[11px] font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                  >
+                    <span>L. Panjang</span>
+                    <span class="text-[9.5px] font-extrabold text-[#2563eb]">
+                      +10rb
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    data-sleeve="panjang_skoder"
+                    onclick="setSleeve('panjang_skoder')"
+                    class="sleeve-pill py-2 px-1.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-[11px] font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                  >
+                    <span>L.Pjg Roll-Up</span>
+                    <span class="text-[9.5px] font-extrabold text-[#2563eb]">
+                      +13rb
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Konstruksi Jahitan & Airflow Vent Punggung -->
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span
+                    class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                  >
+                    Jahitan &amp; Ventilasi Udara
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button
+                    type="button"
+                    data-stitch="standar"
+                    onclick="setStitch('standar')"
+                    class="stitch-pill stitch-pill-active py-2 px-1.5 rounded-xl border border-[#e4e5e0] text-[11px] font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                  >
+                    <span>Double Stitch</span>
+                    <span class="text-[9.5px] font-medium opacity-75">
+                      Standar
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    data-stitch="triple_stitch"
+                    onclick="setStitch('triple_stitch')"
+                    class="stitch-pill py-2 px-1.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-[11px] font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                  >
+                    <span>Triple Stitch</span>
+                    <span class="text-[9.5px] font-extrabold text-[#2563eb]">
+                      +5rb
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    data-stitch="airflow_yoke"
+                    onclick="setStitch('airflow_yoke')"
+                    class="stitch-pill py-2 px-1.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-[11px] font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                  >
+                    <span>Airflow Vent</span>
+                    <span class="text-[9.5px] font-extrabold text-[#2563eb]">
+                      Jaring +8rb
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1C. Jenis Kerah Work Shirt -->
+            <div class="pt-3.5 border-t border-[#ecece8]">
+              <div
+                class="flex flex-wrap items-center justify-between gap-1 mb-2.5"
+              >
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                >
+                  Jenis Kerah Work Shirt
+                </span>
+                <span
+                  id="collar-desc-hint"
+                  class="text-[11px] font-medium text-[#2563eb]"
+                >
+                  Kerah buka datar (Camp/Revere) ikonik khas mechanic, bengkel
+                  &amp; barista
+                </span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  data-collar="camp"
+                  onclick="setCollar('camp')"
+                  class="collar-pill collar-pill-active py-2 px-2.5 rounded-xl border border-[#e4e5e0] text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Kerah Camp</span>
+                  <span class="text-[10px] font-medium opacity-75">
+                    Buka / Mechanic
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-collar="kemeja"
+                  onclick="setCollar('kemeja')"
+                  class="collar-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Point Collar</span>
+                  <span class="text-[10px] font-medium opacity-75">
+                    Kerah Kemeja
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-collar="buttondown"
+                  onclick="setCollar('buttondown')"
+                  class="collar-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Button-Down</span>
+                  <span class="text-[10px] font-medium opacity-75">
+                    Kancing Ujung
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-collar="banded"
+                  onclick="setCollar('banded')"
+                  class="collar-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Banded Collar</span>
+                  <span class="text-[10px] font-medium opacity-75">
+                    Shanghai Tegak
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1D. Penutup Depan (Kancing Melamin / Snap / Hidden / Resleting) -->
+            <div class="pt-3.5 border-t border-[#ecece8]">
+              <div
+                class="flex flex-wrap items-center justify-between gap-1 mb-2.5"
+              >
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                >
+                  Penutup Depan (Varian Aktif)
+                </span>
+                <span class="text-[11px] font-medium text-zinc-500">
+                  Bisa campur Kancing, Snap &amp; Resleting di Langkah 4
+                </span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  data-closure="kancing_melamin"
+                  onclick="setClosure('kancing_melamin')"
+                  class="closure-pill closure-pill-active py-2 px-2 rounded-xl border border-[#e4e5e0] text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Kancing Melamin</span>
+                  <span class="text-[10px] font-medium opacity-75">
+                    Anti Pecah
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-closure="snap_button"
+                  onclick="setClosure('snap_button')"
+                  class="closure-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Snap Button</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]">
+                    Kancing Tekan +5rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-closure="kancing_tertutup"
+                  onclick="setClosure('kancing_tertutup')"
+                  class="closure-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Hidden Placket</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]">
+                    Anti Nyangkut +3rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-closure="resleting"
+                  onclick="setClosure('resleting')"
+                  class="closure-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Heavy Zipper</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]">
+                    Resleting +8rb
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1E. Jenis Saku Dada Work Shirt -->
+            <div class="pt-3.5 border-t border-[#ecece8]">
+              <div
+                class="flex flex-wrap items-center justify-between gap-1 mb-2.5"
+              >
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                >
+                  Konfigurasi Saku Dada Work Shirt
+                </span>
+                <span class="text-[11px] font-medium text-zinc-500">
+                  Dilengkapi slot pulpen &amp; jahitan bar-tack penguat sudut
+                </span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                <button
+                  type="button"
+                  data-pocket="dual_button"
+                  onclick="setPocket('dual_button')"
+                  class="pocket-pill pocket-pill-active py-2 px-2 rounded-xl border border-[#e4e5e0] text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>2 Saku Kancing</span>
+                  <span class="text-[9.5px] font-medium opacity-75">
+                    + Slot Pulpen
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-pocket="dual_flap"
+                  onclick="setPocket('dual_flap')"
+                  class="pocket-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>2 Saku Flap</span>
+                  <span class="text-[9.5px] font-extrabold text-[#2563eb]">
+                    Tutup +4rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-pocket="utility_zip"
+                  onclick="setPocket('utility_zip')"
+                  class="pocket-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Utility + Zip</span>
+                  <span class="text-[9.5px] font-extrabold text-[#2563eb]">
+                    Saku HP +7rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-pocket="single_pen"
+                  onclick="setPocket('single_pen')"
+                  class="pocket-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>1 Saku Kiri</span>
+                  <span class="text-[9.5px] font-medium opacity-75">
+                    Crew / Barista
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-pocket="tanpa"
+                  onclick="setPocket('tanpa')"
+                  class="pocket-pill col-span-2 sm:col-span-1 py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Tanpa Saku</span>
+                  <span class="text-[9.5px] font-medium opacity-75">Polos</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1F. Fitur Safety & Utilitas Kerja -->
+            <div class="pt-3.5 border-t border-[#ecece8]">
+              <div
+                class="flex flex-wrap items-center justify-between gap-1 mb-2.5"
+              >
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                >
+                  Fitur Safety &amp; Utilitas Lapangan
+                </span>
+                <span class="text-[11px] font-medium text-zinc-500">
+                  Opsional untuk proyek, tambang, logistik &amp; teknisi
+                </span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  data-utility="tanpa"
+                  onclick="setUtility('tanpa')"
+                  class="utility-pill utility-pill-active py-2 px-2.5 rounded-xl border border-[#e4e5e0] text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Standar</span>
+                  <span class="text-[10px] font-medium opacity-75">
+                    Tanpa Reflektor
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-utility="reflektor"
+                  onclick="setUtility('reflektor')"
+                  class="utility-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Scotchlite Safety</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]">
+                    Reflektor +15rb
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  data-utility="id_velcro"
+                  onclick="setUtility('id_velcro')"
+                  class="utility-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>ID Loop + Velcro</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]">
+                    Kait HT +5rb
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1G. TABEL PRICE LIST BAHAN WORK SHIRT -->
+            <div class="pt-3.5 border-t border-[#ecece8] space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-1.5">
+                <span class="text-xs font-bold text-zinc-800">
+                  Price List Work Shirt (Tap harga untuk pilih bahan)
+                </span>
+                <span
+                  id="fabric-cut-indicator"
+                  class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1d4ed8]"
+                >
+                  Classic Work • American Drill
+                </span>
+              </div>
+
+              <div class="pricelist-table-wrap">
+                <table class="pricelist-table">
+                  <thead>
+                    <tr>
+                      <th class="text-left">Jenis Bahan Workwear</th>
+                      <th id="th-cut-classic" class="text-right col-cut-active">
+                        Classic
+                      </th>
+                      <th id="th-cut-utility" class="text-right">Utility</th>
+                      <th id="th-cut-safety" class="text-right">Safety</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pricelist-table-body"></tbody>
+                </table>
+              </div>
+
+              <p class="text-[11px] text-zinc-500 leading-relaxed pt-0.5">
+                • Harga termasuk maks. 3 titik bordir komputer / sablon DTF •
+                Two-Tone +Rp 5.000 • Lengan Panjang +Rp 10.000 (+13rb Roll-Up) •
+                Triple Stitch +5rb / Airflow Vent +8rb • Size 2XL +5rb.
+              </p>
+            </div>
+          </div>
+
+          <!-- 2. Pilihan Warna Kain & Custom Variasi Two-Tone Work Shirt -->
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                >
+                  2
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Warna Kain &amp; Variasi Two-Tone Work Shirt
+                  </h2>
+                  <p class="text-[11px] text-zinc-500">
+                    Pilih 1 warna solid atau kombinasi two-tone dada atas,
+                    lengan, maupun aksen kerah/saku
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2A. Pilihan Pola Variasi Warna Work Shirt -->
+            <div class="space-y-2">
+              <div class="flex flex-wrap items-center justify-between gap-1">
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                >
+                  Pola Variasi Warna (Varian Aktif)
+                </span>
+                <span
+                  id="color-layout-desc"
+                  class="text-[11px] font-medium text-[#2563eb]"
+                >
+                  Seluruh work shirt menggunakan 1 warna kain solid
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  data-layout="polos"
+                  onclick="setColorLayout('polos')"
+                  class="color-layout-pill color-layout-pill-active py-2 px-2.5 rounded-xl border border-[#e4e5e0] text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>1 Warna Solid</span>
+                  <span class="text-[10px] font-medium opacity-75"
+                    >Standar Workwear</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  data-layout="setengah_horizontal"
+                  onclick="setColorLayout('setengah_horizontal')"
+                  class="color-layout-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Two-Tone Dada Atas</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]"
+                    >Mechanic +5rb</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  data-layout="lengan"
+                  onclick="setColorLayout('lengan')"
+                  class="color-layout-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Kombinasi Lengan</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]"
+                    >Two-Tone +5rb</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  data-layout="setengah_vertikal"
+                  onclick="setColorLayout('setengah_vertikal')"
+                  class="color-layout-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Two-Tone Kanan–Kiri</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]"
+                    >Pit Crew +5rb</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  data-layout="list_kombinasi"
+                  onclick="setColorLayout('list_kombinasi')"
+                  class="color-layout-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Aksen Kerah &amp; Saku</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]"
+                    >Kontras +5rb</span
+                  >
+                </button>
+                <button
+                  type="button"
+                  data-layout="custom_bebas"
+                  onclick="setColorLayout('custom_bebas')"
+                  class="color-layout-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex flex-col items-center justify-center text-center cursor-pointer"
+                >
+                  <span>Custom 3 Zona</span>
+                  <span class="text-[10px] font-extrabold text-[#2563eb]"
+                    >Full Custom +5rb</span
+                  >
+                </button>
+              </div>
+            </div>
+
+            <!-- 2B. Slot Pemilih Bagian Baju & Preset Kombinasi Two-Tone Work Shirt -->
+            <div
+              id="multi-color-controls-panel"
+              class="hidden rounded-2xl border border-blue-200/80 bg-[#f8faff] p-3.5 space-y-3"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <span class="text-[11px] font-extrabold text-zinc-800">
+                  Pilih Bagian Baju yang Ingin Diubah Warnanya:
+                </span>
+                <button
+                  type="button"
+                  onclick="swapVariantColors()"
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-white hover:bg-blue-50 text-[#2563eb] border border-blue-200 cursor-pointer transition"
+                >
+                  <i data-lucide="arrow-left-right" class="icon-xs"></i>
+                  <span>Tukar Warna</span>
+                </button>
+              </div>
+
+              <div
+                id="subcolor-target-tabs"
+                class="grid grid-cols-2 sm:grid-cols-3 gap-2"
+              ></div>
+
+              <div class="pt-2 border-t border-blue-100 space-y-1.5">
+                <span
+                  class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500"
+                >
+                  Preset Two-Tone Work Shirt Populer:
+                </span>
+                <div
+                  id="color-presets-bar"
+                  class="flex flex-wrap gap-1.5"
+                ></div>
+              </div>
+            </div>
+
+            <!-- 2C. Pencarian & Filter Palet 36 Warna -->
+            <div
+              class="pt-2 border-t border-[#ecece8] flex flex-wrap items-center justify-between gap-2"
+            >
+              <span
+                id="active-color-slot-label"
+                class="text-xs font-extrabold text-zinc-800"
+              >
+                Pilih Warna Utama:
+              </span>
+
+              <div class="relative w-full sm:w-56">
+                <i
+                  data-lucide="search"
+                  class="icon-xs text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                ></i>
+                <input
+                  id="color-search-input"
+                  type="text"
+                  placeholder="Cari warna (cth: hitam, khaki)..."
+                  oninput="handleColorSearch(this.value)"
+                  class="w-full text-xs font-semibold bg-[#fafaf8] focus:bg-white border border-[#e4e5e0] focus:border-[#2563eb] rounded-full pl-8 pr-7 py-1.5 text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition"
+                />
+                <button
+                  type="button"
+                  id="clear-color-search-btn"
+                  onclick="clearColorSearch()"
+                  aria-label="Hapus pencarian warna"
+                  class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-zinc-200 hover:bg-zinc-300 text-zinc-700 flex items-center justify-center cursor-pointer"
+                >
+                  <i data-lucide="x" class="icon-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Bar Filter Kategori Warna -->
+            <div id="filter-bar" class="flex flex-wrap gap-1.5">
+              <button
+                type="button"
+                data-filter="all"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-[#18181b] text-white cursor-pointer"
+              >
+                Semua (36)
+              </button>
+              <button
+                type="button"
+                data-filter="netral"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Netral
+              </button>
+              <button
+                type="button"
+                data-filter="biru"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Biru
+              </button>
+              <button
+                type="button"
+                data-filter="hijau"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Hijau
+              </button>
+              <button
+                type="button"
+                data-filter="earth"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Earth / Khaki
+              </button>
+              <button
+                type="button"
+                data-filter="cerah"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Merah &amp; Cerah
+              </button>
+            </div>
+
+            <div
+              id="swatches"
+              class="grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-[268px] overflow-y-auto pr-0.5"
+            ></div>
+          </div>
+
+          <!-- 3. Ukuran & Peletakan Bordir Komputer / Sablon + Hero Upload Desain -->
+          <div
+            id="step-sablon-section"
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                >
+                  3
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Upload Logo, Patch Nama &amp; Titik Bordir / Sablon
+                  </h2>
+                  <p class="text-[11px] text-zinc-500">
+                    Unggah logo perusahaan, patch nama dada kanan, atau artwork
+                    punggung — lengan otomatis menyesuaikan sudut
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <input
+              id="upload-depan"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('depan', this)"
+            />
+            <input
+              id="upload-belakang"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('belakang', this)"
+            />
+            <input
+              id="upload-lenganKanan"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('lenganKanan', this)"
+            />
+            <input
+              id="upload-lenganKiri"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('lenganKiri', this)"
+            />
+
+            <!-- HERO DROPZONE UPLOAD DESAIN -->
+            <div
+              id="hero-upload-dropzone"
+              ondragover="handleDropzoneDragOver(event)"
+              ondragleave="handleDropzoneDragLeave(event)"
+              ondrop="handleDropzoneDrop(event)"
+              class="upload-hero-box rounded-2xl p-4 sm:p-5 space-y-3.5"
+            >
+              <div
+                class="flex flex-wrap items-start sm:items-center justify-between gap-2.5"
+              >
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs"
+                  >
+                    <i data-lucide="cloud-upload" class="icon-md"></i>
+                  </div>
+                  <div>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span
+                        class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#2563eb] text-white"
+                      >
+                        Live Preview + Auto-Rotate
+                      </span>
+                      <span
+                        class="text-xs sm:text-sm font-extrabold text-zinc-900"
+                      >
+                        Upload Logo Bordir / Patch Brand di Sini!
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-zinc-600 mt-0.5 leading-snug">
+                      Pilih sisi work shirt di bawah atau seret file gambar
+                      (PNG/JPG) ke kotak ini. Lengan kanan (+32°) &amp; lengan
+                      kiri (-32°) otomatis mengikuti sudut lengan.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  id="clear-all-designs-btn"
+                  onclick="clearAllCustomDesigns()"
+                  class="hidden inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-100 text-red-700 hover:bg-red-200 cursor-pointer"
+                >
+                  <i data-lucide="trash-2" class="icon-xs"></i>
+                  <span>Hapus Semua Gambar</span>
+                </button>
+              </div>
+
+              <div
+                id="design-slots-grid"
+                class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"
+              ></div>
+            </div>
+
+            <!-- 4 Tab Sisi Bordir / Sablon -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button
+                type="button"
+                data-side="depan"
+                onclick="selectPrintSide('depan')"
+                class="side-tab side-tab-active"
+              >
+                <span class="side-tab-title">Depan</span>
+                <span id="tab-sub-depan" class="side-tab-sub">
+                  Logo Kiri + Patch Kanan
+                </span>
+              </button>
+
+              <button
+                type="button"
+                data-side="belakang"
+                onclick="selectPrintSide('belakang')"
+                class="side-tab"
+              >
+                <span class="side-tab-title">Belakang</span>
+                <span id="tab-sub-belakang" class="side-tab-sub">
+                  Tanpa bordir/sablon
+                </span>
+              </button>
+
+              <button
+                type="button"
+                data-side="lenganKanan"
+                onclick="selectPrintSide('lenganKanan')"
+                class="side-tab"
+              >
+                <span class="side-tab-title">Lengan Kanan</span>
+                <span id="tab-sub-lenganKanan" class="side-tab-sub">
+                  Tanpa bordir/sablon
+                </span>
+              </button>
+
+              <button
+                type="button"
+                data-side="lenganKiri"
+                onclick="selectPrintSide('lenganKiri')"
+                class="side-tab"
+              >
+                <span class="side-tab-title">Lengan Kiri</span>
+                <span id="tab-sub-lenganKiri" class="side-tab-sub">
+                  Tanpa bordir/sablon
+                </span>
+              </button>
+            </div>
+
+            <!-- Info Penyesuaian jika Saku Dada Aktif -->
+            <div
+              id="pocket-print-alert"
+              class="flex items-start gap-2 text-[11px] font-semibold text-amber-900 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2"
+            >
+              <i data-lucide="info" class="icon-sm text-amber-600 mt-0.5"></i>
+              <span>
+                Posisi <strong>Logo &amp; Patch Nama</strong> otomatis berada
+                rapi tepat di <strong>atas garis saku dada</strong> (tidak
+                menabrak tutup saku / slot pulpen).
+              </span>
+            </div>
+
+            <!-- Grid Kartu Pilihan Ukuran & Posisi -->
+            <div
+              id="print-options-grid"
+              class="grid grid-cols-2 gap-2 sm:gap-3"
+            ></div>
+          </div>
+
+          <!-- 4. Jumlah Orderan (Mobile-Friendly) + Keterangan Estimasi Harga + Tombol CTA -->
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                >
+                  4
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Jumlah Orderan (Bisa Beda Warna, Lengan &amp; Penutup)
+                  </h2>
+                  <p class="text-[11px] text-zinc-500">
+                    Size 2XL +Rp 5.000 &amp; kelipatan +Rp 5.000 untuk size 3XL
+                    dst
+                  </p>
+                </div>
+              </div>
+
+              <!-- Total Keseluruhan Badge -->
+              <div
+                class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#18181b] text-white text-xs font-extrabold tracking-wide shadow-2xs"
+              >
+                <i data-lucide="package" class="icon-xs text-[#60a5fa]"></i>
+                <span>
+                  Total Order:
+                  <span id="total-qty-text" class="text-[#60a5fa]">0</span> pcs
+                </span>
+              </div>
+            </div>
+
+            <!-- Bar Daftar Varian Warna, Lengan & Penutup -->
+            <div
+              class="bg-[#fafaf8] border border-[#e4e5e0] rounded-2xl p-3 sm:p-3.5 space-y-3"
+            >
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+              >
+                <span
+                  class="text-[11px] font-extrabold uppercase tracking-wider text-zinc-700"
+                >
+                  1. Pilih Varian Pesanan (<span id="variant-count-label"
+                    >1</span
+                  >
+                  Varian)
+                </span>
+                <button
+                  type="button"
+                  onclick="addOrderVariant()"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs sm:text-[11px] font-extrabold px-3.5 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white shadow-2xs cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="plus-circle" class="icon-xs"></i>
+                  <span>Tambah Varian Warna / Lengan Lain</span>
+                </button>
+              </div>
+
+              <div
+                id="variant-pills-list"
+                class="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2"
+              ></div>
+
+              <!-- Quick Switcher Warna Utama, Lengan & Penutup -->
+              <div class="pt-2.5 border-t border-[#e4e5e0] space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[11px] font-bold text-zinc-600">
+                    Ubah Spesifikasi Cepat Varian Aktif:
+                  </span>
+                  <button
+                    type="button"
+                    id="stack-mode-toggle-btn"
+                    onclick="toggleStackDisplayMode()"
+                    class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-zinc-800 border border-[#e4e5e0] cursor-pointer transition touch-manipulation"
+                  >
+                    Tampilan: Gabungan
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  <div>
+                    <label
+                      for="variant-color-select"
+                      class="block text-[10px] font-bold text-zinc-500 mb-1"
+                    >
+                      Warna Utama
+                    </label>
+                    <select
+                      id="variant-color-select"
+                      onchange="setColorByHex(this.value, 'primary')"
+                      aria-label="Pilih warna utama varian aktif"
+                      class="w-full text-xs font-bold bg-white border border-[#e4e5e0] rounded-xl px-2.5 py-2 text-zinc-800 cursor-pointer focus:outline-none focus:border-[#2563eb]"
+                    ></select>
+                  </div>
+                  <div>
+                    <label
+                      for="variant-sleeve-select"
+                      class="block text-[10px] font-bold text-zinc-500 mb-1"
+                    >
+                      Panjang Lengan
+                    </label>
+                    <select
+                      id="variant-sleeve-select"
+                      onchange="setSleeve(this.value)"
+                      aria-label="Pilih panjang lengan varian aktif"
+                      class="w-full text-xs font-bold bg-white border border-[#e4e5e0] rounded-xl px-2.5 py-2 text-zinc-800 cursor-pointer focus:outline-none focus:border-[#2563eb]"
+                    >
+                      <option value="pendek">Lengan Pendek</option>
+                      <option value="panjang">Lengan Panjang (+10rb)</option>
+                      <option value="panjang_skoder">
+                        L. Panjang + Roll-Up (+13rb)
+                      </option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      for="variant-closure-select"
+                      class="block text-[10px] font-bold text-zinc-500 mb-1"
+                    >
+                      Penutup Depan
+                    </label>
+                    <select
+                      id="variant-closure-select"
+                      onchange="setClosure(this.value)"
+                      aria-label="Pilih penutup depan varian aktif"
+                      class="w-full text-xs font-bold bg-white border border-[#e4e5e0] rounded-xl px-2.5 py-2 text-zinc-800 cursor-pointer focus:outline-none focus:border-[#2563eb]"
+                    >
+                      <option value="kancing_melamin">Kancing Melamin</option>
+                      <option value="snap_button">Snap Button (+5rb)</option>
+                      <option value="kancing_tertutup">
+                        Hidden Placket (+3rb)
+                      </option>
+                      <option value="resleting">Heavy Zipper (+8rb)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage Visual Tumpukan Work Shirt Lipat 3D -->
+            <div
+              class="stack-stage-surface rounded-2xl border border-[#e5e2d9] px-2.5 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-5 shadow-inner overflow-hidden"
+            >
+              <div
+                class="flex items-center justify-between text-[10px] font-bold text-zinc-500 mb-2 px-1"
+              >
+                <span>Visual Tumpukan Work Shirt per Ukuran</span>
+                <span class="text-[#2563eb]">Tap gambar baju untuk +1 pcs</span>
+              </div>
+              <div
+                id="folded-stacks-grid"
+                class="grid grid-cols-3 sm:grid-flow-col sm:auto-cols-fr gap-2 sm:gap-2 items-end"
+              ></div>
+            </div>
+
+            <!-- Kontrol Input Angka & Tombol +/- -->
+            <div class="space-y-2.5">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5"
+              >
+                <span
+                  id="qty-editing-label"
+                  class="text-xs font-extrabold text-zinc-900"
+                >
+                  2. Atur Jumlah Ukuran — Hitam Jet (L. Pendek • Kancing
+                  Melamin):
+                </span>
+                <span
+                  id="active-variant-subtotal"
+                  class="text-xs font-extrabold text-[#2563eb]"
+                >
+                  Subtotal Varian: 0 pcs
+                </span>
+              </div>
+
+              <!-- Bar Pintasan Isi Cepat & Tambah Size Jumbo -->
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button
+                  type="button"
+                  onclick="applyPresetMinOrder()"
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="sparkles" class="icon-xs"></i>
+                  <span>Isi Paket 12 pcs (S–XL)</span>
+                </button>
+                <button
+                  type="button"
+                  id="add-jumbo-size-btn"
+                  onclick="addNextJumboSize()"
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 text-[#1d4ed8] border border-blue-200 cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="plus" class="icon-xs"></i>
+                  <span>Tambah Size 4XL (+15rb)</span>
+                </button>
+              </div>
+
+              <div
+                id="qty-controls-grid"
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-2"
+              ></div>
+            </div>
+
+            <!-- Ringkasan Multi-Varian -->
+            <div
+              id="multi-variant-summary-box"
+              class="hidden rounded-xl border border-[#e4e5e0] bg-[#fafaf8] p-3 space-y-1.5"
+            >
+              <div
+                class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-500"
+              >
+                Rincian Seluruh Varian Pesanan
+              </div>
+              <div id="multi-variant-rows" class="space-y-1 text-xs"></div>
+            </div>
+
+            <!-- Bar Reset & Catatan Minimum Order -->
+            <div
+              class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#ecece8]"
+            >
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button
+                  type="button"
+                  onclick="resetActiveVariantQuantities()"
+                  class="inline-flex items-center gap-1 text-xs font-bold px-3.5 py-1.5 rounded-full bg-red-50 hover:bg-red-100 text-red-600 cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="rotate-ccw" class="icon-xs"></i>
+                  <span>Reset 0</span>
+                </button>
+              </div>
+              <span
+                id="min-order-note"
+                class="text-[11px] font-semibold text-zinc-500"
+              >
+                Masukkan jumlah minimal 12 pcs untuk produksi
+              </span>
+            </div>
+
+            <!-- KETERANGAN ESTIMASI HARGA -->
+            <div
+              id="price-estimation-box"
+              class="rounded-2xl border border-blue-200/90 bg-[#f8faff] p-4 space-y-2.5"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="calculator"
+                    class="icon-sm text-[#2563eb]"
+                  ></i>
+                  <span
+                    class="text-xs font-extrabold uppercase tracking-wider text-zinc-800"
+                  >
+                    Estimasi Harga Orderan
+                  </span>
+                </div>
+                <span
+                  id="est-spec-badge"
+                  class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100/80 text-[#1e40af]"
+                >
+                  Classic Work • American Drill
+                </span>
+              </div>
+
+              <div
+                id="est-breakdown-list"
+                class="space-y-1 text-xs text-zinc-700"
+              ></div>
+
+              <div
+                class="pt-2.5 border-t border-blue-100 flex items-baseline justify-between gap-2"
+              >
+                <span class="text-xs font-bold text-zinc-600">
+                  Total Estimasi Biaya:
+                </span>
+                <span
+                  id="est-total-price"
+                  class="text-lg sm:text-xl font-black tracking-tight text-zinc-950 tabular-nums"
+                >
+                  Rp 0
+                </span>
+              </div>
+
+              <div
+                id="est-print-warning"
+                class="hidden flex items-start gap-2 text-[11px] font-semibold text-zinc-700 bg-zinc-100 border border-zinc-200 rounded-lg px-2.5 py-1.5"
+              >
+                <i data-lucide="info" class="icon-sm text-[#2563eb] mt-0.5"></i>
+                <span>
+                  Anda memilih lebih dari 3 titik bordir/sablon. Harga dasar
+                  mencakup maks. 3 titik aplikasi; tim kami akan menyesuaikan
+                  penawaran saat konsultasi.
+                </span>
+              </div>
+            </div>
+
+            <!-- Tombol CTA dengan Icon WhatsApp Hijau -->
+            <div class="pt-1">
+              <button
+                type="button"
+                id="wa-order-btn"
+                onclick="openVisualSpecModal()"
+                class="solid-cta-btn group w-full py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl text-white flex items-center justify-between gap-3 cursor-pointer"
+              >
+                <div class="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                  <span
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform"
+                  >
+                    <svg
+                      viewBox="0 0 32 32"
+                      class="w-6 h-6"
+                      fill="#25D366"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.1 28.8l6.584-1.726a12.74 12.74 0 0 0 6.32 1.674h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.386h-.004a10.6 10.6 0 0 1-5.404-1.48l-.388-.23-3.908 1.024 1.044-3.81-.252-.402a10.575 10.575 0 0 1-1.622-5.636c0-5.862 4.77-10.632 10.636-10.632 2.84 0 5.51 1.108 7.518 3.116a10.562 10.562 0 0 1 3.114 7.52c0 5.862-4.772 10.632-10.634 10.632zm5.834-7.964c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.896-1.778-2.216-.186-.32-.02-.494.14-.652.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668s1.146 3.094 1.306 3.308c.16.214 2.256 3.444 5.466 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.126.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"
+                      />
+                    </svg>
+                  </span>
+                  <div class="text-left min-w-0">
+                    <div
+                      class="text-sm sm:text-base font-extrabold tracking-tight leading-snug"
+                    >
+                      Kirim Spesifikasi dan Konsultasi Desain
+                    </div>
+                    <div class="text-[11px] font-medium text-blue-100 mt-0.5">
+                      Buat Spesifikasi Order Work Shirt (PNG / PDF) &amp; kirim
+                      langsung ke WhatsApp
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform"
+                >
+                  <i data-lucide="arrow-right" class="icon-sm"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- MODAL PREVIEW SPESIFIKASI ORDER (PNG / PDF) + KIRIM WHATSAPP -->
+    <div
+      id="visual-spec-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-5 overflow-y-auto"
+      onclick="if (event.target === this) closeVisualSpecModal();"
+    >
+      <div
+        class="bg-white w-full max-w-3xl rounded-3xl border border-[#e4e5e0] shadow-2xl overflow-hidden my-auto"
+      >
+        <div
+          class="px-5 py-4 bg-white border-b border-[#e4e5e0] flex items-center justify-between gap-3"
+        >
+          <div>
+            <div
+              class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#2563eb]"
+            >
+              <i data-lucide="clipboard-check" class="icon-xs"></i>
+              <span>Status: Konsultasi Desain</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-extrabold text-zinc-900">
+              Preview Spesifikasi Order Work Shirt (PNG / PDF)
+            </h3>
+          </div>
+          <button
+            type="button"
+            onclick="closeVisualSpecModal()"
+            class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 flex items-center justify-center cursor-pointer"
+          >
+            <i data-lucide="x" class="icon-sm"></i>
+          </button>
+        </div>
+
+        <div
+          class="p-4 sm:p-5 space-y-4 max-h-[78vh] overflow-y-auto bg-[#f8fafc]"
+        >
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-2.5 flex items-center justify-center shadow-2xs"
+          >
+            <img
+              id="spec-card-preview-img"
+              alt="Preview Spesifikasi Order Work Shirt Atensi Konveksi"
+              class="w-full h-auto rounded-xl border border-zinc-200"
+            />
+          </div>
+
+          <div
+            id="spec-share-hint"
+            class="flex items-start gap-2.5 text-[11px] leading-relaxed text-zinc-600 bg-blue-50 border border-blue-200 rounded-xl px-3.5 py-2.5"
+          >
+            <i data-lucide="info" class="icon-sm text-[#2563eb] mt-0.5"></i>
+            <span>
+              <strong>Tips Kirim ke WhatsApp:</strong> Di HP, klik tombol biru
+              di bawah untuk langsung melampirkan dokumen Spesifikasi Order ini
+              ke chat WhatsApp. Di Laptop/PC, gambar otomatis tersalin &amp;
+              terunduh—tinggal tekan <strong>Ctrl + V</strong> di kolom chat
+              WhatsApp Web.
+            </span>
+          </div>
+
+          <!-- Tombol Aksi Kirim WA / Download PNG / Simpan PDF -->
+          <div class="space-y-2.5">
+            <button
+              type="button"
+              onclick="shareOrSendVisualToWA()"
+              class="solid-cta-btn w-full py-3.5 px-5 rounded-2xl text-white font-extrabold text-sm flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <span
+                class="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0"
+              >
+                <svg
+                  viewBox="0 0 32 32"
+                  class="w-4 h-4"
+                  fill="#25D366"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.1 28.8l6.584-1.726a12.74 12.74 0 0 0 6.32 1.674h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.386h-.004a10.6 10.6 0 0 1-5.404-1.48l-.388-.23-3.908 1.024 1.044-3.81-.252-.402a10.575 10.575 0 0 1-1.622-5.636c0-5.862 4.77-10.632 10.636-10.632 2.84 0 5.51 1.108 7.518 3.116a10.562 10.562 0 0 1 3.114 7.52c0 5.862-4.772 10.632-10.634 10.632zm5.834-7.964c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.896-1.778-2.216-.186-.32-.02-.494.14-.652.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668s1.146 3.094 1.306 3.308c.16.214 2.256 3.444 5.466 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.126.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"
+                  />
+                </svg>
+              </span>
+              <span>Kirim Spesifikasi Order ke WhatsApp</span>
+            </button>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onclick="downloadSpecPNG()"
+                class="inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-white hover:bg-zinc-100 text-zinc-900 border border-[#d4d4d8] text-xs font-extrabold cursor-pointer transition"
+              >
+                <i data-lucide="download" class="icon-sm text-[#2563eb]"></i>
+                <span>Download PNG</span>
+              </button>
+              <button
+                type="button"
+                onclick="printSpecPDF()"
+                class="inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-white hover:bg-zinc-100 text-zinc-900 border border-[#d4d4d8] text-xs font-extrabold cursor-pointer transition"
+              >
+                <i data-lucide="printer" class="icon-sm text-zinc-700"></i>
+                <span>Simpan / Cetak PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-[#09090b] text-zinc-400 border-t border-white/10 py-5">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs"
+      >
+        <span
+          >&copy; 2026 <strong class="text-white">Atensi Konveksi</strong></span
+        >
+        <a href="index.html#kontak" class="hover:text-[#3b82f6] transition">
+          Atensi Screen Printing
+        </a>
+      </div>
+    </footer>
+  </body>
+
+  <script src="work.js"></script>
+</html>

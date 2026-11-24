@@ -1,0 +1,3194 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Atensi Konveksi - Rompi Custom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"
+      defer
+    ></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <style>
+      :root {
+        --bg-ergo-canvas: #f6f6f3;
+        --bg-ergo-card: #ffffff;
+        --bg-ergo-subtle: #f1f2ee;
+        --border-ergo: #e4e5e0;
+        --text-ink: #18181b;
+        --text-muted: #52525b;
+        --accent-primary: #2563eb;
+      }
+
+      * {
+        overflow-anchor: none !important;
+      }
+
+      body {
+        background-color: var(--bg-ergo-canvas);
+        color: var(--text-ink);
+        overflow-x: hidden;
+        overflow-x: clip;
+      }
+
+      body ::selection {
+        background-color: var(--accent-primary);
+        color: #ffffff;
+      }
+
+      .lucide {
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+        stroke-width: 2.1;
+      }
+      .icon-xs {
+        width: 14px;
+        height: 14px;
+      }
+      .icon-sm {
+        width: 16px;
+        height: 16px;
+      }
+      .icon-md {
+        width: 20px;
+        height: 20px;
+      }
+      .icon-lg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .rompi-part {
+        transition:
+          fill 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          d 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          stroke 0.35s ease,
+          opacity 0.25s ease;
+      }
+
+      .swatch-card {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.65rem;
+        border-radius: 0.8rem;
+        border: 1.5px solid #e4e5e0;
+        background-color: #fafaf8;
+        text-align: left;
+        cursor: pointer;
+        min-height: 42px;
+        touch-action: manipulation;
+        transition:
+          transform 0.16s ease,
+          border-color 0.2s ease,
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .swatch-card:hover {
+        border-color: #a1a1aa;
+        background-color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .swatch-card-active {
+        border: 2px solid #18181b;
+        background-color: #ffffff;
+        box-shadow: 0 4px 12px rgba(24, 24, 27, 0.08);
+      }
+
+      /* ================= TABEL PRICE LIST MINIMALIS & RESPONSIF ================= */
+      .pricelist-table-wrap {
+        border: 1px solid #e4e5e0;
+        border-radius: 0.85rem;
+        overflow: hidden;
+        background-color: #ffffff;
+      }
+
+      .pricelist-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12.5px;
+      }
+
+      .pricelist-table thead th {
+        background-color: #fafaf8;
+        color: #52525b;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        padding: 0.6rem 0.75rem;
+        border-bottom: 1px solid #e4e5e0;
+        white-space: nowrap;
+      }
+
+      .pricelist-table thead th.col-cut-active {
+        color: #1d4ed8;
+        background-color: #eff6ff;
+      }
+
+      .pricelist-table tbody tr {
+        border-bottom: 1px solid #f1f2ee;
+        transition: background-color 0.15s ease;
+      }
+
+      .pricelist-table tbody tr:last-child {
+        border-bottom: none;
+      }
+
+      .pricelist-table tbody tr:hover {
+        background-color: #fafaf8;
+      }
+
+      .pricelist-table tbody tr.row-fabric-active {
+        background-color: #f8fbff;
+      }
+
+      .pricelist-table td {
+        padding: 0.55rem 0.75rem;
+        vertical-align: middle;
+      }
+
+      .price-cell-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        padding: 0.3rem 0.55rem;
+        border-radius: 0.5rem;
+        font-variant-numeric: tabular-nums;
+        font-weight: 600;
+        color: #3f3f46;
+        background: transparent;
+        border: 1px solid transparent;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .price-cell-btn:hover {
+        background-color: #eff6ff;
+        color: #1d4ed8;
+        border-color: #bfdbfe;
+      }
+
+      .price-cell-btn.cell-col-highlight {
+        background-color: #f8faff;
+        color: #18181b;
+      }
+
+      .price-cell-btn.cell-price-active {
+        background-color: #2563eb;
+        color: #ffffff;
+        font-weight: 700;
+        border-color: #2563eb;
+        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.22);
+      }
+
+      @media (max-width: 639px) {
+        .pricelist-table {
+          font-size: 11px;
+        }
+        .pricelist-table thead th {
+          font-size: 9.5px;
+          letter-spacing: 0.01em;
+          padding: 0.5rem 0.25rem;
+        }
+        .pricelist-table thead th:first-child {
+          padding-left: 0.55rem;
+        }
+        .pricelist-table thead th:last-child {
+          padding-right: 0.45rem;
+        }
+        .pricelist-table td {
+          padding: 0.45rem 0.18rem;
+        }
+        .pricelist-table td:first-child {
+          padding-left: 0.55rem;
+          line-height: 1.25;
+        }
+        .pricelist-table td:last-child {
+          padding-right: 0.35rem;
+        }
+        .price-cell-btn {
+          font-size: 10.5px;
+          padding: 0.28rem 0.25rem;
+          border-radius: 0.42rem;
+          letter-spacing: -0.02em;
+        }
+      }
+
+      /* ================= CUSTOM FEATURE PILLS DENGAN IKON ================= */
+      .feature-pill {
+        min-height: 52px;
+        touch-action: manipulation;
+        transition:
+          transform 0.16s ease,
+          background-color 0.2s ease,
+          border-color 0.2s ease,
+          box-shadow 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .feature-pill:hover {
+        transform: translateY(-1px);
+      }
+
+      .feature-pill .pill-icon-box {
+        width: 30px;
+        height: 30px;
+        border-radius: 0.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background-color: #eff6ff;
+        color: #2563eb;
+        border: 1px solid #dbeafe;
+        transition: all 0.2s ease;
+      }
+
+      .feature-pill-active {
+        background-color: #eef1f5 !important;
+        color: #18181b !important;
+        border: 2px solid #2563eb !important;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+      }
+
+      .feature-pill-active .pill-icon-box {
+        background-color: #2563eb;
+        color: #ffffff;
+        border-color: #2563eb;
+      }
+
+      .feature-pill-active .pill-sub {
+        color: #2563eb !important;
+      }
+
+      .view-pill {
+        padding: 0.42rem 0.85rem;
+        border-radius: 9999px;
+        font-size: 11px;
+        font-weight: 700;
+        border: 1px solid #e4e5e0;
+        background-color: #fafaf8;
+        color: #52525b;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+      }
+
+      .view-pill:hover {
+        border-color: #a1a1aa;
+        color: #18181b;
+        background-color: #ffffff;
+      }
+
+      .view-pill-active {
+        background-color: #18181b;
+        color: #ffffff;
+        border-color: #18181b;
+        box-shadow: 0 2px 8px rgba(24, 24, 27, 0.16);
+      }
+
+      .side-tab {
+        text-align: left;
+        padding: 0.7rem 0.8rem;
+        border-radius: 0.95rem;
+        border: 1.5px solid #e4e5e0;
+        background-color: #fafaf8;
+        min-height: 52px;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .side-tab:hover {
+        border-color: #a1a1aa;
+        background-color: #ffffff;
+      }
+
+      .side-tab-active {
+        background-color: #eef1f5;
+        border-color: #2563eb;
+        color: #18181b;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+      }
+
+      .side-tab-title {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 800;
+        color: #18181b;
+        line-height: 1.25;
+      }
+
+      .side-tab-active .side-tab-title {
+        color: #18181b;
+      }
+
+      .side-tab-sub {
+        display: block;
+        font-size: 10.5px;
+        font-weight: 600;
+        color: #71717a;
+        margin-top: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .side-tab-active .side-tab-sub {
+        color: #2563eb;
+      }
+
+      .upload-hero-box {
+        border: 2px dashed #2563eb;
+        background-color: #eff6ff;
+        transition:
+          border-color 0.2s ease,
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .upload-hero-box:hover,
+      .upload-hero-box.drag-over {
+        border-color: #1d4ed8;
+        background-color: #dbeafe;
+        box-shadow: 0 10px 24px -6px rgba(37, 99, 235, 0.2);
+      }
+
+      .print-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.45rem;
+        padding: 0.7rem;
+        border-radius: 1rem;
+        border: 1.5px solid #e4e5e0;
+        background-color: #fafaf8;
+        text-align: left;
+        cursor: pointer;
+        touch-action: manipulation;
+        transition: all 0.2s ease;
+      }
+
+      @media (min-width: 640px) {
+        .print-card {
+          flex-direction: row;
+          gap: 0.85rem;
+          padding: 0.9rem;
+          border-radius: 1.1rem;
+        }
+      }
+
+      .print-card:hover {
+        border-color: #a1a1aa;
+        background-color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .print-card-active {
+        border: 2px solid #2563eb;
+        background-color: #f8fbff;
+        box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+      }
+
+      .print-badge {
+        display: inline-block;
+        font-size: 9.5px;
+        font-weight: 700;
+        padding: 2px 7px;
+        border-radius: 9999px;
+        background-color: #dbeafe;
+        color: #1e40af;
+        margin-bottom: 3px;
+      }
+
+      .print-badge-none {
+        background-color: #ecece8;
+        color: #52525b;
+      }
+
+      .print-badge-warn {
+        background-color: #fef3c7;
+        color: #92400e;
+      }
+
+      .area-bar-track {
+        width: 100%;
+        height: 4px;
+        border-radius: 9999px;
+        background-color: #e4e4e7;
+        overflow: hidden;
+        margin: 5px 0 3px;
+      }
+
+      .area-bar-fill {
+        height: 100%;
+        border-radius: 9999px;
+        background-color: #2563eb;
+        transition: width 0.3s ease;
+      }
+
+      .print-zone-overlay {
+        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .stack-stage-surface {
+        background-color: #f6f4ec;
+      }
+
+      .solid-cta-btn {
+        background-color: #2563eb;
+        box-shadow: 0 10px 22px -6px rgba(37, 99, 235, 0.38);
+        touch-action: manipulation;
+        transition:
+          background-color 0.2s ease,
+          transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.2s ease;
+      }
+
+      .solid-cta-btn:hover {
+        background-color: #1d4ed8;
+        box-shadow: 0 14px 28px -6px rgba(29, 78, 216, 0.45);
+        transform: translateY(-2px);
+      }
+
+      .qty-stepper-btn {
+        width: 2.5rem;
+        height: 2.55rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        touch-action: manipulation;
+      }
+
+      @media (min-width: 640px) {
+        .qty-stepper-btn {
+          width: 1.55rem;
+          height: 1.85rem;
+        }
+      }
+
+      .qty-input::-webkit-outer-spin-button,
+      .qty-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+      .qty-input {
+        -moz-appearance: textfield;
+        appearance: textfield;
+        min-width: 0;
+        padding: 0 2px;
+        font-size: 15px;
+      }
+
+      @media (min-width: 640px) {
+        .qty-input {
+          font-size: 12.5px;
+        }
+      }
+
+      .stage-svg-wrapper {
+        max-width: 270px;
+      }
+
+      @media (min-width: 1024px) {
+        #rompi-stage-wrapper {
+          top: 1.25rem;
+        }
+        .stage-svg-wrapper {
+          max-width: 225px;
+        }
+      }
+
+      @media (min-width: 1280px) {
+        .stage-svg-wrapper {
+          max-width: 250px;
+        }
+      }
+
+      /* ================= FLOATING LIVE PREVIEW KHUSUS SMARTPHONE ================= */
+      @media (max-width: 1023px) {
+        #rompi-stage.mobile-stage-floating {
+          position: fixed;
+          top: 0.5rem;
+          left: 0.65rem;
+          right: 0.65rem;
+          width: auto;
+          z-index: 35;
+          border-radius: 1.2rem;
+          border-color: rgba(24, 24, 27, 0.16);
+          background-color: rgba(255, 255, 255, 0.97);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          box-shadow:
+            0 12px 28px -4px rgba(15, 23, 42, 0.16),
+            0 4px 10px -2px rgba(15, 23, 42, 0.08);
+          animation: floatStageSlideDown 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @keyframes floatStageSlideDown {
+          from {
+            opacity: 0.85;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        #rompi-stage.mobile-stage-floating #stage-top-panel {
+          padding: 0.55rem 0.65rem;
+          display: grid;
+          grid-template-columns: 134px minmax(0, 1fr);
+          grid-template-areas:
+            "svg topbar"
+            "svg views"
+            "svg caption";
+          column-gap: 0.6rem;
+          row-gap: 0.32rem;
+          align-items: center;
+        }
+
+        #rompi-stage.mobile-stage-floating #stage-info-bar {
+          grid-area: topbar;
+          margin-bottom: 0;
+          gap: 0.25rem;
+        }
+
+        #rompi-stage.mobile-stage-floating #stage-view-pills {
+          grid-area: views;
+          margin-bottom: 0;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.25rem;
+          width: 100%;
+          min-width: 0;
+        }
+
+        #rompi-stage.mobile-stage-floating #stage-view-pills .view-pill {
+          width: 100%;
+          min-width: 0;
+          padding: 0.26rem 0.35rem;
+          font-size: 10px;
+          line-height: 1.2;
+          white-space: nowrap;
+          text-align: center;
+        }
+
+        #rompi-stage.mobile-stage-floating .stage-svg-wrapper {
+          grid-area: svg;
+          max-width: 134px;
+          width: 134px;
+          height: 134px;
+          margin: 0 auto;
+        }
+
+        #rompi-stage.mobile-stage-floating #stage-caption-row {
+          grid-area: caption;
+          margin-top: 0;
+        }
+
+        #rompi-stage.mobile-stage-floating #mockup-view-caption {
+          font-size: 10px;
+          line-height: 1.25;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        #rompi-stage.mobile-stage-floating #stage-upload-banner {
+          display: none;
+        }
+
+        #rompi-stage.mobile-stage-floating:not(.mobile-stage-expanded)
+          #stage-sablon-summary-bar,
+        #rompi-stage.mobile-stage-floating:not(.mobile-stage-expanded)
+          #size-chart-box {
+          display: none;
+        }
+
+        #rompi-stage.mobile-stage-floating.mobile-stage-expanded
+          #size-chart-box {
+          max-height: 42vh;
+          overflow-y: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="antialiased min-h-screen flex flex-col">
+    <!-- ================= MAIN ================= -->
+    <main
+      class="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 pt-4 pb-12 md:pt-7 md:pb-14"
+    >
+      <!-- TOMBOL KEMBALI -->
+      <div class="mb-4 sm:mb-5 relative z-20">
+        <a
+          href="index.html#produk"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold bg-white hover:bg-[#18181b] text-zinc-900 hover:text-white px-4 py-2 rounded-full border border-[#e4e5e0] shadow-xs transition duration-200"
+        >
+          <i data-lucide="arrow-left" class="icon-sm"></i>
+          <span>Kembali</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 items-start">
+        <!-- KOLOM KIRI (FLOATING DI HP SAAT SCROLL + STICKY DI LAPTOP): MOCKUP ROMPI + PELETAKAN + SIZE CHART -->
+        <div id="rompi-stage-wrapper" class="lg:col-span-5 lg:sticky w-full">
+          <div
+            id="rompi-stage"
+            class="w-full bg-white rounded-3xl border border-[#e4e5e0] shadow-md shadow-zinc-200/60 overflow-hidden flex flex-col"
+          >
+            <!-- BAGIAN ATAS: MOCKUP ROMPI TECHNICAL FLAT -->
+            <div
+              id="stage-top-panel"
+              class="p-4 sm:p-5 pb-3.5 flex flex-col items-center justify-between bg-[#fafaf8]"
+            >
+              <!-- Bar Info Model, Kerah, Furing & Warna -->
+              <div
+                id="stage-info-bar"
+                class="w-full flex flex-wrap items-center justify-between gap-1.5 text-xs mb-2.5"
+              >
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span
+                    id="active-cut-label"
+                    class="font-bold text-white bg-[#18181b] px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full tracking-wide shadow-xs text-[10.5px] sm:text-xs"
+                  >
+                    Lapangan • Kerah Tegak • Furing Jaring
+                  </span>
+                  <span
+                    id="stage-total-qty-badge"
+                    class="font-bold text-[#1d4ed8] bg-blue-50 border border-blue-200/80 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10.5px] sm:text-xs"
+                  >
+                    0 pcs
+                  </span>
+                  <span
+                    id="stage-floating-price-badge"
+                    class="hidden font-extrabold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full text-[10px] tabular-nums"
+                  >
+                    Rp 0
+                  </span>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                  <div
+                    class="flex items-center gap-1.5 bg-white border border-[#e4e5e0] px-2.5 py-0.5 sm:py-1 rounded-full shadow-xs"
+                  >
+                    <span
+                      id="active-color-dot"
+                      class="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border border-black/20 shrink-0"
+                      style="background-color: #16171a"
+                    ></span>
+                    <span
+                      id="active-color-name"
+                      class="font-bold text-zinc-800 text-[10.5px] sm:text-xs max-w-[82px] sm:max-w-none truncate"
+                    >
+                      Hitam Jet
+                    </span>
+                  </div>
+
+                  <!-- Tombol Expand/Collapse Size Chart khusus saat floating di HP -->
+                  <button
+                    type="button"
+                    id="toggle-floating-detail-btn"
+                    onclick="toggleMobileFloatingDetail()"
+                    class="hidden items-center gap-1 px-2 py-0.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 border border-zinc-300 text-[10px] font-extrabold cursor-pointer"
+                  >
+                    <span id="floating-detail-btn-text">Chart</span>
+                    <i
+                      id="floating-detail-btn-icon"
+                      data-lucide="chevron-down"
+                      class="icon-xs"
+                    ></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Switcher Sudut Pandang Mockup -->
+              <div
+                id="stage-view-pills"
+                class="w-full flex flex-wrap items-center justify-center gap-1.5 mb-2"
+              >
+                <button
+                  type="button"
+                  data-view="depan"
+                  onclick="setMockupView('depan')"
+                  class="view-pill view-pill-active"
+                >
+                  Depan
+                </button>
+                <button
+                  type="button"
+                  data-view="belakang"
+                  onclick="setMockupView('belakang')"
+                  class="view-pill"
+                >
+                  Belakang
+                </button>
+                <button
+                  type="button"
+                  data-view="zoomDada"
+                  onclick="setMockupView('zoomDada')"
+                  class="view-pill"
+                >
+                  Zoom Dada
+                </button>
+                <button
+                  type="button"
+                  data-view="zoomPunggung"
+                  onclick="setMockupView('zoomPunggung')"
+                  class="view-pill"
+                >
+                  Zoom Punggung
+                </button>
+              </div>
+
+              <!-- Stage SVG Rompi Custom (Technical Flat Sketch Style) -->
+              <div
+                class="stage-svg-wrapper relative w-full aspect-square flex items-center justify-center my-1"
+              >
+                <svg
+                  id="rompi-svg"
+                  viewBox="0 0 300 300"
+                  class="w-full h-full max-h-[340px] select-none overflow-visible"
+                >
+                  <defs>
+                    <!-- Pola Tekstur Furing Jaring (Mesh) di Dalam Kerah -->
+                    <pattern
+                      id="mesh-lining-pattern"
+                      width="3.2"
+                      height="3.2"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <rect width="3.2" height="3.2" fill="#18202c" />
+                      <rect
+                        x="0.4"
+                        y="0.4"
+                        width="1.6"
+                        height="1.6"
+                        rx="0.3"
+                        fill="#9ca3af"
+                        opacity="0.72"
+                      />
+                    </pattern>
+
+                    <!-- Pola Tekstur Furing Quilting (Opsional saat user pilih Quilting) -->
+                    <pattern
+                      id="quilting-lining-pattern"
+                      width="12"
+                      height="12"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <path
+                        d="M 6 0 L 12 6 L 6 12 L 0 6 Z"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.2)"
+                        stroke-width="0.8"
+                      />
+                    </pattern>
+
+                    <linearGradient
+                      id="vest-shade-h"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop
+                        offset="0%"
+                        stop-color="#000000"
+                        stop-opacity="0.14"
+                      />
+                      <stop
+                        offset="18%"
+                        stop-color="#ffffff"
+                        stop-opacity="0.04"
+                      />
+                      <stop
+                        offset="50%"
+                        stop-color="#ffffff"
+                        stop-opacity="0.02"
+                      />
+                      <stop
+                        offset="82%"
+                        stop-color="#ffffff"
+                        stop-opacity="0.04"
+                      />
+                      <stop
+                        offset="100%"
+                        stop-color="#000000"
+                        stop-opacity="0.14"
+                      />
+                    </linearGradient>
+
+                    <linearGradient
+                      id="zipper-metal"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stop-color="#9ca3af" />
+                      <stop offset="50%" stop-color="#f3f4f6" />
+                      <stop offset="100%" stop-color="#6b7280" />
+                    </linearGradient>
+                  </defs>
+
+                  <!-- 1. Hoodie Lepas-Pasang (Opsional jika kerah hoodie dipilih) -->
+                  <g id="hoodie-back-group" style="display: none">
+                    <path
+                      id="rompi-hoodie-outer"
+                      d="M112 25 Q150 -4 188 25 L182 48 Q150 38 118 48 Z"
+                      fill="#162235"
+                      stroke="#0f172a"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      id="rompi-hoodie-seam"
+                      d="M116 24 Q150 2 184 24"
+                      fill="none"
+                      stroke="rgba(255,255,255,0.22)"
+                      stroke-width="0.9"
+                      stroke-dasharray="2.5 2"
+                    />
+                  </g>
+
+                  <!-- 2. Hem Belakang Mengintip di Bawah (Drop-Tail Hem) -->
+                  <path
+                    id="rompi-back-drop-hem"
+                    d="M64 251 Q150 267 236 251 L234 257 Q150 272 66 257 Z"
+                    fill="#142033"
+                    stroke="#0f172a"
+                    stroke-width="1.4"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- 3. Rongga Leher Dalam & Furing Jaring (Tampak Depan) -->
+                  <g id="front-neck-group">
+                    <!-- Dasar Rongga Dalam -->
+                    <path
+                      id="rompi-neck-inner"
+                      d="M114 24 Q150 33 186 24 Q176 72 150 114 Q124 72 114 24 Z"
+                      fill="#131d2e"
+                      stroke="#0f172a"
+                      stroke-width="1.4"
+                    />
+                    <!-- Lapisan Yoke Dalam Atas -->
+                    <path
+                      id="neck-facing-top"
+                      d="M116 25 Q150 34 184 25 L178 58 Q150 63 122 58 Z"
+                      fill="#18253a"
+                      stroke="#0f172a"
+                      stroke-width="0.9"
+                    />
+                    <!-- Label Ukuran Kotak Abu-Abu di Tengkuk Dalam -->
+                    <rect
+                      id="neck-woven-label"
+                      x="145"
+                      y="30"
+                      width="10"
+                      height="7.5"
+                      rx="1"
+                      fill="#d4d4d8"
+                      stroke="#52525b"
+                      stroke-width="0.5"
+                    />
+                    <!-- Area Visual Furing Jaring / Hyget / Quilting -->
+                    <path
+                      id="neck-lining-mesh"
+                      d="M122 58 Q150 63 178 58 Q169 88 150 113 Q131 88 122 58 Z"
+                      fill="url(#mesh-lining-pattern)"
+                    />
+                  </g>
+
+                  <!-- 4. Badan Utama Rompi -->
+                  <path
+                    id="rompi-body"
+                    d="M114 24 L76 38 C81 68 78 104 62 126 L62 252 Q104 260 144 259 Q149 258 149 249 L149 114 Q124 72 114 24 Z M186 24 L224 38 C219 68 222 104 238 126 L238 252 Q196 260 156 259 Q151 258 151 249 L151 114 Q176 72 186 24 Z"
+                    fill="#1d2d44"
+                    stroke="#0f172a"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Overlay Shading Kain -->
+                  <path
+                    id="rompi-light-h"
+                    d="M114 24 L76 38 C81 68 78 104 62 126 L62 252 Q104 260 144 259 Q149 258 149 249 L149 114 Q124 72 114 24 Z M186 24 L224 38 C219 68 222 104 238 126 L238 252 Q196 260 156 259 Q151 258 151 249 L151 114 Q176 72 186 24 Z"
+                    fill="url(#vest-shade-h)"
+                    pointer-events="none"
+                  />
+
+                  <!-- 5. Jahitan Bahu, Kerung Lengan, Yoke Dada & Hem Bawah -->
+                  <path
+                    id="seam-shoulder-l"
+                    d="M114 24 L76 38"
+                    stroke="#0f172a"
+                    stroke-width="1.4"
+                    fill="none"
+                  />
+                  <path
+                    id="seam-shoulder-r"
+                    d="M186 24 L224 38"
+                    stroke="#0f172a"
+                    stroke-width="1.4"
+                    fill="none"
+                  />
+
+                  <!-- Jahitan Tindas Kerung Lengan (Armhole Topstitch) -->
+                  <path
+                    id="armhole-trim-l"
+                    d="M79 39 C84 69 81 105 65 127"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.22)"
+                    stroke-width="0.9"
+                    stroke-dasharray="2 1.5"
+                  />
+                  <path
+                    id="armhole-trim-r"
+                    d="M221 39 C216 69 219 105 235 127"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.22)"
+                    stroke-width="0.9"
+                    stroke-dasharray="2 1.5"
+                  />
+
+                  <!-- Garis Jahitan Yoke Dada Depan & Punggung -->
+                  <g id="front-yoke-seams">
+                    <line
+                      x1="78"
+                      y1="74"
+                      x2="128"
+                      y2="74"
+                      stroke="#0f172a"
+                      stroke-width="1"
+                    />
+                    <line
+                      x1="78"
+                      y1="76"
+                      x2="128"
+                      y2="76"
+                      stroke="rgba(255,255,255,0.18)"
+                      stroke-width="0.7"
+                      stroke-dasharray="2 1.5"
+                    />
+                    <line
+                      x1="172"
+                      y1="74"
+                      x2="222"
+                      y2="74"
+                      stroke="#0f172a"
+                      stroke-width="1"
+                    />
+                    <line
+                      x1="172"
+                      y1="76"
+                      x2="222"
+                      y2="76"
+                      stroke="rgba(255,255,255,0.18)"
+                      stroke-width="0.7"
+                      stroke-dasharray="2 1.5"
+                    />
+                  </g>
+                  <path
+                    id="back-yoke-seam"
+                    d="M78 74 L222 74"
+                    stroke="#0f172a"
+                    stroke-width="1.1"
+                    fill="none"
+                    style="display: none"
+                  />
+
+                  <!-- Jahitan Tindas Hem Bawah -->
+                  <path
+                    id="rompi-hem-stitch"
+                    d="M63 247 Q104 255 144 254 M156 254 Q196 255 237 247"
+                    fill="none"
+                    stroke="rgba(255,255,255,0.22)"
+                    stroke-width="0.9"
+                    stroke-dasharray="2.2 1.5"
+                  />
+
+                  <!-- 6. Epaulet Bahu (Khusus Cut Tactical) -->
+                  <g id="tactical-epaulet-group" style="display: none">
+                    <path
+                      id="epaulet-l"
+                      d="M111 26 L82 37 L84 43 L113 32 Z"
+                      fill="#243754"
+                      stroke="#0f172a"
+                      stroke-width="1.1"
+                    />
+                    <path
+                      id="epaulet-r"
+                      d="M189 26 L218 37 L216 43 L187 32 Z"
+                      fill="#243754"
+                      stroke="#0f172a"
+                      stroke-width="1.1"
+                    />
+                  </g>
+
+                  <!-- 7. Variasi Kerah Depan -->
+                  <g id="front-collar-group">
+                    <!-- V-Neck Placket Stitch (Default sesuai gambar referensi) -->
+                    <g id="collar-vneck-group">
+                      <path
+                        id="vneck-trim-l"
+                        d="M117 25 Q127 72 148 114"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.28)"
+                        stroke-width="1"
+                        stroke-dasharray="2.2 1.5"
+                      />
+                      <path
+                        id="vneck-trim-r"
+                        d="M183 25 Q173 72 152 114"
+                        fill="none"
+                        stroke="rgba(255,255,255,0.28)"
+                        stroke-width="1"
+                        stroke-dasharray="2.2 1.5"
+                      />
+                    </g>
+
+                    <!-- Kerah Tegak (Stand Collar) -->
+                    <g id="collar-stand-group" style="display: none">
+                      <path
+                        id="stand-collar-l"
+                        d="M114 24 L112 10 Q132 14 149 26 L149 40 Q128 32 114 24 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.4"
+                      />
+                      <path
+                        id="stand-collar-r"
+                        d="M186 24 L188 10 Q168 14 151 26 L151 40 Q172 32 186 24 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.4"
+                      />
+                    </g>
+
+                    <!-- Kerah Lipat Kemeja -->
+                    <g id="collar-lipat-group" style="display: none">
+                      <path
+                        id="lipat-flap-l"
+                        d="M114 24 L104 42 L134 54 L149 34 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                      <path
+                        id="lipat-flap-r"
+                        d="M186 24 L196 42 L166 54 L151 34 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- Kerah Belakang (Saat View Belakang Aktif) -->
+                  <g id="back-collar-group" style="display: none">
+                    <path
+                      id="back-collar-band"
+                      d="M114 24 Q150 34 186 24 L184 30 Q150 40 116 30 Z"
+                      fill="#243754"
+                      stroke="#0f172a"
+                      stroke-width="1.2"
+                    />
+                  </g>
+
+                  <!-- 8. Penutup Tengah (Resleting dari Pangkal V-Neck ke Bawah) -->
+                  <g id="front-closure-group">
+                    <!-- Full Resleting (Zipper) -->
+                    <g id="rompi-zipper-group">
+                      <!-- Jahitan Plaket Kiri & Kanan Resleting -->
+                      <line
+                        x1="145.5"
+                        y1="114"
+                        x2="145.5"
+                        y2="249"
+                        stroke="rgba(255,255,255,0.22)"
+                        stroke-width="0.8"
+                        stroke-dasharray="2 1.5"
+                      />
+                      <line
+                        x1="154.5"
+                        y1="114"
+                        x2="154.5"
+                        y2="249"
+                        stroke="rgba(255,255,255,0.22)"
+                        stroke-width="0.8"
+                        stroke-dasharray="2 1.5"
+                      />
+                      <!-- Jalur & Gigi Resleting -->
+                      <rect
+                        x="148.5"
+                        y="114"
+                        width="3"
+                        height="134"
+                        fill="#111827"
+                      />
+                      <line
+                        x1="150"
+                        y1="115"
+                        x2="150"
+                        y2="247"
+                        stroke="url(#zipper-metal)"
+                        stroke-width="2.2"
+                        stroke-dasharray="1.4 1.1"
+                      />
+                      <!-- Kepala Resleting (Slider) -->
+                      <rect
+                        x="147.6"
+                        y="116"
+                        width="4.8"
+                        height="6.5"
+                        rx="1"
+                        fill="#e5e7eb"
+                        stroke="#374151"
+                        stroke-width="0.8"
+                      />
+                      <rect
+                        x="148.6"
+                        y="121"
+                        width="2.8"
+                        height="5.5"
+                        rx="0.8"
+                        fill="#d1d5db"
+                        stroke="#374151"
+                        stroke-width="0.7"
+                      />
+                    </g>
+
+                    <!-- Resleting + Flap Kancing Snap -->
+                    <g id="rompi-snap-flap-group" style="display: none">
+                      <rect
+                        id="rompi-placket-box"
+                        x="143"
+                        y="114"
+                        width="14"
+                        height="135"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <circle
+                        cx="150"
+                        cy="128"
+                        r="2.2"
+                        fill="#d4d4d8"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                      <circle
+                        cx="150"
+                        cy="166"
+                        r="2.2"
+                        fill="#d4d4d8"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                      <circle
+                        cx="150"
+                        cy="204"
+                        r="2.2"
+                        fill="#d4d4d8"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                      <circle
+                        cx="150"
+                        cy="240"
+                        r="2.2"
+                        fill="#d4d4d8"
+                        stroke="#18181b"
+                        stroke-width="0.8"
+                      />
+                    </g>
+
+                    <!-- Perekat Velcro -->
+                    <g id="rompi-velcro-group" style="display: none">
+                      <rect
+                        x="144"
+                        y="114"
+                        width="12"
+                        height="135"
+                        fill="rgba(0,0,0,0.18)"
+                        stroke="#0f172a"
+                        stroke-width="1.1"
+                      />
+                      <rect
+                        x="146"
+                        y="130"
+                        width="8"
+                        height="16"
+                        rx="1"
+                        fill="#111827"
+                        opacity="0.55"
+                      />
+                      <rect
+                        x="146"
+                        y="176"
+                        width="8"
+                        height="16"
+                        rx="1"
+                        fill="#111827"
+                        opacity="0.55"
+                      />
+                      <rect
+                        x="146"
+                        y="222"
+                        width="8"
+                        height="16"
+                        rx="1"
+                        fill="#111827"
+                        opacity="0.55"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- 9. Tali Serut & Eyelet Bawah (Drawcord & Stopper) -->
+                  <g id="bottom-drawcord-group">
+                    <!-- Eyelet Kiri & Kanan -->
+                    <circle
+                      cx="141"
+                      cy="249"
+                      r="3.4"
+                      fill="#111827"
+                      stroke="#6b7280"
+                      stroke-width="1"
+                    />
+                    <circle
+                      cx="159"
+                      cy="249"
+                      r="3.4"
+                      fill="#111827"
+                      stroke="#6b7280"
+                      stroke-width="1"
+                    />
+                    <!-- Tali Serut Menggantung -->
+                    <path
+                      d="M141 249 L141 273"
+                      stroke="#09090b"
+                      stroke-width="2.1"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M159 249 L159 273"
+                      stroke="#09090b"
+                      stroke-width="2.1"
+                      stroke-linecap="round"
+                    />
+                    <!-- Stopper / Simpul Ujung Tali -->
+                    <rect
+                      x="139"
+                      y="266"
+                      width="4"
+                      height="4.5"
+                      rx="1"
+                      fill="#18181b"
+                    />
+                    <rect
+                      x="157"
+                      y="266"
+                      width="4"
+                      height="4.5"
+                      rx="1"
+                      fill="#18181b"
+                    />
+                    <path
+                      d="M141 270 L138.5 274.5 M159 270 L161.5 274.5"
+                      stroke="#09090b"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </g>
+
+                  <!-- 10. Konfigurasi Saku -->
+                  <g id="rompi-pockets-group">
+                    <!-- Opsi A: 2 Saku Bawah Miring -->
+                    <g id="pockets-2-group" style="display: none">
+                      <path
+                        id="pocket2-l"
+                        d="M78 184 L124 196 L120 232 L78 224 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                      <path
+                        id="pocket2-r"
+                        d="M222 184 L176 196 L180 232 L222 224 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                    </g>
+
+                    <!-- Opsi B: 4 Saku Lapangan (Persis Seperti Gambar Referensi) -->
+                    <g id="pockets-4-group">
+                      <!-- Saku Resleting Horizontal Atas (Viewer's Left) -->
+                      <rect
+                        x="78"
+                        y="141"
+                        width="58"
+                        height="6.5"
+                        rx="1"
+                        fill="#142033"
+                        stroke="#0f172a"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="80"
+                        y1="144.2"
+                        x2="134"
+                        y2="144.2"
+                        stroke="url(#zipper-metal)"
+                        stroke-width="2.2"
+                        stroke-dasharray="1.4 1"
+                      />
+                      <rect
+                        x="129"
+                        y="142.3"
+                        width="5.5"
+                        height="3.8"
+                        rx="0.8"
+                        fill="#e5e7eb"
+                        stroke="#374151"
+                        stroke-width="0.7"
+                      />
+
+                      <!-- Saku Resleting Horizontal Atas (Viewer's Right) -->
+                      <rect
+                        x="164"
+                        y="141"
+                        width="58"
+                        height="6.5"
+                        rx="1"
+                        fill="#142033"
+                        stroke="#0f172a"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="166"
+                        y1="144.2"
+                        x2="220"
+                        y2="144.2"
+                        stroke="url(#zipper-metal)"
+                        stroke-width="2.2"
+                        stroke-dasharray="1.4 1"
+                      />
+                      <rect
+                        x="165.5"
+                        y="142.3"
+                        width="5.5"
+                        height="3.8"
+                        rx="0.8"
+                        fill="#e5e7eb"
+                        stroke="#374151"
+                        stroke-width="0.7"
+                      />
+
+                      <!-- Kantong Cargo Besar Bawah (Viewer's Left) -->
+                      <path
+                        id="p4-bot-body-l"
+                        d="M73 155 L140 155 L140 228 L131 237 L82 237 L73 228 Z"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                        stroke-linejoin="round"
+                      />
+                      <!-- Resleting Kedua di Atas Kantong Cargo (Left) -->
+                      <rect
+                        x="80"
+                        y="162"
+                        width="53"
+                        height="6"
+                        rx="1"
+                        fill="#142033"
+                        stroke="#0f172a"
+                        stroke-width="0.9"
+                      />
+                      <line
+                        x1="82"
+                        y1="165"
+                        x2="131"
+                        y2="165"
+                        stroke="url(#zipper-metal)"
+                        stroke-width="2"
+                        stroke-dasharray="1.4 1"
+                      />
+                      <rect
+                        x="126.5"
+                        y="163.2"
+                        width="5"
+                        height="3.6"
+                        rx="0.8"
+                        fill="#e5e7eb"
+                        stroke="#374151"
+                        stroke-width="0.7"
+                      />
+                      <!-- Kantong Box 3D + Tutup Flap Jahitan X (Left) -->
+                      <rect
+                        x="85"
+                        y="177"
+                        width="43"
+                        height="49"
+                        rx="5"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        id="p4-bot-flap-l"
+                        d="M84 176 L129 176 L129 191 Q129 195 125 195 L88 195 Q84 195 84 191 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <!-- Jahitan Penguat Kotak Silang X (Left) -->
+                      <g
+                        stroke="rgba(255,255,255,0.22)"
+                        stroke-width="0.75"
+                        fill="none"
+                      >
+                        <rect x="100" y="180" width="13" height="9" />
+                        <line x1="100" y1="180" x2="113" y2="189" />
+                        <line x1="113" y1="180" x2="100" y2="189" />
+                      </g>
+
+                      <!-- Kantong Cargo Besar Bawah (Viewer's Right) -->
+                      <path
+                        id="p4-bot-body-r"
+                        d="M160 155 L227 155 L227 228 L218 237 L169 237 L160 228 Z"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                        stroke-linejoin="round"
+                      />
+                      <!-- Resleting Kedua di Atas Kantong Cargo (Right) -->
+                      <rect
+                        x="167"
+                        y="162"
+                        width="53"
+                        height="6"
+                        rx="1"
+                        fill="#142033"
+                        stroke="#0f172a"
+                        stroke-width="0.9"
+                      />
+                      <line
+                        x1="169"
+                        y1="165"
+                        x2="218"
+                        y2="165"
+                        stroke="url(#zipper-metal)"
+                        stroke-width="2"
+                        stroke-dasharray="1.4 1"
+                      />
+                      <rect
+                        x="168.5"
+                        y="163.2"
+                        width="5"
+                        height="3.6"
+                        rx="0.8"
+                        fill="#e5e7eb"
+                        stroke="#374151"
+                        stroke-width="0.7"
+                      />
+                      <!-- Kantong Box 3D + Tutup Flap Jahitan X (Right) -->
+                      <rect
+                        x="172"
+                        y="177"
+                        width="43"
+                        height="49"
+                        rx="5"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <path
+                        id="p4-bot-flap-r"
+                        d="M171 176 L216 176 L216 191 Q216 195 212 195 L175 195 Q171 195 171 191 Z"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <!-- Jahitan Penguat Kotak Silang X (Right) -->
+                      <g
+                        stroke="rgba(255,255,255,0.22)"
+                        stroke-width="0.75"
+                        fill="none"
+                      >
+                        <rect x="187" y="180" width="13" height="9" />
+                        <line x1="187" y1="180" x2="200" y2="189" />
+                        <line x1="200" y1="180" x2="187" y2="189" />
+                      </g>
+                    </g>
+
+                    <!-- Opsi C: Multi-Pocket 6+ Saku Cargo -->
+                    <g id="pockets-6-group" style="display: none">
+                      <rect
+                        id="p6-chest-body-l"
+                        x="86"
+                        y="88"
+                        width="38"
+                        height="36"
+                        rx="3"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <rect
+                        id="p6-chest-flap-l"
+                        x="85"
+                        y="87"
+                        width="40"
+                        height="12"
+                        rx="2"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <rect
+                        id="p6-chest-body-r"
+                        x="176"
+                        y="88"
+                        width="38"
+                        height="36"
+                        rx="3"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <rect
+                        id="p6-chest-flap-r"
+                        x="175"
+                        y="87"
+                        width="40"
+                        height="12"
+                        rx="2"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.2"
+                      />
+                      <rect
+                        id="p6-bot-body-l"
+                        x="76"
+                        y="158"
+                        width="60"
+                        height="74"
+                        rx="4"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                      <rect
+                        id="p6-bot-flap-l"
+                        x="75"
+                        y="157"
+                        width="62"
+                        height="16"
+                        rx="3"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                      <rect
+                        id="p6-bot-body-r"
+                        x="164"
+                        y="158"
+                        width="60"
+                        height="74"
+                        rx="4"
+                        fill="#1d2d44"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                      <rect
+                        id="p6-bot-flap-r"
+                        x="163"
+                        y="157"
+                        width="62"
+                        height="16"
+                        rx="3"
+                        fill="#243754"
+                        stroke="#0f172a"
+                        stroke-width="1.3"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- 11. Strip Reflektor Scotchlite (Opsional) -->
+                  <g id="reflector-group" style="display: none">
+                    <rect
+                      id="ref-horiz-bar-1"
+                      x="62"
+                      y="128"
+                      width="176"
+                      height="8"
+                      fill="#bef264"
+                      opacity="0.9"
+                    />
+                    <rect
+                      id="ref-horiz-core-1"
+                      x="62"
+                      y="130"
+                      width="176"
+                      height="4"
+                      fill="#f8fafc"
+                    />
+                    <g id="reflector-full-group" style="display: none">
+                      <rect
+                        id="ref-horiz-bar-2"
+                        x="62"
+                        y="238"
+                        width="176"
+                        height="8"
+                        fill="#bef264"
+                        opacity="0.9"
+                      />
+                      <rect
+                        id="ref-horiz-core-2"
+                        x="62"
+                        y="240"
+                        width="176"
+                        height="4"
+                        fill="#f8fafc"
+                      />
+                    </g>
+                  </g>
+
+                  <!-- 12. Utilitas Lapangan (Pengait HT & ID Card, Opsional) -->
+                  <g id="utility-addons-group" style="display: none">
+                    <rect
+                      x="92"
+                      y="84"
+                      width="18"
+                      height="6"
+                      rx="2"
+                      fill="#111827"
+                    />
+                    <path
+                      d="M97 90 A 4 4 0 0 0 105 90"
+                      fill="none"
+                      stroke="#d4d4d8"
+                      stroke-width="1.6"
+                    />
+                    <rect
+                      x="184"
+                      y="84"
+                      width="24"
+                      height="30"
+                      rx="2.5"
+                      fill="rgba(255,255,255,0.85)"
+                      stroke="#0f172a"
+                      stroke-width="1"
+                    />
+                  </g>
+
+                  <!-- 13. Zona Preview Bordir / Sablon Interaktif -->
+                  <g
+                    id="print-zone-group"
+                    class="cursor-pointer"
+                    style="display: none"
+                  >
+                    <rect
+                      id="print-zone-rect"
+                      x="174"
+                      y="84"
+                      width="26"
+                      height="26"
+                      rx="2"
+                      fill="rgba(37, 99, 235, 0.22)"
+                      stroke="#2563eb"
+                      stroke-width="1.2"
+                      stroke-dasharray="3 2"
+                    />
+                    <image
+                      id="print-zone-img"
+                      href=""
+                      x="175"
+                      y="85"
+                      width="24"
+                      height="24"
+                      preserveAspectRatio="xMidYMid meet"
+                      style="display: none"
+                    />
+                    <text
+                      id="print-zone-label"
+                      x="187"
+                      y="118"
+                      text-anchor="middle"
+                      fill="#1d4ed8"
+                      font-size="7"
+                      font-weight="800"
+                    >
+                      8 × 8 cm
+                    </text>
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Status Panduan Posisi Bawah Mockup -->
+              <div
+                id="stage-caption-row"
+                class="w-full flex items-center justify-between gap-2 mt-1"
+              >
+                <span
+                  id="mockup-view-caption"
+                  class="text-[11px] font-semibold text-zinc-600"
+                >
+                  Tampak Depan • Logo Dada Kiri (8 × 8 cm)
+                </span>
+                <button
+                  type="button"
+                  id="toggle-zoom-btn"
+                  onclick="toggleStageZoom()"
+                  class="hidden inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-blue-50 text-[#1d4ed8] border border-blue-200 cursor-pointer shrink-0"
+                >
+                  <i data-lucide="zoom-out" class="icon-xs"></i>
+                  <span>Reset Zoom</span>
+                </button>
+              </div>
+
+              <!-- Banner Pintasan Upload Desain -->
+              <button
+                type="button"
+                id="stage-upload-banner"
+                onclick="triggerDesignUpload(activeSide)"
+                class="mt-2.5 w-full py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-[#1d4ed8] flex items-center justify-between gap-2 cursor-pointer transition group"
+              >
+                <div class="flex items-center gap-2 min-w-0 text-left">
+                  <span
+                    class="w-6 h-6 rounded-lg bg-[#2563eb] text-white flex items-center justify-center shrink-0"
+                  >
+                    <i data-lucide="image-plus" class="icon-xs"></i>
+                  </span>
+                  <span class="text-[11px] font-extrabold truncate">
+                    Punya Logo Bordir / Sablon? Klik untuk Tempel di Rompi!
+                  </span>
+                </div>
+                <span
+                  class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white text-[#2563eb] border border-blue-200 shrink-0 group-hover:bg-[#2563eb] group-hover:text-white transition"
+                >
+                  <i data-lucide="upload" class="icon-xs"></i>
+                  <span>Upload</span>
+                </span>
+              </button>
+            </div>
+
+            <!-- RINGKASAN BORDIR / SABLON 4 ZONA ROMPI -->
+            <div
+              id="stage-sablon-summary-bar"
+              class="bg-black text-white px-4 sm:px-5 py-2.5 border-t border-neutral-800"
+            >
+              <div class="flex items-center justify-between mb-1.5">
+                <span
+                  class="text-[10px] font-bold uppercase tracking-widest text-neutral-400"
+                >
+                  Ringkasan Titik Bordir / Sablon
+                </span>
+                <span
+                  id="total-print-sides"
+                  class="text-[11px] font-bold text-[#60a5fa]"
+                >
+                  2 Titik Aktif
+                </span>
+              </div>
+              <div
+                id="summary-grid"
+                class="grid grid-cols-2 gap-1.5 text-[11px]"
+              ></div>
+            </div>
+
+            <!-- BAGIAN BAWAH: SIZE CHART -->
+            <div
+              id="size-chart-box"
+              class="w-full bg-[#fafaf8] border-t border-[#e4e5e0] p-4 sm:p-5"
+            >
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="ruler" class="icon-sm text-[#2563eb]"></i>
+                  <span class="text-xs sm:text-sm font-extrabold text-zinc-900">
+                    Size Chart Rompi
+                  </span>
+                  <span
+                    id="chart-cut-title"
+                    class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1d4ed8] border border-blue-200/80"
+                  >
+                    Lapangan / Outdoor
+                  </span>
+                </div>
+                <span
+                  id="chart-range-badge"
+                  class="text-[11px] font-semibold text-zinc-600 bg-white border border-[#e4e5e0] px-2.5 py-0.5 rounded-full"
+                >
+                  S – 3XL (cm)
+                </span>
+              </div>
+
+              <div
+                class="overflow-hidden rounded-xl border border-[#e4e5e0] bg-white shadow-2xs"
+              >
+                <table class="w-full border-collapse text-xs">
+                  <thead>
+                    <tr class="bg-[#18181b] text-white">
+                      <th
+                        class="py-1.5 px-3 text-left font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Size
+                      </th>
+                      <th
+                        class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Panjang
+                      </th>
+                      <th
+                        class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Lebar Dada
+                      </th>
+                      <th
+                        class="py-1.5 px-3 text-center font-bold tracking-wider uppercase text-[10px]"
+                      >
+                        Lebar Bahu
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody
+                    id="size-chart-body"
+                    class="divide-y divide-[#ecece8]"
+                  ></tbody>
+                </table>
+              </div>
+              <div class="mt-1.5 text-[10px] text-zinc-500">
+                * Size <strong>2XL (+Rp 10.000)</strong> dan kelipatan
+                <strong>+Rp 10.000</strong> untuk 3XL dst.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KOLOM KANAN: KONTROL CUSTOM ROMPI BERIKON + BAHAN + WARNA + BORDIR/SABLON + JUMLAH -->
+        <div class="lg:col-span-7 space-y-5 sm:space-y-6">
+          <div>
+            <h1
+              class="text-lg sm:text-2xl lg:text-3xl font-extrabold text-zinc-900 leading-snug"
+            >
+              Custom Rompi: Model, Kerah, Furing, Penutup, Saku, Reflektor &amp;
+              Jumlah
+            </h1>
+          </div>
+
+          <!-- 1. Model Rompi, Kerah, Furing, Penutup, Saku, Reflektor, Utilitas & Tabel Price List -->
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <!-- 1A. Model Potongan Rompi -->
+            <div>
+              <div
+                class="flex flex-wrap items-center justify-between gap-2 mb-3"
+              >
+                <div class="flex items-center gap-2.5">
+                  <span
+                    class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                  >
+                    1
+                  </span>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Model, Kerah, Fitur Rompi &amp; Price List Bahan
+                  </h2>
+                </div>
+                <span
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-zinc-100 text-zinc-700"
+                >
+                  <i data-lucide="award" class="icon-xs text-[#2563eb]"></i>
+                  <span>Termasuk Bordir / Sablon</span>
+                </span>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 sm:gap-2.5">
+                <button
+                  type="button"
+                  data-cut="lapangan"
+                  onclick="setCut('lapangan')"
+                  class="cut-pill feature-pill feature-pill-active py-2.5 px-2.5 sm:px-3 rounded-xl border border-[#e4e5e0] text-xs sm:text-sm font-bold cursor-pointer flex items-center gap-2 text-left"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="compass" class="icon-sm"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Lapangan</div>
+                    <div
+                      class="pill-sub text-[10.5px] font-medium text-zinc-500"
+                    >
+                      Mulai 115rb
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-cut="tactical"
+                  onclick="setCut('tactical')"
+                  class="cut-pill feature-pill py-2.5 px-2.5 sm:px-3 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs sm:text-sm font-bold cursor-pointer flex items-center gap-2 text-left"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="shield" class="icon-sm"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Tactical</div>
+                    <div
+                      class="pill-sub text-[10.5px] font-medium text-zinc-500"
+                    >
+                      Mulai 125rb
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-cut="safety"
+                  onclick="setCut('safety')"
+                  class="cut-pill feature-pill py-2.5 px-2.5 sm:px-3 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs sm:text-sm font-bold cursor-pointer flex items-center gap-2 text-left"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="hard-hat" class="icon-sm"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Safety Proyek</div>
+                    <div
+                      class="pill-sub text-[10.5px] font-medium text-zinc-500"
+                    >
+                      Mulai 120rb
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1B. Model Kerah Rompi -->
+            <div class="pt-3.5 border-t border-[#ecece8]">
+              <div
+                class="flex flex-wrap items-center justify-between gap-1 mb-2.5"
+              >
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600 flex items-center gap-1.5"
+                >
+                  <i data-lucide="shirt" class="icon-xs text-[#2563eb]"></i>
+                  <span>Model Kerah Rompi</span>
+                </span>
+                <span
+                  id="collar-desc-hint"
+                  class="text-[11px] font-medium text-[#2563eb]"
+                >
+                  Kerah berdiri tegak melindungi leher, khas rompi lapangan
+                  &amp; touring
+                </span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  data-collar="stand"
+                  onclick="setCollar('stand')"
+                  class="collar-pill feature-pill feature-pill-active py-2 px-2.5 rounded-xl border border-[#e4e5e0] text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="chevrons-up" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Kerah Tegak</div>
+                    <div class="pill-sub text-[10px] font-medium text-zinc-500">
+                      Stand Collar
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-collar="vneck"
+                  onclick="setCollar('vneck')"
+                  class="collar-pill feature-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="chevron-down" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">V-Neck</div>
+                    <div class="pill-sub text-[10px] font-medium text-zinc-500">
+                      Tanpa Kerah
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-collar="lipat"
+                  onclick="setCollar('lipat')"
+                  class="collar-pill feature-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="book-open" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Kerah Lipat</div>
+                    <div class="pill-sub text-[10px] font-medium text-zinc-500">
+                      Semi Formal
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-collar="hoodie"
+                  onclick="setCollar('hoodie')"
+                  class="collar-pill feature-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="cloud-rain" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">+Hoodie</div>
+                    <div
+                      class="pill-sub text-[10px] font-extrabold text-[#2563eb]"
+                    >
+                      Lepas +15rb
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1C. Lapisan Dalam (Furing / Lining) -->
+            <div class="pt-3.5 border-t border-[#ecece8]">
+              <div
+                class="flex flex-wrap items-center justify-between gap-1 mb-2.5"
+              >
+                <span
+                  class="text-[11px] font-bold uppercase tracking-wider text-zinc-600 flex items-center gap-1.5"
+                >
+                  <i data-lucide="layers" class="icon-xs text-[#2563eb]"></i>
+                  <span>Lapisan Dalam (Furing Rompi)</span>
+                </span>
+                <span
+                  id="lining-desc-hint"
+                  class="text-[11px] font-medium text-[#2563eb]"
+                >
+                  Furing jaring (mesh) berpori adem untuk aktivitas lapangan
+                </span>
+              </div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  data-lining="tanpa"
+                  onclick="setLining('tanpa')"
+                  class="lining-pill feature-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="wind" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Tanpa Furing</div>
+                    <div class="pill-sub text-[10px] font-medium text-zinc-500">
+                      1 Lapis Ringan
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-lining="jaring"
+                  onclick="setLining('jaring')"
+                  class="lining-pill feature-pill feature-pill-active py-2 px-2.5 rounded-xl border border-[#e4e5e0] text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="grid" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Furing Jaring</div>
+                    <div
+                      class="pill-sub text-[10px] font-extrabold text-[#2563eb]"
+                    >
+                      Adem +10rb
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-lining="hyget"
+                  onclick="setLining('hyget')"
+                  class="lining-pill feature-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="feather" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Furing Hyget</div>
+                    <div
+                      class="pill-sub text-[10px] font-extrabold text-[#2563eb]"
+                    >
+                      Halus +10rb
+                    </div>
+                  </div>
+                </button>
+
+                <button
+                  type="button"
+                  data-lining="quilting"
+                  onclick="setLining('quilting')"
+                  class="lining-pill feature-pill py-2 px-2.5 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-2 text-left cursor-pointer"
+                >
+                  <span class="pill-icon-box">
+                    <i data-lucide="flame" class="icon-xs"></i>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="truncate">Quilting Tebal</div>
+                    <div
+                      class="pill-sub text-[10px] font-extrabold text-[#2563eb]"
+                    >
+                      Puffer +25rb
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1D. Penutup Depan & Konfigurasi Saku -->
+            <div
+              class="pt-3.5 border-t border-[#ecece8] grid grid-cols-1 sm:grid-cols-12 gap-3.5"
+            >
+              <!-- Penutup Depan (6 cols) -->
+              <div class="sm:col-span-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span
+                    class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                  >
+                    Penutup Depan (Varian Aktif)
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button
+                    type="button"
+                    data-closure="zipper"
+                    onclick="setClosure('zipper')"
+                    class="closure-pill feature-pill feature-pill-active py-2 px-2 rounded-xl border border-[#e4e5e0] text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="w-3.5 h-3.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.2"
+                      >
+                        <path d="M12 3v18M9 6h6M9 10h6M9 14h6M10 18h4" />
+                      </svg>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Resleting</div>
+                      <div
+                        class="pill-sub text-[9px] font-medium text-zinc-500"
+                      >
+                        Standar
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-closure="snap_zip"
+                    onclick="setClosure('snap_zip')"
+                    class="closure-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="shield-check" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Zip+Snap</div>
+                      <div
+                        class="pill-sub text-[9px] font-extrabold text-[#2563eb]"
+                      >
+                        +8rb
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-closure="velcro"
+                    onclick="setClosure('velcro')"
+                    class="closure-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="grip-horizontal" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Velcro</div>
+                      <div
+                        class="pill-sub text-[9px] font-medium text-zinc-500"
+                      >
+                        Proyek
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Konfigurasi Saku (6 cols) -->
+              <div class="sm:col-span-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span
+                    class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                  >
+                    Konfigurasi Saku Rompi
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button
+                    type="button"
+                    data-pocket="saku2"
+                    onclick="setPocket('saku2')"
+                    class="pocket-pill feature-pill feature-pill-active py-2 px-2 rounded-xl border border-[#e4e5e0] text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="slash" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">2 Saku</div>
+                      <div
+                        class="pill-sub text-[9px] font-medium text-zinc-500"
+                      >
+                        Minimalis
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-pocket="saku4"
+                    onclick="setPocket('saku4')"
+                    class="pocket-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="layout-grid" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">4 Saku</div>
+                      <div
+                        class="pill-sub text-[9px] font-extrabold text-[#2563eb]"
+                      >
+                        +8rb
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-pocket="tactical6"
+                    onclick="setPocket('tactical6')"
+                    class="pocket-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="briefcase" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">6+ Cargo</div>
+                      <div
+                        class="pill-sub text-[9px] font-extrabold text-[#2563eb]"
+                      >
+                        +15rb
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1E. Fitur Safety & Utilitas Lapangan: Scotchlite Reflektor & Pengait HT/ID Card -->
+            <div
+              class="pt-3.5 border-t border-[#ecece8] grid grid-cols-1 sm:grid-cols-12 gap-3.5"
+            >
+              <!-- Scotchlite Reflektor (7 cols) -->
+              <div class="sm:col-span-7">
+                <div class="flex items-center justify-between mb-2">
+                  <span
+                    class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                  >
+                    Strip Reflektor Scotchlite
+                  </span>
+                </div>
+                <div class="grid grid-cols-3 gap-1.5">
+                  <button
+                    type="button"
+                    data-reflector="tanpa"
+                    onclick="setReflector('tanpa')"
+                    class="reflector-pill feature-pill feature-pill-active py-2 px-2 rounded-xl border border-[#e4e5e0] text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="minus" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Tanpa</div>
+                      <div
+                        class="pill-sub text-[9px] font-medium text-zinc-500"
+                      >
+                        Polos
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-reflector="standar"
+                    onclick="setReflector('standar')"
+                    class="reflector-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="zap" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Scotchlite</div>
+                      <div
+                        class="pill-sub text-[9px] font-extrabold text-[#2563eb]"
+                      >
+                        +8rb
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-reflector="full"
+                    onclick="setReflector('full')"
+                    class="reflector-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="sun" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Full Hi-Vis</div>
+                      <div
+                        class="pill-sub text-[9px] font-extrabold text-[#2563eb]"
+                      >
+                        +14rb
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Utilitas HT, Ring-D & ID Card (5 cols) -->
+              <div class="sm:col-span-5">
+                <div class="flex items-center justify-between mb-2">
+                  <span
+                    class="text-[11px] font-bold uppercase tracking-wider text-zinc-600"
+                  >
+                    Utilitas HT &amp; ID Card
+                  </span>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <button
+                    type="button"
+                    data-utility="standar"
+                    onclick="setUtility('standar')"
+                    class="utility-pill feature-pill feature-pill-active py-2 px-2 rounded-xl border border-[#e4e5e0] text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="check" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">Standar</div>
+                      <div
+                        class="pill-sub text-[9px] font-medium text-zinc-500"
+                      >
+                        Tanpa Loop
+                      </div>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    data-utility="lengkap"
+                    onclick="setUtility('lengkap')"
+                    class="utility-pill feature-pill py-2 px-2 rounded-xl border border-[#e4e5e0] bg-[#fafaf8] hover:bg-white text-zinc-800 text-xs font-bold flex items-center gap-1.5 text-left cursor-pointer"
+                  >
+                    <span class="pill-icon-box !w-6 !h-6">
+                      <i data-lucide="radio" class="icon-xs"></i>
+                    </span>
+                    <div class="min-w-0">
+                      <div class="truncate text-[11px]">+HT &amp; ID</div>
+                      <div
+                        class="pill-sub text-[9px] font-extrabold text-[#2563eb]"
+                      >
+                        +5rb
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 1F. TABEL PRICE LIST ROMPI -->
+            <div class="pt-3.5 border-t border-[#ecece8] space-y-2.5">
+              <div class="flex flex-wrap items-center justify-between gap-1.5">
+                <span class="text-xs font-bold text-zinc-800">
+                  Price List Rompi Custom (Tap harga untuk pilih)
+                </span>
+                <span
+                  id="fabric-cut-indicator"
+                  class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-[#1d4ed8]"
+                >
+                  Lapangan • American Drill / Nagata
+                </span>
+              </div>
+
+              <div class="pricelist-table-wrap">
+                <table class="pricelist-table">
+                  <thead>
+                    <tr>
+                      <th class="text-left">Jenis Bahan Luar</th>
+                      <th
+                        id="th-cut-lapangan"
+                        class="text-right col-cut-active"
+                      >
+                        Lapangan
+                      </th>
+                      <th id="th-cut-tactical" class="text-right">Tactical</th>
+                      <th id="th-cut-safety" class="text-right">Safety</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pricelist-table-body"></tbody>
+                </table>
+              </div>
+
+              <p class="text-[11px] text-zinc-500 leading-relaxed pt-0.5">
+                • Harga dasar (tanpa furing) termasuk maks. 3 titik bordir
+                komputer atau sablon DTF • Furing Jaring/Hyget +10rb / Quilting
+                +25rb • 4 Saku +8rb / 6+ Cargo +15rb • Scotchlite +8rb/+14rb •
+                Size 2XL +10rb.
+              </p>
+            </div>
+          </div>
+
+          <!-- 2. Pilihan Warna Kain + Pencarian Warna -->
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-3.5"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2.5">
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                >
+                  2
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Warna Bahan Luar (Varian Aktif)
+                  </h2>
+                  <p class="text-[11px] text-zinc-500">
+                    36 pilihan warna termasuk warna High-Vis Safety — cari nama
+                    warna atau filter kategori
+                  </p>
+                </div>
+              </div>
+
+              <!-- Input Pencarian Warna -->
+              <div class="relative w-full sm:w-56">
+                <i
+                  data-lucide="search"
+                  class="icon-xs text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                ></i>
+                <input
+                  id="color-search-input"
+                  type="text"
+                  placeholder="Cari warna (cth: hitam, navy, oranye)..."
+                  oninput="handleColorSearch(this.value)"
+                  class="w-full text-xs font-semibold bg-[#fafaf8] focus:bg-white border border-[#e4e5e0] focus:border-[#2563eb] rounded-full pl-8 pr-7 py-1.5 text-zinc-900 placeholder:text-zinc-400 focus:outline-none transition"
+                />
+                <button
+                  type="button"
+                  id="clear-color-search-btn"
+                  onclick="clearColorSearch()"
+                  aria-label="Hapus pencarian warna"
+                  class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-zinc-200 hover:bg-zinc-300 text-zinc-700 flex items-center justify-center cursor-pointer"
+                >
+                  <i data-lucide="x" class="icon-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Bar Filter Kategori Warna -->
+            <div id="filter-bar" class="flex flex-wrap gap-1.5">
+              <button
+                type="button"
+                data-filter="all"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-bold bg-[#18181b] text-white cursor-pointer"
+              >
+                Semua (36)
+              </button>
+              <button
+                type="button"
+                data-filter="netral"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Netral
+              </button>
+              <button
+                type="button"
+                data-filter="biru"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Biru
+              </button>
+              <button
+                type="button"
+                data-filter="hijau"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Hijau
+              </button>
+              <button
+                type="button"
+                data-filter="earth"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Earth / Khaki
+              </button>
+              <button
+                type="button"
+                data-filter="cerah"
+                class="filter-btn px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f1f2ee] text-zinc-700 hover:bg-[#e4e5e0] cursor-pointer"
+              >
+                Safety &amp; Cerah
+              </button>
+            </div>
+
+            <div
+              id="swatches"
+              class="grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-[268px] overflow-y-auto pr-0.5"
+            ></div>
+          </div>
+
+          <!-- 3. Ukuran & Peletakan Bordir Komputer / Sablon + Hero Upload Desain -->
+          <div
+            id="step-sablon-section"
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                >
+                  3
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Upload Desain, Ukuran &amp; Titik Bordir / Sablon
+                  </h2>
+                  <p class="text-[11px] text-zinc-500">
+                    Atur logo dada kiri, nama dada kanan, tulisan/logo punggung,
+                    serta patch saku atau bahu
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <input
+              id="upload-dadaKiri"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('dadaKiri', this)"
+            />
+            <input
+              id="upload-dadaKanan"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('dadaKanan', this)"
+            />
+            <input
+              id="upload-belakang"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('belakang', this)"
+            />
+            <input
+              id="upload-sakuBahu"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              onchange="handleDesignUpload('sakuBahu', this)"
+            />
+
+            <!-- HERO DROPZONE UPLOAD DESAIN -->
+            <div
+              id="hero-upload-dropzone"
+              ondragover="handleDropzoneDragOver(event)"
+              ondragleave="handleDropzoneDragLeave(event)"
+              ondrop="handleDropzoneDrop(event)"
+              class="upload-hero-box rounded-2xl p-4 sm:p-5 space-y-3.5"
+            >
+              <div
+                class="flex flex-wrap items-start sm:items-center justify-between gap-2.5"
+              >
+                <div class="flex items-start gap-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-[#2563eb] text-white flex items-center justify-center shrink-0 shadow-xs"
+                  >
+                    <i data-lucide="cloud-upload" class="icon-md"></i>
+                  </div>
+                  <div>
+                    <div class="flex flex-wrap items-center gap-1.5">
+                      <span
+                        class="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#2563eb] text-white"
+                      >
+                        Live Preview Rompi
+                      </span>
+                      <span
+                        class="text-xs sm:text-sm font-extrabold text-zinc-900"
+                      >
+                        Upload Logo Instansi / Komunitas di Sini!
+                      </span>
+                    </div>
+                    <p class="text-[11px] text-zinc-600 mt-0.5 leading-snug">
+                      Pilih titik rompi di bawah atau seret file gambar
+                      (PNG/JPG) ke kotak ini untuk langsung melihat posisi
+                      bordir/sablon pada rompi.
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  id="clear-all-designs-btn"
+                  onclick="clearAllCustomDesigns()"
+                  class="hidden inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full bg-red-100 text-red-700 hover:bg-red-200 cursor-pointer"
+                >
+                  <i data-lucide="trash-2" class="icon-xs"></i>
+                  <span>Hapus Semua Gambar</span>
+                </button>
+              </div>
+
+              <div
+                id="design-slots-grid"
+                class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"
+              ></div>
+            </div>
+
+            <!-- 4 Tab Titik Bordir / Sablon Rompi -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button
+                type="button"
+                data-side="dadaKiri"
+                onclick="selectPrintSide('dadaKiri')"
+                class="side-tab side-tab-active"
+              >
+                <span class="side-tab-title">Dada Kiri</span>
+                <span id="tab-sub-dadaKiri" class="side-tab-sub">
+                  Logo Dada Kiri (8 × 8 cm)
+                </span>
+              </button>
+
+              <button
+                type="button"
+                data-side="dadaKanan"
+                onclick="selectPrintSide('dadaKanan')"
+                class="side-tab"
+              >
+                <span class="side-tab-title">Dada Kanan</span>
+                <span id="tab-sub-dadaKanan" class="side-tab-sub">
+                  Tanpa bordir/sablon
+                </span>
+              </button>
+
+              <button
+                type="button"
+                data-side="belakang"
+                onclick="selectPrintSide('belakang')"
+                class="side-tab"
+              >
+                <span class="side-tab-title">Punggung</span>
+                <span id="tab-sub-belakang" class="side-tab-sub">
+                  Tulisan Punggung (26 × 10 cm)
+                </span>
+              </button>
+
+              <button
+                type="button"
+                data-side="sakuBahu"
+                onclick="selectPrintSide('sakuBahu')"
+                class="side-tab"
+              >
+                <span class="side-tab-title">Saku / Bahu</span>
+                <span id="tab-sub-sakuBahu" class="side-tab-sub">
+                  Tanpa bordir/sablon
+                </span>
+              </button>
+            </div>
+
+            <!-- Grid Kartu Pilihan Ukuran & Posisi -->
+            <div
+              id="print-options-grid"
+              class="grid grid-cols-2 gap-2 sm:gap-3"
+            ></div>
+          </div>
+
+          <!-- 4. Jumlah Orderan (Mobile-Friendly) + Keterangan Estimasi Harga + Tombol CTA -->
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-4 sm:p-6 shadow-xs space-y-4"
+          >
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2.5">
+                <span
+                  class="w-6 h-6 rounded-full bg-[#18181b] text-white text-xs font-extrabold flex items-center justify-center shrink-0"
+                >
+                  4
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-zinc-900">
+                    Jumlah Orderan (Bisa Beda Warna &amp; Penutup)
+                  </h2>
+                  <p class="text-[11px] text-zinc-500">
+                    Size 2XL +Rp 10.000 &amp; kelipatan +Rp 10.000 untuk size
+                    3XL dst
+                  </p>
+                </div>
+              </div>
+
+              <!-- Total Keseluruhan Badge -->
+              <div
+                class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#18181b] text-white text-xs font-extrabold tracking-wide shadow-2xs"
+              >
+                <i data-lucide="package" class="icon-xs text-[#60a5fa]"></i>
+                <span>
+                  Total Order:
+                  <span id="total-qty-text" class="text-[#60a5fa]">0</span> pcs
+                </span>
+              </div>
+            </div>
+
+            <!-- Bar Daftar Varian Warna & Penutup -->
+            <div
+              class="bg-[#fafaf8] border border-[#e4e5e0] rounded-2xl p-3 sm:p-3.5 space-y-3"
+            >
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+              >
+                <span
+                  class="text-[11px] font-extrabold uppercase tracking-wider text-zinc-700"
+                >
+                  1. Pilih Varian Pesanan (<span id="variant-count-label"
+                    >1</span
+                  >
+                  Varian)
+                </span>
+                <button
+                  type="button"
+                  onclick="addOrderVariant()"
+                  class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 text-xs sm:text-[11px] font-extrabold px-3.5 py-2 sm:py-1.5 rounded-xl sm:rounded-full bg-[#2563eb] hover:bg-[#1d4ed8] text-white shadow-2xs cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="plus-circle" class="icon-xs"></i>
+                  <span>Tambah Warna / Penutup Lain</span>
+                </button>
+              </div>
+
+              <div
+                id="variant-pills-list"
+                class="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2"
+              ></div>
+
+              <!-- Quick Switcher Warna & Penutup -->
+              <div class="pt-2.5 border-t border-[#e4e5e0] space-y-2">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-[11px] font-bold text-zinc-600">
+                    Ubah Spesifikasi Varian Aktif:
+                  </span>
+                  <button
+                    type="button"
+                    id="stack-mode-toggle-btn"
+                    onclick="toggleStackDisplayMode()"
+                    class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white hover:bg-zinc-100 text-zinc-800 border border-[#e4e5e0] cursor-pointer transition touch-manipulation"
+                  >
+                    Tampilan: Gabungan
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <label
+                      for="variant-color-select"
+                      class="block text-[10px] font-bold text-zinc-500 mb-1"
+                    >
+                      Warna Bahan Luar
+                    </label>
+                    <select
+                      id="variant-color-select"
+                      onchange="setColorByHex(this.value)"
+                      aria-label="Pilih warna varian aktif"
+                      class="w-full text-xs font-bold bg-white border border-[#e4e5e0] rounded-xl px-2.5 py-2 text-zinc-800 cursor-pointer focus:outline-none focus:border-[#2563eb]"
+                    ></select>
+                  </div>
+                  <div>
+                    <label
+                      for="variant-closure-select"
+                      class="block text-[10px] font-bold text-zinc-500 mb-1"
+                    >
+                      Model Penutup Depan
+                    </label>
+                    <select
+                      id="variant-closure-select"
+                      onchange="setClosure(this.value)"
+                      aria-label="Pilih model penutup varian aktif"
+                      class="w-full text-xs font-bold bg-white border border-[#e4e5e0] rounded-xl px-2.5 py-2 text-zinc-800 cursor-pointer focus:outline-none focus:border-[#2563eb]"
+                    >
+                      <option value="zipper">Full Resleting (Standar)</option>
+                      <option value="snap_zip">
+                        Resleting + Flap Snap (+8rb)
+                      </option>
+                      <option value="velcro">Perekat Velcro (Proyek)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage Visual Tumpukan Rompi Lipat 3D -->
+            <div
+              class="stack-stage-surface rounded-2xl border border-[#e5e2d9] px-2.5 sm:px-4 pt-3 sm:pt-4 pb-3 sm:pb-5 shadow-inner overflow-hidden"
+            >
+              <div
+                class="flex items-center justify-between text-[10px] font-bold text-zinc-500 mb-2 px-1"
+              >
+                <span>Visual Tumpukan Rompi per Ukuran</span>
+                <span class="text-[#2563eb]"
+                  >Tap gambar rompi untuk +1 pcs</span
+                >
+              </div>
+              <div
+                id="folded-stacks-grid"
+                class="grid grid-cols-3 sm:grid-flow-col sm:auto-cols-fr gap-2 sm:gap-2 items-end"
+              ></div>
+            </div>
+
+            <!-- Kontrol Input Angka & Tombol +/- -->
+            <div class="space-y-2.5">
+              <div
+                class="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5"
+              >
+                <span
+                  id="qty-editing-label"
+                  class="text-xs font-extrabold text-zinc-900"
+                >
+                  2. Atur Jumlah Ukuran — Hitam Jet (Full Resleting):
+                </span>
+                <span
+                  id="active-variant-subtotal"
+                  class="text-xs font-extrabold text-[#2563eb]"
+                >
+                  Subtotal Varian: 0 pcs
+                </span>
+              </div>
+
+              <!-- Bar Pintasan Isi Cepat & Tambah Size Jumbo -->
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button
+                  type="button"
+                  onclick="applyPresetMinOrder()"
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="sparkles" class="icon-xs"></i>
+                  <span>Isi Paket 12 pcs (S–XL)</span>
+                </button>
+                <button
+                  type="button"
+                  id="add-jumbo-size-btn"
+                  onclick="addNextJumboSize()"
+                  class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1.5 rounded-full bg-blue-50 hover:bg-blue-100 text-[#1d4ed8] border border-blue-200 cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="plus" class="icon-xs"></i>
+                  <span>Tambah Size 4XL (+30rb)</span>
+                </button>
+              </div>
+
+              <div
+                id="qty-controls-grid"
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 sm:gap-2"
+              ></div>
+            </div>
+
+            <!-- Ringkasan Multi-Varian -->
+            <div
+              id="multi-variant-summary-box"
+              class="hidden rounded-xl border border-[#e4e5e0] bg-[#fafaf8] p-3 space-y-1.5"
+            >
+              <div
+                class="text-[10px] font-extrabold uppercase tracking-wider text-zinc-500"
+              >
+                Rincian Seluruh Varian Pesanan
+              </div>
+              <div id="multi-variant-rows" class="space-y-1 text-xs"></div>
+            </div>
+
+            <!-- Bar Reset & Catatan Minimum Order -->
+            <div
+              class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#ecece8]"
+            >
+              <div class="flex flex-wrap items-center gap-1.5">
+                <button
+                  type="button"
+                  onclick="resetActiveVariantQuantities()"
+                  class="inline-flex items-center gap-1 text-xs font-bold px-3.5 py-1.5 rounded-full bg-red-50 hover:bg-red-100 text-red-600 cursor-pointer transition touch-manipulation"
+                >
+                  <i data-lucide="rotate-ccw" class="icon-xs"></i>
+                  <span>Reset 0</span>
+                </button>
+              </div>
+              <span
+                id="min-order-note"
+                class="text-[11px] font-semibold text-zinc-500"
+              >
+                Masukkan jumlah minimal 12 pcs untuk produksi
+              </span>
+            </div>
+
+            <!-- KETERANGAN ESTIMASI HARGA -->
+            <div
+              id="price-estimation-box"
+              class="rounded-2xl border border-blue-200/90 bg-[#f8faff] p-4 space-y-2.5"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <i
+                    data-lucide="calculator"
+                    class="icon-sm text-[#2563eb]"
+                  ></i>
+                  <span
+                    class="text-xs font-extrabold uppercase tracking-wider text-zinc-800"
+                  >
+                    Estimasi Harga Orderan
+                  </span>
+                </div>
+                <span
+                  id="est-spec-badge"
+                  class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-blue-100/80 text-[#1e40af]"
+                >
+                  Lapangan • American Drill / Nagata
+                </span>
+              </div>
+
+              <div
+                id="est-breakdown-list"
+                class="space-y-1 text-xs text-zinc-700"
+              ></div>
+
+              <div
+                class="pt-2.5 border-t border-blue-100 flex items-baseline justify-between gap-2"
+              >
+                <span class="text-xs font-bold text-zinc-600">
+                  Total Estimasi Biaya:
+                </span>
+                <span
+                  id="est-total-price"
+                  class="text-lg sm:text-xl font-black tracking-tight text-zinc-950 tabular-nums"
+                >
+                  Rp 0
+                </span>
+              </div>
+
+              <div
+                id="est-print-warning"
+                class="hidden flex items-start gap-2 text-[11px] font-semibold text-zinc-700 bg-zinc-100 border border-zinc-200 rounded-lg px-2.5 py-1.5"
+              >
+                <i data-lucide="info" class="icon-sm text-[#2563eb] mt-0.5"></i>
+                <span>
+                  Anda memilih lebih dari 3 titik bordir/sablon. Harga dasar
+                  mencakup maks. 3 titik aplikasi; tim kami akan menyesuaikan
+                  penawaran saat konsultasi.
+                </span>
+              </div>
+            </div>
+
+            <!-- Tombol CTA dengan Icon WhatsApp Hijau -->
+            <div class="pt-1">
+              <button
+                type="button"
+                id="wa-order-btn"
+                onclick="openVisualSpecModal()"
+                class="solid-cta-btn group w-full py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl text-white flex items-center justify-between gap-3 cursor-pointer"
+              >
+                <div class="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                  <span
+                    class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform"
+                  >
+                    <svg
+                      viewBox="0 0 32 32"
+                      class="w-6 h-6"
+                      fill="#25D366"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.1 28.8l6.584-1.726a12.74 12.74 0 0 0 6.32 1.674h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.386h-.004a10.6 10.6 0 0 1-5.404-1.48l-.388-.23-3.908 1.024 1.044-3.81-.252-.402a10.575 10.575 0 0 1-1.622-5.636c0-5.862 4.77-10.632 10.636-10.632 2.84 0 5.51 1.108 7.518 3.116a10.562 10.562 0 0 1 3.114 7.52c0 5.862-4.772 10.632-10.634 10.632zm5.834-7.964c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.896-1.778-2.216-.186-.32-.02-.494.14-.652.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668s1.146 3.094 1.306 3.308c.16.214 2.256 3.444 5.466 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.126.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"
+                      />
+                    </svg>
+                  </span>
+                  <div class="text-left min-w-0">
+                    <div
+                      class="text-sm sm:text-base font-extrabold tracking-tight leading-snug"
+                    >
+                      Kirim Spesifikasi dan Konsultasi Desain
+                    </div>
+                    <div class="text-[11px] font-medium text-blue-100 mt-0.5">
+                      Buat Spesifikasi Order Rompi (PNG / PDF) &amp; kirim
+                      langsung ke WhatsApp
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform"
+                >
+                  <i data-lucide="arrow-right" class="icon-sm"></i>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- MODAL PREVIEW SPESIFIKASI ORDER (PNG / PDF) + KIRIM WHATSAPP -->
+    <div
+      id="visual-spec-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-5 overflow-y-auto"
+      onclick="if (event.target === this) closeVisualSpecModal();"
+    >
+      <div
+        class="bg-white w-full max-w-3xl rounded-3xl border border-[#e4e5e0] shadow-2xl overflow-hidden my-auto"
+      >
+        <div
+          class="px-5 py-4 bg-white border-b border-[#e4e5e0] flex items-center justify-between gap-3"
+        >
+          <div>
+            <div
+              class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#2563eb]"
+            >
+              <i data-lucide="clipboard-check" class="icon-xs"></i>
+              <span>Status: Konsultasi Desain</span>
+            </div>
+            <h3 class="text-sm sm:text-base font-extrabold text-zinc-900">
+              Preview Spesifikasi Order Rompi Custom (PNG / PDF)
+            </h3>
+          </div>
+          <button
+            type="button"
+            onclick="closeVisualSpecModal()"
+            class="w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-700 flex items-center justify-center cursor-pointer"
+          >
+            <i data-lucide="x" class="icon-sm"></i>
+          </button>
+        </div>
+
+        <div
+          class="p-4 sm:p-5 space-y-4 max-h-[78vh] overflow-y-auto bg-[#f8fafc]"
+        >
+          <div
+            class="bg-white rounded-2xl border border-[#e4e5e0] p-2.5 flex items-center justify-center shadow-2xs"
+          >
+            <img
+              id="spec-card-preview-img"
+              alt="Preview Spesifikasi Order Rompi Atensi Konveksi"
+              class="w-full h-auto rounded-xl border border-zinc-200"
+            />
+          </div>
+
+          <div
+            id="spec-share-hint"
+            class="flex items-start gap-2.5 text-[11px] leading-relaxed text-zinc-600 bg-blue-50 border border-blue-200 rounded-xl px-3.5 py-2.5"
+          >
+            <i data-lucide="info" class="icon-sm text-[#2563eb] mt-0.5"></i>
+            <span>
+              <strong>Tips Kirim ke WhatsApp:</strong> Di HP, klik tombol biru
+              di bawah untuk langsung melampirkan dokumen Spesifikasi Order ini
+              ke chat WhatsApp. Di Laptop/PC, gambar otomatis tersalin &amp;
+              terunduh—tinggal tekan <strong>Ctrl + V</strong> di kolom chat
+              WhatsApp Web.
+            </span>
+          </div>
+
+          <!-- Tombol Aksi Kirim WA / Download PNG / Simpan PDF -->
+          <div class="space-y-2.5">
+            <button
+              type="button"
+              onclick="shareOrSendVisualToWA()"
+              class="solid-cta-btn w-full py-3.5 px-5 rounded-2xl text-white font-extrabold text-sm flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <span
+                class="w-6 h-6 rounded-full bg-white flex items-center justify-center shrink-0"
+              >
+                <svg
+                  viewBox="0 0 32 32"
+                  class="w-4 h-4"
+                  fill="#25D366"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.588 4.458 1.706 6.4L3.1 28.8l6.584-1.726a12.74 12.74 0 0 0 6.32 1.674h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.386h-.004a10.6 10.6 0 0 1-5.404-1.48l-.388-.23-3.908 1.024 1.044-3.81-.252-.402a10.575 10.575 0 0 1-1.622-5.636c0-5.862 4.77-10.632 10.636-10.632 2.84 0 5.51 1.108 7.518 3.116a10.562 10.562 0 0 1 3.114 7.52c0 5.862-4.772 10.632-10.634 10.632zm5.834-7.964c-.32-.16-1.892-.934-2.186-1.04-.294-.106-.508-.16-.72.16-.214.32-.826 1.04-1.014 1.254-.186.214-.374.24-.694.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.896-1.778-2.216-.186-.32-.02-.494.14-.652.144-.144.32-.374.48-.56.16-.186.214-.32.32-.534.106-.214.054-.4-.026-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.54-.72-.55l-.614-.01c-.214 0-.56.08-.854.4-.294.32-1.12 1.094-1.12 2.668s1.146 3.094 1.306 3.308c.16.214 2.256 3.444 5.466 4.83.764.33 1.36.526 1.824.674.766.244 1.464.21 2.016.126.614-.092 1.892-.774 2.16-1.52.266-.748.266-1.388.186-1.52-.08-.134-.294-.214-.614-.374z"
+                  />
+                </svg>
+              </span>
+              <span>Kirim Spesifikasi Order ke WhatsApp</span>
+            </button>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <button
+                type="button"
+                onclick="downloadSpecPNG()"
+                class="inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-white hover:bg-zinc-100 text-zinc-900 border border-[#d4d4d8] text-xs font-extrabold cursor-pointer transition"
+              >
+                <i data-lucide="download" class="icon-sm text-[#2563eb]"></i>
+                <span>Download PNG</span>
+              </button>
+              <button
+                type="button"
+                onclick="printSpecPDF()"
+                class="inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-white hover:bg-zinc-100 text-zinc-900 border border-[#d4d4d8] text-xs font-extrabold cursor-pointer transition"
+              >
+                <i data-lucide="printer" class="icon-sm text-zinc-700"></i>
+                <span>Simpan / Cetak PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-[#09090b] text-zinc-400 border-t border-white/10 py-5">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between text-xs"
+      >
+        <span
+          >&copy; 2026 <strong class="text-white">Atensi Konveksi</strong></span
+        >
+        <a href="index.html#kontak" class="hover:text-[#3b82f6] transition">
+          Atensi Screen Printing
+        </a>
+      </div>
+    </footer>
+  </body>
+
+  <script src="rompi.js"></script>
+</html>
